@@ -28,7 +28,7 @@
 
 ## 细粒度测试子集
 
-目标80—120条，类别包含color、count、action、relation，可多标签。至少两名成员独立检查描述与相关图片，不一致项讨论后记录；单人团队则进行间隔复核并说明局限。
+目标100条，类别包含color、count、action、relation，可多标签，每类目标不少于20条。四人各初标25条；A与B互审，C与D互审，每人另复核25条。A统一规范和汇总，至少两名成员独立检查每条描述与相关图片，不一致项讨论后记录。
 
 ```json
 {"query_id":"fine_001","text":"a cat under a table","categories":["relation"],"relevant_image_ids":["img_0021"],"annotation_status":"reviewed"}
