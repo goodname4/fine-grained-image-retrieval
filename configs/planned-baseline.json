@@ -1,0 +1,18 @@
+{
+  "status": "design_only_no_config_loader_yet",
+  "experiment": "E0",
+  "seed": 42,
+  "dataset": "flickr8k_candidate_not_downloaded",
+  "language": "en",
+  "encoder": {
+    "backend": "open_clip",
+    "model": "ViT-B-32",
+    "weights_path": "models/baseline/weights.pt",
+    "weights_source": "to_be_verified",
+    "local_only": true,
+    "frozen": true
+  },
+  "retrieval": {"metric": "cosine", "top_k": 10, "index": "exact"},
+  "adapter": {"enabled": false},
+  "evaluation": {"recall_k": [1, 5, 10], "split": "test"}
+}

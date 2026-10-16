@@ -1,0 +1,5 @@
+[
+  {"image_id": "synthetic_a", "embedding": [1.0, 0.0, 0.0]},
+  {"image_id": "synthetic_b", "embedding": [0.6, 0.8, 0.0]},
+  {"image_id": "synthetic_c", "embedding": [0.0, 0.0, 1.0]}
+]

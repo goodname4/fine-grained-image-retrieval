@@ -1,0 +1,4 @@
+{
+  "query_a": ["synthetic_a", "synthetic_b", "synthetic_c"],
+  "query_b": ["synthetic_b", "synthetic_c", "synthetic_a"]
+}
