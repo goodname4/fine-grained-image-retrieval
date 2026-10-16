@@ -4,7 +4,9 @@
 
 《自然语言处理技术》课程大作业。项目目标是构建一套**在本地运行、通过自然语言寻找图片**的多模态软件系统，研究轻量适配与困难负样本训练是否能改善颜色、数量、动作和空间关系等细节的检索表现。
 
-> 当前状态：项目初始化与方案确定。已实现基础向量检索、评测工具和示例；尚未实现真实图文编码、模型训练和Web界面。仓库中的示例是人工构造的向量，不代表CLIP输出或真实检索效果。没有训练结果，也不预先承诺提升。
+> 当前状态：A已完成真实Flickr8k下载、清洗与数据交接，训练5998图，验证/测试各1000图。统一评测和标注工作台可运行；100条细粒度初稿已分配，A的25条完成AI辅助初标，仍待真实独立复核。图文编码、训练和检索界面由B/C/D继续实现；尚无真实E0/E1/E2结果，人工排名示例不代表模型效果。
+
+**B/C/D从这里开始：[A交接手册](docs/handoff-a.md)。** 本地数据入口为`data/prepared/flickr8k-v1/`；其他电脑执行`python -m pip install -e ".[data]"`及`python -m fgir prepare-a-data`重建。图片、权重和完整生成产物不提交Git。
 
 ## 1. 项目要解决什么问题
 
@@ -73,7 +75,7 @@ flowchart LR
 
 ## 6. 数据与实验
 
-起步候选数据集为Flickr8k；实施前确认获取方式、使用条款和划分。优先采用数据集官方划分并记录其来源。不得将同一图片的不同描述分到不同集合；近重复图片应共同划分。
+已获取Flickr8k并核实来源与非商业研究/教学用途。基于官方划分排除一张训练重复图、一张与验证集近重复的训练图，形成`flickr8k-v1 cleaned`。原始清单、排除理由及检查局限见[数据章节](docs/reports/a-data-and-evaluation.md)；同图描述不跨集合，启发式近重复筛查仍可能漏检。
 
 | 实验 | 方法 | 作用 |
 | --- | --- | --- |
@@ -97,16 +99,36 @@ python -m fgir evaluate --rankings examples/rankings.json --qrels examples/qrels
 python -m unittest discover -s tests -v
 ```
 
-首条命令安装项目命令模块，不安装未来训练栈。示例ID没有配套真实图片，不能作为图文系统演示。真实的图片导入、文本编码、训练与界面命令将在实现后补充，不提供无法运行的占位命令。
+首条命令安装项目命令模块，不安装未来训练栈。示例ID没有配套真实图片，不能作为图文系统演示。文本编码、训练与界面命令将在实现后补充。
+
+A的真实数据管线支持下载摘要校验、官方导入、解码检查、近重复复核和冻结交接包：
+
+```bash
+python -m pip install -e ".[data]"
+python -m fgir prepare-a-data
+python -m fgir verify-handoff --bundle data/prepared/flickr8k-v1 --data-root data
+python -m fgir validate-annotations --manifest data/prepared/flickr8k-v1/manifest.jsonl --annotations data/annotations/fine-v1/annotations.work.jsonl
+```
+
+首次准备下载约1.04 GiB的图片ZIP及描述，之后校验复用。低层`validate-data`发现问题退出1，输入错误退出2。标注页面可离线使用，独立复核及共同候选池补审完成后才能冻结正式细粒度协议。见[标注指南](docs/annotation-guide.md)和[A工作记录](docs/a-progress.md)。
+
+无模型时可先用明确标为synthetic的人工排名验收完整接口：
+
+```bash
+python -m fgir evaluate-run --protocol examples/evaluation/protocol.json --run examples/evaluation/run-e0.json --output artifacts/demo-evaluation
+python -m fgir compare-runs --protocol examples/evaluation/protocol.json --runs examples/evaluation/run-e0.json examples/evaluation/run-e1.json examples/evaluation/run-e2.json --output artifacts/demo-comparison
+```
+
+输出总体/分类指标、逐查询、改善/退化及选例覆盖情况。错误原因需看图判断，示例分数不能写成真实模型结果；真实排名按[排名契约](docs/ranking-contract.md)交A统一计分。
 
 ## 8. 仓库结构
 
 ```text
 docs/                 项目方案、技术架构、数据、实验、计划与开题提纲
-src/fgir/             已实现的向量检索、评测和命令行
-configs/              计划配置，尚无配置读取器
+src/fgir/             已实现的数据准备、检查、向量检索、评测和命令行
+configs/              已用的数据/标注版本元数据；模型配置仍为设计稿
 examples/             人工构造的离线验证样例
-tests/                检索与指标的边界验证
+tests/                数据、检索、指标与命令行的边界验证
 data/                 数据说明，不提交真实数据
 models/               本地权重说明，不提交模型
 artifacts/            生成索引与实验产物说明
@@ -126,10 +148,14 @@ artifacts/            生成索引与实验产物说明
 
 四人各负责25条细粒度查询并互审，每人撰写自己模块的报告。最终交付代码、环境与运行说明、数据准备说明、实验配置及真实结果、系统演示、书面报告。
 
-目前只有初始化版本，不将规划项标记为完成。子任务点数、交付物和责任边界见[四人分工与工作量](docs/roadmap.md)。
+真实数据已可交接，细粒度独立复核和正式实验仍待完成。子任务点数、交付物和责任边界见[四人分工与工作量](docs/roadmap.md)。
 
 ## 文档导航
 
+- [A交接手册](docs/handoff-a.md)：B/C/D立即可用的文件、Python读取接口和工作边界。
+- [标注指南](docs/annotation-guide.md)：分配、离线页面、共同候选池、合并及独立复核。
+- [排名契约](docs/ranking-contract.md)：真实run格式、冻结协议、统一评测、比较与多种子汇总。
+- [A数据与评测章节](docs/reports/a-data-and-evaluation.md)：真实统计、清洗方法和待填结果。
 - [详细项目方案](docs/project-plan.md)：背景、目标、模块与验收标准。
 - [技术架构](docs/architecture.md)：编码器、适配层、损失与索引版本。
 - [数据规范](docs/data.md)：数据格式、划分、负样本与标注。

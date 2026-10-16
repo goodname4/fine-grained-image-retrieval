@@ -1,0 +1,20 @@
+{
+  "dataset": "Flickr8k",
+  "mirror_url": "https://github.com/jbrownlee/Datasets/releases/tag/Flickr8k",
+  "terms_url": "https://hockenmaier.cs.illinois.edu/Framing_Image_Description/KCCA.html",
+  "terms_note": "Non-commercial research/education; original image rights and Flickr terms apply. Images are not redistributed by this repository.",
+  "archives": {
+    "Flickr8k_text.zip": {
+      "url": "https://github.com/jbrownlee/Datasets/releases/download/Flickr8k/Flickr8k_text.zip",
+      "bytes": 2340801,
+      "sha256": "4992ddc8110e9aa49da5bf698522b0c8f11c448814a488584ee6bf040e5137e7",
+      "extracted_file_count": 8
+    },
+    "Flickr8k_Dataset.zip": {
+      "url": "https://github.com/jbrownlee/Datasets/releases/download/Flickr8k/Flickr8k_Dataset.zip",
+      "bytes": 1115419746,
+      "sha256": "61e4b111d32b24a55b69dafd91f4c3aec07391b7b9217face15dd35d517fe6de",
+      "extracted_file_count": 8091
+    }
+  }
+}

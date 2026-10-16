@@ -1,0 +1,136 @@
+{
+  "dataset": "flickr8k-v1 cleaned",
+  "source_manifest_sha256": "56af209bbc7fb2f6e6dae16487bbda12568c7162a843cdaa0d989cc8746208cd",
+  "clean_manifest_sha256": "a7f7d25d5017fdb62c150885da7bc3de3a8aea1dd2e40fc06d1da3ea6296dc0d",
+  "archive_provenance": "configs/data/flickr8k-source.json",
+  "statistics": {
+    "manifest_sha256": "a7f7d25d5017fdb62c150885da7bc3de3a8aea1dd2e40fc06d1da3ea6296dc0d",
+    "splits": {
+      "train": {
+        "image_count": 5998,
+        "caption_count": 29990,
+        "captions_per_image_distribution": {
+          "5": 5998
+        },
+        "whitespace_token_length": {
+          "min": 2,
+          "p50": 11.0,
+          "p95": 19.0,
+          "max": 38
+        },
+        "lexical_category_caption_counts": {
+          "color": 10374,
+          "count": 5832,
+          "action": 8652,
+          "relation": 5504
+        }
+      },
+      "val": {
+        "image_count": 1000,
+        "caption_count": 5000,
+        "captions_per_image_distribution": {
+          "5": 1000
+        },
+        "whitespace_token_length": {
+          "min": 2,
+          "p50": 11.0,
+          "p95": 19.0,
+          "max": 33
+        },
+        "lexical_category_caption_counts": {
+          "color": 1719,
+          "count": 926,
+          "action": 1422,
+          "relation": 902
+        }
+      },
+      "test": {
+        "image_count": 1000,
+        "caption_count": 5000,
+        "captions_per_image_distribution": {
+          "5": 1000
+        },
+        "whitespace_token_length": {
+          "min": 2,
+          "p50": 11.0,
+          "p95": 19.0,
+          "max": 34
+        },
+        "lexical_category_caption_counts": {
+          "color": 1719,
+          "count": 921,
+          "action": 1428,
+          "relation": 916
+        }
+      }
+    },
+    "total_image_count": 7998,
+    "total_caption_count": 39990,
+    "repeated_normalized_caption_count": 207,
+    "cross_split_repeated_caption_count": 82,
+    "width_range": [
+      164,
+      500
+    ],
+    "height_range": [
+      127,
+      500
+    ],
+    "interpretation": "Repeated generic captions do not by themselves prove image leakage; they highlight possible unlabelled relevant images. Lexical categories are screening counts, not verified fine-grained labels."
+  },
+  "official_audit_issue_count": 1,
+  "clean_audit_ok": true,
+  "near_duplicate_screen": {
+    "algorithm": "dHash64 plus decoded RGB SHA-256",
+    "threshold": 8,
+    "official_pairs": 21,
+    "official_cross_split_pairs": 10,
+    "visual_decisions": {
+      "identical": 1,
+      "same_scene": 2,
+      "distinct": 18
+    },
+    "excluded_train_images": 2,
+    "limitation": "Heuristic candidate screening and assisted visual review; not proof of zero leakage."
+  },
+  "protocols": {
+    "val": {
+      "protocol_sha256": "30f2c94b32d610fd36d6d1e04be5808db4f6e4e06f3d949e300564ab364f2cae",
+      "query_count": 5000,
+      "candidate_count": 1000,
+      "annotation_scope": "source_pair"
+    },
+    "test": {
+      "protocol_sha256": "2c00ffdb465a50f70992736e078f448876880dd806f4346f117702d7ee55408d",
+      "query_count": 5000,
+      "candidate_count": 1000,
+      "annotation_scope": "source_pair"
+    }
+  },
+  "annotation_progress": {
+    "query_count": 100,
+    "draft_count": 75,
+    "assisted_initial_annotations": 25,
+    "independent_reviewed_count": 0,
+    "b_pre_review_suggestions": 25,
+    "a_judged_pool_size": 25,
+    "limitation": "Limited source-image pool; further relevance pooling and actual independent member review required."
+  },
+  "local_validation_environment": {
+    "python": "3.14.2",
+    "pillow": "12.3.0"
+  },
+  "model_results": "not_available; awaiting B/C actual model runs",
+  "tool_validation": {
+    "unittest_total": 47,
+    "passed": 46,
+    "skipped": 1,
+    "skip_reason": "Windows symlink creation unavailable; corresponding test runs on supported platforms.",
+    "real_data_full_rebuild_identical": true,
+    "working_annotations_full_rebuild_identical": true,
+    "wheel_build_and_embedded_html_checked": true,
+    "browser_export_record_count": 100,
+    "browser_export_matches_work_file": true,
+    "pool_request_sha256": "8fdcce9956dcbf960fdbfd7e49bdfe00c25abab1f652215fc84032e9fca03078"
+  }
+}

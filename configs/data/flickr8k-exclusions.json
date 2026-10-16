@@ -1,0 +1,10 @@
+[
+  {
+    "image_id": "2851198725_37b6027625",
+    "reason": "Byte/pixel-identical to training image 3050606344_af711c726c; keep first official-list occurrence. Five captions are excluded with this record; source manifest remains intact."
+  },
+  {
+    "image_id": "475313618_bdb2f72be5",
+    "reason": "Visually near-duplicate same scene as validation image 475317104_1cdc1653b4; exclude train member and preserve original validation set."
+  }
+]

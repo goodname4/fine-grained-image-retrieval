@@ -2,7 +2,9 @@
   "status": "design_only_no_config_loader_yet",
   "experiment": "E0",
   "seed": 42,
-  "dataset": "flickr8k_candidate_not_downloaded",
+  "dataset": "flickr8k-v1 cleaned",
+  "dataset_bundle": "data/prepared/flickr8k-v1",
+  "manifest_sha256": "a7f7d25d5017fdb62c150885da7bc3de3a8aea1dd2e40fc06d1da3ea6296dc0d",
   "language": "en",
   "encoder": {
     "backend": "open_clip",
@@ -14,5 +16,5 @@
   },
   "retrieval": {"metric": "cosine", "top_k": 10, "index": "exact"},
   "adapter": {"enabled": false},
-  "evaluation": {"recall_k": [1, 5, 10], "split": "test"}
+  "evaluation": {"recall_k": [1, 5, 10], "split": "test", "protocol": "data/prepared/flickr8k-v1/test/protocol.json"}
 }

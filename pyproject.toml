@@ -5,13 +5,19 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "fine-grained-image-retrieval"
 version = "0.1.0"
-description = "Local image retrieval coursework: planning, vector search and evaluation foundation"
+description = "Local image retrieval coursework: reproducible data, annotation and evaluation tools"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = []
+
+[project.optional-dependencies]
+data = ["Pillow>=10"]
 
 [project.scripts]
 fgir = "fgir.__main__:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools.package-data]
+fgir = ["*.html"]

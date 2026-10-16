@@ -1,0 +1,16 @@
+{"query_id": "synthetic_q00", "text": "Synthetic color fixture 0; no real image or model.", "categories": ["color"], "relevant_image_ids": ["synthetic_image_00"]}
+{"query_id": "synthetic_q01", "text": "Synthetic color fixture 1; no real image or model.", "categories": ["color"], "relevant_image_ids": ["synthetic_image_01"]}
+{"query_id": "synthetic_q02", "text": "Synthetic color fixture 2; no real image or model.", "categories": ["color"], "relevant_image_ids": ["synthetic_image_02"]}
+{"query_id": "synthetic_q03", "text": "Synthetic color fixture 3; no real image or model.", "categories": ["color"], "relevant_image_ids": ["synthetic_image_03"]}
+{"query_id": "synthetic_q04", "text": "Synthetic count fixture 4; no real image or model.", "categories": ["count"], "relevant_image_ids": ["synthetic_image_04"]}
+{"query_id": "synthetic_q05", "text": "Synthetic count fixture 5; no real image or model.", "categories": ["count"], "relevant_image_ids": ["synthetic_image_05"]}
+{"query_id": "synthetic_q06", "text": "Synthetic count fixture 6; no real image or model.", "categories": ["count"], "relevant_image_ids": ["synthetic_image_06"]}
+{"query_id": "synthetic_q07", "text": "Synthetic count fixture 7; no real image or model.", "categories": ["count"], "relevant_image_ids": ["synthetic_image_07"]}
+{"query_id": "synthetic_q08", "text": "Synthetic action fixture 8; no real image or model.", "categories": ["action"], "relevant_image_ids": ["synthetic_image_08"]}
+{"query_id": "synthetic_q09", "text": "Synthetic action fixture 9; no real image or model.", "categories": ["action"], "relevant_image_ids": ["synthetic_image_09"]}
+{"query_id": "synthetic_q10", "text": "Synthetic action fixture 10; no real image or model.", "categories": ["action"], "relevant_image_ids": ["synthetic_image_10"]}
+{"query_id": "synthetic_q11", "text": "Synthetic action fixture 11; no real image or model.", "categories": ["action"], "relevant_image_ids": ["synthetic_image_11"]}
+{"query_id": "synthetic_q12", "text": "Synthetic relation fixture 12; no real image or model.", "categories": ["relation"], "relevant_image_ids": ["synthetic_image_00"]}
+{"query_id": "synthetic_q13", "text": "Synthetic relation fixture 13; no real image or model.", "categories": ["relation"], "relevant_image_ids": ["synthetic_image_01"]}
+{"query_id": "synthetic_q14", "text": "Synthetic relation fixture 14; no real image or model.", "categories": ["relation"], "relevant_image_ids": ["synthetic_image_02"]}
+{"query_id": "synthetic_q15", "text": "Synthetic relation fixture 15; no real image or model.", "categories": ["relation"], "relevant_image_ids": ["synthetic_image_03"]}

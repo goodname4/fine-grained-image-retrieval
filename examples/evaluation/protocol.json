@@ -1,0 +1,31 @@
+{
+  "schema_version": "fgir-protocol-v1",
+  "task": "text_to_image",
+  "split": "test",
+  "data_kind": "synthetic",
+  "manifest_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "annotation_scope": "source_pair",
+  "independently_reviewed": false,
+  "candidate_count": 12,
+  "query_count": 16,
+  "recall_ks": [
+    1,
+    5,
+    10
+  ],
+  "interpretation": "Artificial ranking fixture only. These are not E0/E1/E2 model measurements.",
+  "files": {
+    "candidates.json": {
+      "path": "candidates.json",
+      "sha256": "e3a701899dc9540fbb4e5d5b2b357863cc40fc853ded9c84b321ee367eddfa68"
+    },
+    "queries.jsonl": {
+      "path": "queries.jsonl",
+      "sha256": "a59e3cf784f7ac1e2010d6caf0d5769fa6078a68d68400ee2546adeb6316882d"
+    },
+    "qrels.json": {
+      "path": "qrels.json",
+      "sha256": "7a8042beb7c037aefdb7d3699a623e104a2301084ac5b09b35a2d8a0fee17646"
+    }
+  }
+}

@@ -1,0 +1,551 @@
+{
+  "manifest_sha256": "a7f7d25d5017fdb62c150885da7bc3de3a8aea1dd2e40fc06d1da3ea6296dc0d",
+  "actor": "A-assisted (Codex visual inspection)",
+  "judged_pool_image_ids": [
+    "3399284917_721aefe2a7",
+    "3452127051_fa54a902b3",
+    "3767841911_6678052eb6",
+    "3458559770_12cf9f134e",
+    "2731171552_4a808c7d5a",
+    "1332722096_1e3de8ae70",
+    "3715469645_6d1dc019b3",
+    "2594902417_f65d8866a8",
+    "2239938351_43c73c887c",
+    "3353036763_4cbeba03b2",
+    "3585598356_8ce815bbb9",
+    "2707873672_15e6b5d54b",
+    "3544793763_b38546a5e8",
+    "3569406219_f37ebf7b92",
+    "3670907052_c827593564",
+    "3348385580_10b53391f9",
+    "3503689049_63212220be",
+    "2774554310_007e980a90",
+    "2607462776_78e639d891",
+    "1572532018_64c030c974",
+    "2083434441_a93bc6306b",
+    "2308978137_bfe776d541",
+    "3052196390_c59dd24ca8",
+    "3542484764_77d8920ec9",
+    "2194494220_bb2178832c"
+  ],
+  "pool_method": "The 25 source images assigned to A in fine-v1, visually compared against each refined query. This is a fixed limited pool, not complete coverage of the 1000-image test gallery or future model result pools.",
+  "checks": [
+    {
+      "query_id": "fine_001",
+      "source_image_id": "3399284917_721aefe2a7",
+      "kind": "initial_annotation",
+      "text": "A woman stands beside a child sitting in a green swing.",
+      "categories": [
+        "relation",
+        "color"
+      ],
+      "relevant_image_ids": [
+        "3399284917_721aefe2a7"
+      ],
+      "notes": "Woman is on the right of a child in a suspended green seat."
+    },
+    {
+      "query_id": "fine_005",
+      "source_image_id": "3452127051_fa54a902b3",
+      "kind": "initial_annotation",
+      "text": "A brown dog wearing a yellow harness jumps over a white agility obstacle.",
+      "categories": [
+        "color",
+        "action",
+        "relation"
+      ],
+      "relevant_image_ids": [
+        "3452127051_fa54a902b3"
+      ],
+      "notes": "Visible airborne brown dog, yellow harness and white horizontal hurdle."
+    },
+    {
+      "query_id": "fine_009",
+      "source_image_id": "3767841911_6678052eb6",
+      "kind": "initial_annotation",
+      "text": "A child in an orange dress stands beside a lawn sprinkler.",
+      "categories": [
+        "color",
+        "relation"
+      ],
+      "relevant_image_ids": [
+        "3767841911_6678052eb6"
+      ],
+      "notes": "Orange dress and sprinkler on the grass are clearly visible; removed unverifiable wetness."
+    },
+    {
+      "query_id": "fine_013",
+      "source_image_id": "3458559770_12cf9f134e",
+      "kind": "initial_annotation",
+      "text": "A rider in blue turns a motorcycle on a dirt track in front of spectators behind a red barrier.",
+      "categories": [
+        "color",
+        "relation",
+        "action"
+      ],
+      "relevant_image_ids": [
+        "3458559770_12cf9f134e"
+      ],
+      "notes": "Motorcycle rather than unspecified bicycle; spectators stand behind red barrier."
+    },
+    {
+      "query_id": "fine_017",
+      "source_image_id": "2731171552_4a808c7d5a",
+      "kind": "initial_annotation",
+      "text": "A man raising one arm is beside a man shading his eyes with both hands.",
+      "categories": [
+        "relation",
+        "action"
+      ],
+      "relevant_image_ids": [
+        "2731171552_4a808c7d5a"
+      ],
+      "notes": "Raised arm and neighbouring person shading eyes visible; no unsupported total people count."
+    },
+    {
+      "query_id": "fine_021",
+      "source_image_id": "1332722096_1e3de8ae70",
+      "kind": "initial_annotation",
+      "text": "Two women wearing bright green boots stand on steps with another woman behind them.",
+      "categories": [
+        "color",
+        "count",
+        "relation"
+      ],
+      "relevant_image_ids": [
+        "1332722096_1e3de8ae70"
+      ],
+      "notes": "The scene supports standing, not clearly walking; third woman is behind the two green-boot wearers."
+    },
+    {
+      "query_id": "fine_025",
+      "source_image_id": "3715469645_6d1dc019b3",
+      "kind": "initial_annotation",
+      "text": "Two women with dark hair stand in front of a wooden wall.",
+      "categories": [
+        "count",
+        "relation"
+      ],
+      "relevant_image_ids": [
+        "3715469645_6d1dc019b3"
+      ],
+      "notes": "Two visible women in front of plywood; wall relation retained."
+    },
+    {
+      "query_id": "fine_029",
+      "source_image_id": "2594902417_f65d8866a8",
+      "kind": "initial_annotation",
+      "text": "Two brown dogs face one another in a grassy field.",
+      "categories": [
+        "count",
+        "color",
+        "relation"
+      ],
+      "relevant_image_ids": [
+        "2594902417_f65d8866a8"
+      ],
+      "notes": "Two dogs visible; one smaller dog is partly airborne."
+    },
+    {
+      "query_id": "fine_033",
+      "source_image_id": "2239938351_43c73c887c",
+      "kind": "initial_annotation",
+      "text": "Three dogs play together while the largest dark dog holds a blue and green ball.",
+      "categories": [
+        "count",
+        "color",
+        "action"
+      ],
+      "relevant_image_ids": [
+        "2239938351_43c73c887c"
+      ],
+      "notes": "Three dogs including two smaller short-legged dogs; ball has both blue and green."
+    },
+    {
+      "query_id": "fine_037",
+      "source_image_id": "3353036763_4cbeba03b2",
+      "kind": "initial_annotation",
+      "text": "Two riders in blue and yellow raise their arms while riding horses.",
+      "categories": [
+        "count",
+        "color",
+        "action"
+      ],
+      "relevant_image_ids": [
+        "3353036763_4cbeba03b2"
+      ],
+      "notes": "Two raised-arm riders clearly visible; removed uncertain total horse count."
+    },
+    {
+      "query_id": "fine_041",
+      "source_image_id": "3585598356_8ce815bbb9",
+      "kind": "initial_annotation",
+      "text": "Two women wearing sparkling bikinis and purple feather headpieces pose together.",
+      "categories": [
+        "count",
+        "color",
+        "action"
+      ],
+      "relevant_image_ids": [
+        "3585598356_8ce815bbb9"
+      ],
+      "notes": "Two foreground women, sparkling outfits and purple feathers."
+    },
+    {
+      "query_id": "fine_045",
+      "source_image_id": "2707873672_15e6b5d54b",
+      "kind": "initial_annotation",
+      "text": "Two boys in brown shirts stand on a wooden platform and play with sticks.",
+      "categories": [
+        "count",
+        "color",
+        "action",
+        "relation"
+      ],
+      "relevant_image_ids": [
+        "2707873672_15e6b5d54b"
+      ],
+      "notes": "Two boys and sticks visible; platform avoids uncertain table-versus-bench label."
+    },
+    {
+      "query_id": "fine_049",
+      "source_image_id": "3544793763_b38546a5e8",
+      "kind": "initial_annotation",
+      "text": "Two boxers wearing white gloves fight inside a boxing ring.",
+      "categories": [
+        "count",
+        "color",
+        "action",
+        "relation"
+      ],
+      "relevant_image_ids": [
+        "3544793763_b38546a5e8"
+      ],
+      "notes": "Two boxers and white gloves visible inside ring."
+    },
+    {
+      "query_id": "fine_053",
+      "source_image_id": "3569406219_f37ebf7b92",
+      "kind": "initial_annotation",
+      "text": "A woman in a light floral robe walks beside a man dressed in black in front of a wooden building.",
+      "categories": [
+        "color",
+        "action",
+        "relation"
+      ],
+      "relevant_image_ids": [
+        "3569406219_f37ebf7b92"
+      ],
+      "notes": "Floral robe and black clothing visible; removed nationality inference."
+    },
+    {
+      "query_id": "fine_057",
+      "source_image_id": "3670907052_c827593564",
+      "kind": "initial_annotation",
+      "text": "A rider wearing red performs a jump on a motorcycle above a dirt track.",
+      "categories": [
+        "color",
+        "action",
+        "relation"
+      ],
+      "relevant_image_ids": [
+        "3670907052_c827593564"
+      ],
+      "notes": "Airborne motorcycle and red jersey visible."
+    },
+    {
+      "query_id": "fine_061",
+      "source_image_id": "3348385580_10b53391f9",
+      "kind": "initial_annotation",
+      "text": "A snowboarder in a bright green jacket slides along a green rail.",
+      "categories": [
+        "color",
+        "action",
+        "relation"
+      ],
+      "relevant_image_ids": [
+        "3348385580_10b53391f9"
+      ],
+      "notes": "Board is on rail rather than clearly jumping; corrected original typo and action."
+    },
+    {
+      "query_id": "fine_065",
+      "source_image_id": "3503689049_63212220be",
+      "kind": "initial_annotation",
+      "text": "A smiling bald man wears dark sunglasses and a white V-neck T-shirt.",
+      "categories": [
+        "color"
+      ],
+      "relevant_image_ids": [
+        "3503689049_63212220be"
+      ],
+      "notes": "White shirt and dark sunglasses provide verifiable clothing colors; no ethnicity-based color label."
+    },
+    {
+      "query_id": "fine_069",
+      "source_image_id": "2774554310_007e980a90",
+      "kind": "initial_annotation",
+      "text": "A woman in a black tank top and pink trousers has a large winged tattoo on her upper back.",
+      "categories": [
+        "color"
+      ],
+      "relevant_image_ids": [
+        "2774554310_007e980a90"
+      ],
+      "notes": "Black top, pink trousers and winged back tattoo visible."
+    },
+    {
+      "query_id": "fine_073",
+      "source_image_id": "2607462776_78e639d891",
+      "kind": "initial_annotation",
+      "text": "A black dog jumps from a wooden dock toward the water.",
+      "categories": [
+        "color",
+        "action",
+        "relation"
+      ],
+      "relevant_image_ids": [
+        "2607462776_78e639d891"
+      ],
+      "notes": "Airborne black dog next to edge of wooden dock over water."
+    },
+    {
+      "query_id": "fine_077",
+      "source_image_id": "1572532018_64c030c974",
+      "kind": "initial_annotation",
+      "text": "Three boys run along a beach beside breaking waves.",
+      "categories": [
+        "count",
+        "action",
+        "relation"
+      ],
+      "relevant_image_ids": [
+        "1572532018_64c030c974"
+      ],
+      "notes": "Three running children in swim shorts visible on shoreline."
+    },
+    {
+      "query_id": "fine_081",
+      "source_image_id": "2083434441_a93bc6306b",
+      "kind": "initial_annotation",
+      "text": "A woman rides a bicycle on a city street with a yellow taxi behind her.",
+      "categories": [
+        "color",
+        "action",
+        "relation"
+      ],
+      "relevant_image_ids": [
+        "2083434441_a93bc6306b"
+      ],
+      "notes": "Cyclist and yellow taxi visible; no need to infer speed or intended passing."
+    },
+    {
+      "query_id": "fine_085",
+      "source_image_id": "2308978137_bfe776d541",
+      "kind": "initial_annotation",
+      "text": "A group of children with backpacks ride crowded on the rear of a vehicle on a road.",
+      "categories": [
+        "action",
+        "relation"
+      ],
+      "relevant_image_ids": [
+        "2308978137_bfe776d541"
+      ],
+      "notes": "Many children and backpacks on the rear platform of a small vehicle."
+    },
+    {
+      "query_id": "fine_089",
+      "source_image_id": "3052196390_c59dd24ca8",
+      "kind": "initial_annotation",
+      "text": "Children in swimsuits play among vertical water jets in a pavement fountain.",
+      "categories": [
+        "action",
+        "relation"
+      ],
+      "relevant_image_ids": [
+        "3052196390_c59dd24ca8"
+      ],
+      "notes": "Multiple children and vertical spray jets visible; distinguished from lawn sprinkler image."
+    },
+    {
+      "query_id": "fine_093",
+      "source_image_id": "3542484764_77d8920ec9",
+      "kind": "initial_annotation",
+      "text": "A cricket player in white swings a bat high above his head.",
+      "categories": [
+        "color",
+        "action",
+        "relation"
+      ],
+      "relevant_image_ids": [
+        "3542484764_77d8920ec9"
+      ],
+      "notes": "White-clothed player with bat raised in stroke."
+    },
+    {
+      "query_id": "fine_097",
+      "source_image_id": "2194494220_bb2178832c",
+      "kind": "initial_annotation",
+      "text": "A woman skis along a snowy trail with a brown dog on a leash.",
+      "categories": [
+        "color",
+        "action",
+        "relation"
+      ],
+      "relevant_image_ids": [
+        "2194494220_bb2178832c"
+      ],
+      "notes": "Skis, poles, leash and brown dog visible; corrected spelling only after visual check."
+    },
+    {
+      "query_id": "fine_002",
+      "source_image_id": "2396691909_6b8c2f7c44",
+      "kind": "pre_review",
+      "notes": "Both dresses and side-by-side people visible; walking is not certain from this frame. Consider stands next to and keep clothing-color relation."
+    },
+    {
+      "query_id": "fine_006",
+      "source_image_id": "3354330935_de75be9d2f",
+      "kind": "pre_review",
+      "notes": "Ski stunt and movie camera visible; precise handstand contact is ambiguous. Prefer skier performs an inverted stunt in front of a camera."
+    },
+    {
+      "query_id": "fine_010",
+      "source_image_id": "359837950_9e22ffe6c2",
+      "kind": "pre_review",
+      "notes": "Fix gover typo. Dog and rocky ground visible; under the sky is a weak relation probe. Prefer dog moving between rocks if independently confirmed."
+    },
+    {
+      "query_id": "fine_014",
+      "source_image_id": "3339140382_2e49bc324a",
+      "kind": "pre_review",
+      "notes": "Three skydivers above the cloud layer visible; verify total and spatial relation against returned candidates."
+    },
+    {
+      "query_id": "fine_018",
+      "source_image_id": "2847615962_c330bded6e",
+      "kind": "pre_review",
+      "notes": "Spotted dog on a porch mat visible; on top of the mat is a clearer relation target than rolling over alone."
+    },
+    {
+      "query_id": "fine_022",
+      "source_image_id": "3635577874_48ebaac734",
+      "kind": "pre_review",
+      "notes": "Through the air is an action phrase, not a strong object-to-object relation. Visible bicycle is above skate-park ramps; use that relation after B checks."
+    },
+    {
+      "query_id": "fine_026",
+      "source_image_id": "476233374_e1396998ef",
+      "kind": "pre_review",
+      "notes": "Two children on pebble beach visible; source pairing supported. Check other beach images for additional relevance."
+    },
+    {
+      "query_id": "fine_030",
+      "source_image_id": "3017521547_f5ef8848e3",
+      "kind": "pre_review",
+      "notes": "Two foreground hockey players compete near a ball; background people should not count as players in the target phrase."
+    },
+    {
+      "query_id": "fine_034",
+      "source_image_id": "136886677_6026c622eb",
+      "kind": "pre_review",
+      "notes": "Two paddlers visible in a canoe on a tree-lined river. Keep two-person count explicit."
+    },
+    {
+      "query_id": "fine_038",
+      "source_image_id": "3639967449_137f48b43d",
+      "kind": "pre_review",
+      "notes": "Two seated children hold ice lollies; only one is visibly eating at the captured instant. Avoid claiming both mouths are eating."
+    },
+    {
+      "query_id": "fine_042",
+      "source_image_id": "2938120171_970564e3d8",
+      "kind": "pre_review",
+      "notes": "Two golden dogs on wooden decking visible; add golden to color category if it is a target detail."
+    },
+    {
+      "query_id": "fine_046",
+      "source_image_id": "56489627_e1de43de34",
+      "kind": "pre_review",
+      "notes": "Man behind two pack animals visible; exact animal species is less certain. Consider two pack animals instead of asserting donkeys."
+    },
+    {
+      "query_id": "fine_050",
+      "source_image_id": "3597326009_3678a98a43",
+      "kind": "pre_review",
+      "notes": "Three partial people on tabletop, cameras and drum visible; exact camera count could be ambiguous at thumbnail scale. Count people rather than cameras."
+    },
+    {
+      "query_id": "fine_054",
+      "source_image_id": "3159995270_17334ccb5b",
+      "kind": "pre_review",
+      "notes": "Green hat with pink flower pattern visible on skier; color claim supported."
+    },
+    {
+      "query_id": "fine_058",
+      "source_image_id": "2559921948_06af25d566",
+      "kind": "pre_review",
+      "notes": "Yellow shirt, surfboard and shoreline visible; supported."
+    },
+    {
+      "query_id": "fine_062",
+      "source_image_id": "3688858505_e8afd1475d",
+      "kind": "pre_review",
+      "notes": "Woman in green dress clearly visible. Standing is a pose, not necessarily dynamic action; make intended action taxonomy explicit."
+    },
+    {
+      "query_id": "fine_066",
+      "source_image_id": "771048251_602e5e8f45",
+      "kind": "pre_review",
+      "notes": "Orange striped kitten touching person nose visible; bite/contact distinction needs larger-image check."
+    },
+    {
+      "query_id": "fine_070",
+      "source_image_id": "1131800850_89c7ffd477",
+      "kind": "pre_review",
+      "notes": "Dog has white, brown and dark fur; water spray visible. Shaking is plausible from source caption, but do not require fur to be only two colors."
+    },
+    {
+      "query_id": "fine_074",
+      "source_image_id": "410453140_5401bf659a",
+      "kind": "pre_review",
+      "notes": "Large blue and pink circles on glass doors visible; supported color cues."
+    },
+    {
+      "query_id": "fine_078",
+      "source_image_id": "2460797929_66446c13db",
+      "kind": "pre_review",
+      "notes": "People in life jackets in boat visible; smiling/laughing not equally clear for everyone. Keep riding and safety jackets."
+    },
+    {
+      "query_id": "fine_082",
+      "source_image_id": "3285993030_87b0f1d202",
+      "kind": "pre_review",
+      "notes": "Fix clack to black; curly dark dog visibly airborne along path."
+    },
+    {
+      "query_id": "fine_086",
+      "source_image_id": "2502905671_c6039804ab",
+      "kind": "pre_review",
+      "notes": "Person and dog on beach visible; supported broad action query, likely requires checking extra beach images."
+    },
+    {
+      "query_id": "fine_090",
+      "source_image_id": "2208067635_39a03834ca",
+      "kind": "pre_review",
+      "notes": "Child climbing rock visible; only the camera-operator shadow is visible. Filming claim should be checked with full resolution or omitted."
+    },
+    {
+      "query_id": "fine_094",
+      "source_image_id": "2518508760_68d8df7365",
+      "kind": "pre_review",
+      "notes": "The numeral six is a racing bib, not a count of six dogs. Remove count category; retain action and yellow clothing color."
+    },
+    {
+      "query_id": "fine_098",
+      "source_image_id": "1237985362_dbafc59280",
+      "kind": "pre_review",
+      "notes": "Woman holds child reaching for bubbles; grammar needs correction. Picnic setting is less explicit than outdoor bubbles."
+    }
+  ]
+}
