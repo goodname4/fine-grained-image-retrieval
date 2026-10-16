@@ -68,13 +68,13 @@ def summarize_latency(path):
         if row["warmup"]:
             excluded["warmup"] += 1
             continue
-        if row["cold_start"] or stage == "cold_start":
+        cold_start = row["cold_start"] or stage == "cold_start"
+        if cold_start:
             excluded["cold_start"] += 1
-            stage = "cold_start"
-        key = (stage, device, row["gallery_size"], row["top_k"], row["batch_size"], row["cache_state"])
+        key = (stage, device, row["gallery_size"], row["top_k"], row["batch_size"], row["cache_state"], cold_start)
         groups[key].append(milliseconds)
     return {"quantile_definition": "linear_interpolation_at_(n-1)*p", "excluded_from_steady_state": dict(excluded),
-            "groups": [dict(zip(("stage", "device", "gallery_size", "top_k", "batch_size", "cache_state"), key),
+            "groups": [dict(zip(("stage", "device", "gallery_size", "top_k", "batch_size", "cache_state", "cold_start"), key),
                             sample_count=len(values), p50_ms=_percentile(values, .5), p95_ms=_percentile(values, .95),
                             min_ms=min(values), max_ms=max(values)) for key, values in sorted(groups.items())]}
 

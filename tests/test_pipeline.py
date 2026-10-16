@@ -158,6 +158,29 @@ class PipelineTests(unittest.TestCase):
             merge_annotations(self.manifest, base, [left, right], self.root / "conflict")
         self.assertFalse((self.root / "conflict").exists())
 
+    def test_member_merge_rejects_cross_export_duplicate_text(self):
+        directory = self.root / "draft"
+        draft_annotations(self.manifest, self.root, directory, per_category=1)
+        base = directory / "annotations.jsonl"
+        original = read_jsonl(base)
+        first, second = copy.deepcopy(original), copy.deepcopy(original)
+        first[0]["text"] = "Two dogs beside a red ball."
+        second[1]["text"] = "  two dogs beside a RED ball.  "
+        left, right = self.root / "left.jsonl", self.root / "right.jsonl"
+        write_jsonl(left, first)
+        write_jsonl(right, second)
+        # Each member export is valid against the common base. Only their union
+        # violates the normalized-text uniqueness rule across query IDs.
+        validate_annotations(self.manifest, left)
+        validate_annotations(self.manifest, right)
+        output = self.root / "invalid-merge"
+        with self.assertRaisesRegex(ValueError, "duplicate fine-grained query text"):
+            merge_annotations(self.manifest, base, [left, right], output)
+        self.assertFalse(output.exists())
+        self.assertEqual(read_jsonl(base), original)
+        self.assertEqual(read_jsonl(left), first)
+        self.assertEqual(read_jsonl(right), second)
+
     def test_common_pool_union_keeps_new_images_unjudged_and_binds_query_text(self):
         drafts = self.root / "drafts"
         draft_annotations(self.manifest, self.root, drafts, per_category=1)
@@ -187,13 +210,39 @@ class PipelineTests(unittest.TestCase):
         rows += [{**base, "milliseconds": 999, "warmup": True}, {**base, "milliseconds": 99, "cold_start": True}]
         write_jsonl(path, rows)
         result = summarize_latency(path)
-        steady = next(row for row in result["groups"] if row["stage"] == "end_to_end")
+        steady = next(row for row in result["groups"] if row["stage"] == "end_to_end" and not row["cold_start"])
         self.assertEqual(steady["p50_ms"], 3)
         self.assertAlmostEqual(steady["p95_ms"], 4.8)
         self.assertEqual(steady["sample_count"], 5)
+        cold = next(row for row in result["groups"] if row["cold_start"])
+        self.assertEqual(cold["stage"], "end_to_end")
+        self.assertEqual(cold["sample_count"], 1)
+        self.assertEqual(cold["p50_ms"], 99)
+        self.assertEqual(result["excluded_from_steady_state"], {"warmup": 1, "cold_start": 1})
         write_jsonl(path, [{**base, "device": "cuda:0", "milliseconds": 1}])
         with self.assertRaisesRegex(ValueError, "synchronization"):
             summarize_latency(path)
+
+    def test_latency_preserves_cold_stages_and_legacy_cold_start_stage(self):
+        path = self.root / "latency.jsonl"
+        base = {"device": "cpu", "gallery_size": 1000, "top_k": 10,
+                "batch_size": 1, "cache_state": "cold", "warmup": False, "cold_start": True}
+        rows = [{**base, "stage": stage, "milliseconds": value} for stage, value in
+                (("text_encoding", 100), ("vector_sort", 5), ("end_to_end", 110))]
+        # The old explicit cold_start stage still denotes a cold measurement,
+        # even when callers supplied false in the separate flag.
+        rows.append({**base, "stage": "cold_start", "cold_start": False, "milliseconds": 150})
+        write_jsonl(path, rows)
+        result = summarize_latency(path)
+        self.assertEqual(result["excluded_from_steady_state"], {"cold_start": 4})
+        groups = {row["stage"]: row for row in result["groups"]}
+        self.assertEqual(set(groups), {"text_encoding", "vector_sort", "end_to_end", "cold_start"})
+        for stage, expected in (("text_encoding", 100), ("vector_sort", 5), ("end_to_end", 110), ("cold_start", 150)):
+            with self.subTest(stage=stage):
+                self.assertTrue(groups[stage]["cold_start"])
+                self.assertEqual(groups[stage]["sample_count"], 1)
+                self.assertEqual(groups[stage]["p50_ms"], expected)
+                self.assertEqual(groups[stage]["p95_ms"], expected)
 
     def test_zip_rejects_traversal_and_unexpected_existing_content(self):
         archive = self.root / "a.zip"

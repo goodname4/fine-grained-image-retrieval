@@ -45,7 +45,7 @@ python -m fgir validate-annotations --manifest data/prepared/flickr8k-v1/manifes
 python -m fgir merge-annotations --manifest data/prepared/flickr8k-v1/manifest.jsonl --base data/annotations/fine-v1/annotations.work.jsonl --updates data/annotations/exports/A.jsonl data/annotations/exports/B.jsonl data/annotations/exports/C.jsonl data/annotations/exports/D.jsonl --output data/annotations/merged-v1
 ```
 
-只合并相对基准发生变化的查询；同一查询有不同版本则报冲突，不悄悄采用后提交者。query_id、原始源图/源描述、分配和计划复核人不允许改变。输出合并文件和摘要回执；冲突由A组织核对后用一致版本重跑。多轮初标、复核要各自固定共同基准。
+只合并相对基准发生变化的查询；同一查询有不同版本则报冲突，不悄悄采用后提交者。query_id、原始源图/源描述、分配和计划复核人不允许改变。合并结果还须通过整体校验：即使各份导出单独合法，不同查询合并后出现规范化文本重复，也会报错且不发布输出目录。输出合并文件和摘要回执；冲突由A组织核对后用一致版本重跑。多轮初标、复核要各自固定共同基准。
 
 ## 先收集各模型结果，再完成共同候选池
 

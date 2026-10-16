@@ -29,6 +29,8 @@
 
 不将下载模型、第一次启动时间混入稳定查询时间；同时独立记录冷启动成本。CPU与GPU结果分别报告。
 
+`summarize-latency`按原始阶段和`cold_start`状态分别聚合，输出各组的`cold_start`布尔值。稳定延迟表只读取`cold_start=false`的对应阶段；`cold_start=true`的编码、排序和端到端各自另列，不能混合为一种耗时。旧式`stage=cold_start`记录单独成组。完整输入及输出约定见[A交接手册](handoff-a.md)。
+
 ## 结果表模板
 
 下表均待真实运行，破折号不是零分或已完成结果。

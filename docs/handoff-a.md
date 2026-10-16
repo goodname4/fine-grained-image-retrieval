@@ -89,7 +89,7 @@ local_path = image_path("data", epoch_pairs[0]["path"])
 python -m fgir summarize-latency --measurements artifacts/latency.jsonl
 ```
 
-阶段为`index_build/text_encoding/vector_sort/end_to_end/cold_start`。预热不计入稳定延迟，冷启动另列；不同设备、K、规模、批大小和缓存状态不会混合。分位数用排序后`(n-1)*p`线性插值，输出样本数、p50/p95与范围。
+阶段为`index_build/text_encoding/vector_sort/end_to_end/cold_start`。预热样本不参与聚合。输出`groups`保留原始`stage`，增加布尔字段`cold_start`作为分组维度；不同阶段、冷启动状态、设备、K、规模、批大小和缓存状态分别统计。读取稳定查询延迟时须筛选`stage=end_to_end`且`cold_start=false`，首次查询各阶段耗时则分别读取对应阶段的`cold_start=true`组。旧式`stage=cold_start`仍作为独立阶段，输出的`cold_start`恒为true。`excluded_from_steady_state`记录预热和冷启动样本数，冷启动样本仍保留在各自组中。分位数用排序后`(n-1)*p`线性插值，输出样本数、p50/p95与范围。
 
 ## 尚需外部产出的工作
 

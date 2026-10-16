@@ -178,6 +178,7 @@ def merge_annotations(manifest, base, updates, output):
                 count += 1
         sources.append({"filename": Path(path).name, "sha256": file_digest(path), "changed_query_count": count})
     merged = [chosen.get(row["query_id"], row) for row in rows]
+    validate_queries(merged, candidates, fine_grained=True)
     with new_directory(output) as target:
         write_jsonl(target / "annotations.jsonl", merged)
         write_json(target / "merge-report.json", {"base_sha256": file_digest(base), "sources": sources,
