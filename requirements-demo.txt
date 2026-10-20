@@ -1,0 +1,3 @@
+# Install the project and local Streamlit UI dependencies with:
+# python -m pip install -e ".[demo]"
+-e .[demo]

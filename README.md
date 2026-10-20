@@ -2,6 +2,11 @@
 
 **Fine-Grained Natural Language Image Retrieval**
 
+**D 展示入口：** 双击 `preview.cmd` 打开离线交互预览（示意图片与固定排名，非真实模型结果）。
+真实检索运行 `install.cmd`、`start-demo.cmd`，详见[安装与接入说明](docs/demo.md)。
+Windows 源码安装 ZIP 与 Python wheel 可运行 `python scripts/build-demo-package.py` 构建，
+或在 GitHub Actions 的 **D demo package** 中下载构建产物。真实图片、权重与索引另行准备。
+
 《自然语言处理技术》课程大作业。项目目标是构建一套**在本地运行、通过自然语言寻找图片**的多模态软件系统，研究轻量适配与困难负样本训练是否能改善颜色、数量、动作和空间关系等细节的检索表现。
 
 > 当前状态：A的数据/评测、B的本地CLIP编码/缓存/负样本接口和C的残差适配/E1/E2训练/模型导出已实现。清洗版训练5998图，验证/测试各1000图。C的运行与交接见[训练说明](docs/training.md)。细粒度初标与预审明确披露AI辅助，独立复核仍待团队完成；Web界面由D接入。人工排名示例不代表模型效果。

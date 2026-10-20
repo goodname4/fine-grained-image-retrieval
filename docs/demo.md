@@ -4,10 +4,21 @@
 
 在仓库根目录安装演示依赖：
 
+Windows 安装包解压后，双击 `preview.cmd` 直接打开离线界面预览，无需安装 Python。
+真实查询应用依次双击 `install.cmd`、`start-demo.cmd`。安装要求 Python 3.11+
+和联网下载依赖，会在项目内创建独立 `.venv`；数据与权重需按下文另行准备。
+安装包不包含 Python、依赖、图片或模型权重，不是完整离线推理发行包。
+
+也可手动执行：
+
 ```powershell
 python -m pip install -e ".[demo]"
 streamlit run app.py -- --config configs/demo.json --device cpu
 ```
+
+打包命令：`python scripts/build-demo-package.py`。输出位于 `dist/`，包括 Windows
+源码安装 ZIP、SHA-256 校验文件和 Python 库 wheel。ZIP 包含启动脚本、静态预览、
+配置、文档、源码及 wheel；wheel 本身仅提供 `fgir` Python 库和命令行工具。
 
 `configs/demo.json` 集中声明数据、编码器、E0 索引以及 E1/E2 的 `best.pt` 和匹配索引。图片、权重、特征和索引不提交 Git；收到这些大文件后按相同相对路径放置，或复制配置到本机路径。首次检索会加载本地 CLIP，之后由 Streamlit 缓存。
 
