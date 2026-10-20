@@ -1,0 +1,6 @@
+# Environment used for C's local validation. Select the matching CPU/CUDA wheel
+# index for torch; no platform-specific local paths or unrelated packages.
+numpy==2.4.3
+torch==2.11.0
+transformers==4.57.6
+Pillow==12.2.0

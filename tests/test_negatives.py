@@ -83,6 +83,12 @@ class NegativesMiningTests(unittest.TestCase):
         for row in json.loads("[" + ",".join(self.output.read_text(encoding="utf-8").strip().splitlines()) + "]"):
             self.assertNotIn(row["positive_image_ids"][0], row["negative_image_ids"])
 
+    def test_creates_nested_output_directory(self):
+        self.output = self.root / "new" / "nested" / "negatives.jsonl"
+        self._mine()
+        self.assertTrue(self.output.exists())
+        self.assertTrue(self.output.with_suffix(".report.json").exists())
+
     def test_identical_caption_images_excluded(self):
         self._mine()
         rows = [json.loads(line) for line in self.output.read_text(encoding="utf-8").splitlines()]

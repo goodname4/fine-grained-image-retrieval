@@ -116,6 +116,7 @@ def mine_negatives(bundle, text_features_path, image_features_path, output,
                                       "similarity": "cosine", "gallery": "train only"},
                 "reviewed": False,
             })
+    output.parent.mkdir(parents=True, exist_ok=True)
     write_jsonl(output, records)
     sample_path = output.with_suffix(".review-sample.jsonl")
     generator = numpy.random.default_rng(seed)

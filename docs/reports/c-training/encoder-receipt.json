@@ -1,0 +1,11 @@
+{
+  "source": "openai/clip-vit-base-patch32",
+  "transformers_version": "4.57.6",
+  "torch_version": "2.11.0+cu128",
+  "model_class": "CLIPModel",
+  "processor_class": "CLIPProcessor",
+  "weight_files": {
+    "model.safetensors": "d5853196afb60ca6373692d9af911aacd8fa821af6d4af54720d4eb9c8f5da0a"
+  },
+  "weights_sha256": "d5853196afb60ca6373692d9af911aacd8fa821af6d4af54720d4eb9c8f5da0a"
+}

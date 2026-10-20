@@ -1,0 +1,145 @@
+{
+  "schema_version": "fgir-c-ablation-v1",
+  "validation": {
+    "E0": {
+      "query_count": 5000,
+      "recall_definition": "fraction_of_queries_with_any_relevant_hit",
+      "recall@1": 0.5482,
+      "recall@5": 0.8174,
+      "recall@10": 0.8908,
+      "ranking_depth_min": 1000,
+      "ranking_depth_max": 1000,
+      "mrr": 0.6677056592963856,
+      "declared_ranking_depth": 1000,
+      "empty_result_count": 0
+    },
+    "E1": {
+      "query_count": 5000,
+      "recall_definition": "fraction_of_queries_with_any_relevant_hit",
+      "recall@1": 0.5608,
+      "recall@5": 0.8328,
+      "recall@10": 0.9042,
+      "ranking_depth_min": 1000,
+      "ranking_depth_max": 1000,
+      "mrr": 0.6795403268156696,
+      "declared_ranking_depth": 1000,
+      "empty_result_count": 0
+    },
+    "E2": {
+      "query_count": 5000,
+      "recall_definition": "fraction_of_queries_with_any_relevant_hit",
+      "recall@1": 0.5628,
+      "recall@5": 0.8338,
+      "recall@10": 0.9034,
+      "ranking_depth_min": 1000,
+      "ranking_depth_max": 1000,
+      "mrr": 0.680443091642908,
+      "declared_ranking_depth": 1000,
+      "empty_result_count": 0
+    }
+  },
+  "training": {
+    "E1": {
+      "schema_version": "fgir-training-v1",
+      "status": "completed",
+      "method": "E1",
+      "seed": 42,
+      "best_epoch": 8,
+      "epochs_completed": 13,
+      "selection": "validation recall@1, then validation full-gallery mrr; ties keep earlier checkpoint",
+      "baseline_validation": {
+        "recall@1": 0.5482,
+        "recall@5": 0.8174,
+        "recall@10": 0.8908,
+        "mrr": 0.6677056592963856
+      },
+      "best_validation": {
+        "recall@1": 0.5608,
+        "recall@5": 0.8328,
+        "recall@10": 0.9042,
+        "mrr": 0.6795403268156696
+      },
+      "training_seconds": 5.453815999999279,
+      "wall_seconds": 8.05815050000001,
+      "peak_cuda_bytes": 81692160,
+      "feature_cache_bytes": 89800360,
+      "parameters": {
+        "total": 263424,
+        "trainable": 263424,
+        "encoder_trainable": 0,
+        "encoder_policy": "cached detached features; encoder absent from optimizer"
+      },
+      "negative_audit": null,
+      "checkpoint": "best.pt",
+      "adapter_sha256": "dfe3cdda60e9d327c30a53d0bc906c457d36550fb18fcfdd82b3debac54e084e"
+    },
+    "E2": {
+      "schema_version": "fgir-training-v1",
+      "status": "completed",
+      "method": "E2",
+      "seed": 42,
+      "best_epoch": 8,
+      "epochs_completed": 13,
+      "selection": "validation recall@1, then validation full-gallery mrr; ties keep earlier checkpoint",
+      "baseline_validation": {
+        "recall@1": 0.5482,
+        "recall@5": 0.8174,
+        "recall@10": 0.8908,
+        "mrr": 0.6677056592963856
+      },
+      "best_validation": {
+        "recall@1": 0.5628,
+        "recall@5": 0.8338,
+        "recall@10": 0.9034,
+        "mrr": 0.680443091642908
+      },
+      "training_seconds": 7.236050200000136,
+      "wall_seconds": 9.769032100000004,
+      "peak_cuda_bytes": 82593792,
+      "feature_cache_bytes": 89800360,
+      "parameters": {
+        "total": 263424,
+        "trainable": 263424,
+        "encoder_trainable": 0,
+        "encoder_policy": "cached detached features; encoder absent from optimizer"
+      },
+      "negative_audit": {
+        "queries": 29990,
+        "reviewed_queries": 0,
+        "reviewed_fraction": 0.0,
+        "removed_false_negatives": 0,
+        "eligible_negative_pairs": 149950,
+        "limitation": "unreviewed mined candidates may still be false negatives"
+      },
+      "checkpoint": "best.pt",
+      "adapter_sha256": "5a1cd614b1d5f32a1508f1551b452beac7f503b4e9805a2c7640f65709f28c93"
+    }
+  },
+  "test_handoff": [
+    {
+      "method": "E0",
+      "run": "runs/e0-test.run.json",
+      "sha256": "4b980ba948d86f36090576868b0dc3938d1aacb1c107f9d150b7159425ec6f86",
+      "adapter_sha256": null,
+      "formal_evaluation_owner": "A",
+      "scored_here": false
+    },
+    {
+      "method": "E1",
+      "run": "runs/e1-test.run.json",
+      "sha256": "5429fc9ee4b18ed759a3734c5881bf3483b453cde68146d8eb55d47aabd6d489",
+      "adapter_sha256": "dfe3cdda60e9d327c30a53d0bc906c457d36550fb18fcfdd82b3debac54e084e",
+      "formal_evaluation_owner": "A",
+      "scored_here": false
+    },
+    {
+      "method": "E2",
+      "run": "runs/e2-test.run.json",
+      "sha256": "110f9080e3acc82b106d2a556147fa979f0927c777b7649a24c61402f88ef219",
+      "adapter_sha256": "5a1cd614b1d5f32a1508f1551b452beac7f503b4e9805a2c7640f65709f28c93",
+      "formal_evaluation_owner": "A",
+      "scored_here": false
+    }
+  ],
+  "interpretation": "One paired seed; validation is model-selection data, not held-out test evidence. A owns formal test evaluation."
+}

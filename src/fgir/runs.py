@@ -27,7 +27,7 @@ def code_revision(cwd=None):
     commit = _git(["rev-parse", "HEAD"], cwd)
     if commit is None:
         return {"code_revision": "unknown", "worktree": "unknown"}
-    status = _git(["status", "--porcelain"], cwd)
+    status = _git(["-c", "core.quotepath=false", "status", "--porcelain", "--untracked-files=all"], cwd)
     if status is None:
         return {"code_revision": commit, "worktree": "unknown"}
     changed = sorted(line[3:].strip().strip('"') for line in status.splitlines() if line.strip())
@@ -70,6 +70,13 @@ def export_run(protocol_path, index_path, query_features_path, output, method="E
         raise ValueError("query features must cover exactly the protocol queries")
     if meta.get("weights_sha256") != index.meta.get("weights_sha256"):
         raise ValueError("query and index features come from different weights")
+    if meta.get("adapter_sha256") != index.meta.get("adapter_sha256"):
+        raise ValueError("query and index use different adapter checkpoints")
+    if meta.get("adapter_sha256") != adapter_sha256:
+        raise ValueError("declared adapter does not match the actual query/index features")
+    for key in ("model_id", "preprocessing", "text_processing"):
+        if meta.get(key) != index.meta.get(key):
+            raise ValueError(f"query/index model metadata mismatch: {key}")
     gallery = len(candidates)
     if depth is None:
         depth = gallery
@@ -127,6 +134,8 @@ def search_index(index_path, query_features_path, output, top_k=10):
     ids, vectors, meta = load_features(query_features_path)
     if meta.get("weights_sha256") != index.meta.get("weights_sha256"):
         raise ValueError("query and index features come from different weights")
+    if meta.get("adapter_sha256") != index.meta.get("adapter_sha256"):
+        raise ValueError("query and index use different adapter checkpoints")
     hits = index.search_many(vectors, top_k=min(top_k, len(index.ids)))
     results = {query_id: hits_row for query_id, hits_row in zip(ids, hits)}
     output = Path(output)

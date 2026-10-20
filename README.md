@@ -4,7 +4,7 @@
 
 《自然语言处理技术》课程大作业。项目目标是构建一套**在本地运行、通过自然语言寻找图片**的多模态软件系统，研究轻量适配与困难负样本训练是否能改善颜色、数量、动作和空间关系等细节的检索表现。
 
-> 当前状态：A已完成真实Flickr8k下载、清洗与数据交接，训练5998图，验证/测试各1000图。统一评测和标注工作台可运行；100条细粒度初稿已分配，A的25条完成AI辅助初标，仍待真实独立复核。图文编码、训练和检索界面由B/C/D继续实现；尚无真实E0/E1/E2结果，人工排名示例不代表模型效果。
+> 当前状态：A的数据/评测、B的本地CLIP编码/缓存/负样本接口和C的残差适配/E1/E2训练/模型导出已实现。清洗版训练5998图，验证/测试各1000图。C的运行与交接见[训练说明](docs/training.md)。细粒度初标与预审明确披露AI辅助，独立复核仍待团队完成；Web界面由D接入。人工排名示例不代表模型效果。
 
 **B/C/D从这里开始：[A交接手册](docs/handoff-a.md)。** 本地数据入口为`data/prepared/flickr8k-v1/`；其他电脑执行`python -m pip install -e ".[data]"`及`python -m fgir prepare-a-data`重建。图片、权重和完整生成产物不提交Git。
 
@@ -69,9 +69,9 @@ flowchart LR
   S --> UI[结果展示、模型对比与评测]
 ```
 
-计划技术栈：Python 3.11、PyTorch、OpenCLIP、NumPy、Pillow、Streamlit。初版使用精确余弦检索，小图库无需引入向量数据库；只有规模和性能测量证明必要时再考虑FAISS。
+已实现技术栈：Python 3.11、PyTorch、transformers、NumPy、Pillow；Web界面计划使用Streamlit。当前使用精确余弦检索，小图库无需向量数据库。
 
-模型候选为OpenCLIP支持的CLIP ViT-B/32。最终实现需固定模型名称、权重来源、版本及预处理方式，并在硬件上实测。编码器默认冻结，先缓存图文特征，再训练小型残差适配层，降低重复编码成本。
+编码器为 `openai/clip-vit-base-patch32`，通过transformers从显式本地路径加载，记录权重摘要与官方预处理。先缓存原始图文特征，再训练图文残差适配层，降低重复编码成本。见[B编码说明](docs/encoding-retrieval.md)与[C训练说明](docs/training.md)。
 
 ## 6. 数据与实验
 
@@ -99,7 +99,7 @@ python -m fgir evaluate --rankings examples/rankings.json --qrels examples/qrels
 python -m unittest discover -s tests -v
 ```
 
-首条命令安装项目命令模块，不安装未来训练栈。示例ID没有配套真实图片，不能作为图文系统演示。文本编码、训练与界面命令将在实现后补充。
+首条命令只安装基础模块。示例ID没有配套真实图片，不能作为图文系统演示。真实编码/训练命令见[B编码说明](docs/encoding-retrieval.md)和[C训练说明](docs/training.md)；界面由D接入。
 
 A的真实数据管线支持下载摘要校验、官方导入、解码检查、近重复复核和冻结交接包：
 
@@ -126,7 +126,7 @@ python -m fgir compare-runs --protocol examples/evaluation/protocol.json --runs 
 ```text
 docs/                 项目方案、技术架构、数据、实验、计划与开题提纲
 src/fgir/             已实现的数据准备、检查、向量检索、评测和命令行
-configs/              已用的数据/标注版本元数据；模型配置仍为设计稿
+configs/              数据/标注版本元数据与E1/E2训练配置
 examples/             人工构造的离线验证样例
 tests/                数据、检索、指标与命令行的边界验证
 data/                 数据说明，不提交真实数据
@@ -153,6 +153,8 @@ artifacts/            生成索引与实验产物说明
 ## 文档导航
 
 - [A交接手册](docs/handoff-a.md)：B/C/D立即可用的文件、Python读取接口和工作边界。
+- [C训练与交接](docs/training.md)：残差适配、损失、E1/E2复现、导出与D在线查询接口。
+- [C真实训练与消融报告](docs/reports/c-training-and-ablation.md)：验证结果、日志、成本、模型摘要与A/D交接清单。
 - [标注指南](docs/annotation-guide.md)：分配、离线页面、共同候选池、合并及独立复核。
 - [排名契约](docs/ranking-contract.md)：真实run格式、冻结协议、统一评测、比较与多种子汇总。
 - [A数据与评测章节](docs/reports/a-data-and-evaluation.md)：真实统计、清洗方法和待填结果。

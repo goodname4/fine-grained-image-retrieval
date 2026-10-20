@@ -21,6 +21,15 @@ def add_commands(commands):
         return parser
 
     required = {"required": True}
+    command("run-c-experiments", "train paired E1/E2, validate, export unscored test runs for A", [
+        ("--bundle", {"default": "data/prepared/flickr8k-v1"}), ("--features", required),
+        ("--negatives", required), ("--output", required), ("--config-root", {"default": "configs/training"})])
+    command("train-adapter", "train C's frozen-feature E1/E2 residual adapters", [
+        ("--bundle", {"default": "data/prepared/flickr8k-v1"}),
+        ("--features", required), ("--config", required), ("--output", required), ("--negatives", {})])
+    command("export-adapter", "adapt matching raw image/text caches and rebuild an index", [
+        ("--checkpoint", required), ("--image-features", required), ("--text-features", required),
+        ("--output", required), ("--device", {"default": "cpu"})])
     command("fetch-flickr8k", "download and verify pinned public Flickr8k archives", [("--data-root", {"default": "data"})])
     command("prepare-a-data", "reproduce A's pinned real dataset and annotation handoff", [
         ("--data-root", {"default": "data"}), ("--bundle", {"default": "data/prepared/flickr8k-v1"}),
@@ -89,6 +98,15 @@ def add_commands(commands):
 
 
 def execute(args):
+    if args.command == "run-c-experiments":
+        from .experiments_c import run_c_experiments
+        return run_c_experiments(args.bundle, args.features, args.negatives, args.output, args.config_root)
+    if args.command == "train-adapter":
+        from .training import train_adapter
+        return train_adapter(args.bundle, args.features, args.config, args.output, args.negatives)
+    if args.command == "export-adapter":
+        from .adaptation import export_adapter
+        return export_adapter(args.checkpoint, args.image_features, args.text_features, args.output, args.device)
     if args.command == "fetch-flickr8k":
         return fetch_flickr8k(args.data_root)
     if args.command == "prepare-a-data":
