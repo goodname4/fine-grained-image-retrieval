@@ -12,6 +12,7 @@ dependencies = []
 
 [project.optional-dependencies]
 data = ["Pillow>=10"]
+model = ["numpy>=2", "torch>=2.6", "transformers>=4.45", "Pillow>=10"]
 
 [project.scripts]
 fgir = "fgir.__main__:main"

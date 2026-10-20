@@ -4,8 +4,12 @@ from .analysis import render_cases, summarize_latency, validate_negatives
 from .annotations import apply_source_checks, draft_annotations, expand_annotation_pool, freeze_annotations, make_pool_request, merge_annotations, render_annotations, validate_annotations
 from .dataset import build_handoff, screen_duplicates, verify_handoff
 from .download import fetch_flickr8k
+from .encoding import encode_bundle, prepare_model
 from .evaluation import compare_runs, save_evaluation, summarize_seeds
+from .features import build_index
+from .negatives import mine_negatives
 from .pipeline import prepare_a_data
+from .runs import export_run, search_index
 from .statistics import dataset_statistics
 
 
@@ -62,6 +66,26 @@ def add_commands(commands):
     command("summarize-latency", "summarize compatible measured timings with warmups separated", [("--measurements", required)])
     command("render-cases", "build an offline image-based error-analysis review sheet", [
         ("--manifest", required), ("--cases", required), ("--data-root", required), ("--output", required)])
+    command("prepare-clip-model", "download pretrained CLIP weights once to an explicit local path", [
+        ("--source", {"default": "openai/clip-vit-base-patch32"}), ("--output", required)])
+    command("encode-features", "cache raw image and text features for every bundle split", [
+        ("--bundle", {"default": "data/prepared/flickr8k-v1"}), ("--data-root", {"default": "data"}),
+        ("--model-dir", required), ("--output", required),
+        ("--device", {"default": "cpu"}), ("--batch-size", {"type": int, "default": 32})])
+    command("build-index", "normalize cached features into an exact cosine index", [
+        ("--features", required), ("--output", required)])
+    command("search-index", "rank cached query features against a built index", [
+        ("--index", required), ("--query-features", required), ("--output", required),
+        ("--top-k", {"type": int, "default": 10})])
+    command("export-run", "write a protocol-bound fgir-run-v1 ranking file for A", [
+        ("--protocol", required), ("--index", required), ("--query-features", required), ("--output", required),
+        ("--method", {"default": "E0"}), ("--seed", {"type": int, "default": 42}), ("--run-id", {}),
+        ("--depth", {"type": int}), ("--adapter-sha256", {})])
+    command("mine-negatives", "mine training-only hard negatives with false-negative guards", [
+        ("--bundle", {"default": "data/prepared/flickr8k-v1"}),
+        ("--text-features", required), ("--image-features", required), ("--output", required),
+        ("--top-m", {"type": int, "default": 50}), ("--per-query", {"type": int, "default": 5}),
+        ("--seed", {"type": int, "default": 42}), ("--review-sample", {"type": int, "default": 100})])
 
 
 def execute(args):
@@ -105,4 +129,18 @@ def execute(args):
         return summarize_latency(args.measurements)
     if args.command == "render-cases":
         return render_cases(args.manifest, args.cases, args.data_root, args.output)
+    if args.command == "prepare-clip-model":
+        return prepare_model(args.source, args.output)
+    if args.command == "encode-features":
+        return encode_bundle(args.bundle, args.data_root, args.model_dir, args.output, args.device, args.batch_size)
+    if args.command == "build-index":
+        return build_index(args.features, args.output)
+    if args.command == "search-index":
+        return search_index(args.index, args.query_features, args.output, args.top_k)
+    if args.command == "export-run":
+        return export_run(args.protocol, args.index, args.query_features, args.output,
+                          args.method, args.seed, args.run_id, args.depth, args.adapter_sha256)
+    if args.command == "mine-negatives":
+        return mine_negatives(args.bundle, args.text_features, args.image_features, args.output,
+                              args.top_m, args.per_query, args.seed, args.review_sample)
     raise ValueError(f"unknown command: {args.command}")
