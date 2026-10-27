@@ -1,5 +1,7 @@
 # A → B/C/D：可立即使用的交接
 
+> 2026-10-27版本说明：本交接包仍供已有数据/编码/MLP训练流程使用。新路线保留图片划分与基础图像缓存，新增[语义数据协议](semantic-data.md)和[实施计划](implementation-plan.md)；B改为主要负责语言解析/变体，C新增可导文本LoRA，分工见[roadmap.md](roadmap.md)。旧整句缓存与旧标注工作台不等同于新训练输入或新诊断已完成。
+
 ## 当前可用范围
 
 本地已准备真实Flickr8k清洗版`data/prepared/flickr8k-v1/`，以及`data/annotations/fine-v1/`。图片、完整清单、生成页面和评测输出被Git忽略；其他电脑用以下命令重建，不依赖本机路径：

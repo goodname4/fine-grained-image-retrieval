@@ -1,5 +1,7 @@
 # 冻结评测与排名契约 v1
 
+> 2026-10-27版本说明：本文是当前E0/E1/E2的run-v1操作契约。N0—N3共享原始图像索引并使用不同文本LoRA，需要新的run-v2和retrieval receipt，设计见[实施清单](implementation-plan.md)。当前导出、服务和评分接口尚未完成该迁移；不得仅改method或伪造图像adapter摘要来导出N结果。固定检索protocol-v1的候选/查询/qrels仍可沿用，语义诊断另用独立协议。
+
 ## 固定协议
 
 标准协议位于`data/prepared/flickr8k-v1/{val,test}/protocol.json`。它绑定同目录候选ID、查询JSONL和qrels的文件SHA-256，也记录清洗版manifest摘要、查询/图库规模、数据类型和标注范围。修改文件而不生成新协议会被拒绝。

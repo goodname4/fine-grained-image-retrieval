@@ -1,5 +1,7 @@
 # 数据准备与标注规范
 
+> 2026-10-27版本说明：本文保留已实现的Flickr8k清单、旧检索标注与困难图片负样本操作。新路线复用固定图片划分，另建[semantic-v1语义数据](semantic-data.md)与NLP诊断，不覆盖旧100条工作文件。下文标注数量是历史记录，当前审核状态以实际文件为准；新试点使用val源图，不能把test草稿用于调参。
+
 ## 数据选择
 
 已在本地采用Flickr8k，不随Git附带图片。来源、非商业研究/教学用途、ZIP及清单摘要已核实记录；清洗版train5998图、val/test各1000图，见[数据报告](reports/a-data-and-evaluation.md)。其他电脑执行`python -m fgir prepare-a-data`重建，B/C/D入口见[交接手册](handoff-a.md)。
