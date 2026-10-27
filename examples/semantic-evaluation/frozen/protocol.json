@@ -1,0 +1,37 @@
+{
+  "schema_version": "fgir-semantic-eval-v1",
+  "data_kind": "synthetic",
+  "split": "val",
+  "source_manifest_sha256": "e3e9dcfa430481804f6ef20b2ee66ceddee7cbd706508299f566512d5a4f8c2c",
+  "independently_reviewed": true,
+  "sample_count": 1,
+  "source_image_count": 1,
+  "candidate_count": 3,
+  "recall_ks": [
+    1,
+    5,
+    10
+  ],
+  "tie_credit": 0.5,
+  "aggregation": "source_image_macro",
+  "normalization": "unicode-casefold-whitespace-v1",
+  "test_access_notes": "Synthetic fixtures; no real test evaluation",
+  "files": {
+    "samples.jsonl": {
+      "path": "samples.jsonl",
+      "sha256": "1ed7cb3837e31cf66333f6e560b42b3d40fe0426e3e622624332dd4b13d76fa1"
+    },
+    "candidates.json": {
+      "path": "candidates.json",
+      "sha256": "ebd895a49c23f9f66acf466744bdd1fccfe36e4beb91fe09257153c748796f62"
+    },
+    "audit.json": {
+      "path": "audit.json",
+      "sha256": "2bf37f56b477758e1d1a7cd5bf0a9b05505deb2cf8cfab1cdbf52cf6345c2137"
+    },
+    "source-context.json": {
+      "path": "source-context.json",
+      "sha256": "a17e028384256672de2483105a24e2b4f67929d034ffed46ce0afe6695a4f13f"
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "schema_version": "fgir-semantic-audit-v1",
+  "purpose": "eval",
+  "data_kind": "synthetic",
+  "sample_count": 1,
+  "source_image_count": 1,
+  "splits": {
+    "val": 1
+  },
+  "review_status": {
+    "reviewed": 1
+  },
+  "source_visual_labels": {
+    "supported": 1
+  },
+  "records_without_entities": 0,
+  "records_without_variants": 0,
+  "unit_count": 1,
+  "variant_types": {
+    "minimal_edit": 2,
+    "paraphrase": 1,
+    "true_addition": 1,
+    "false_addition": 1
+  },
+  "variant_visual_labels": {
+    "contradicted": 3,
+    "supported": 2
+  },
+  "phenomena": {
+    "attribute_binding": 1,
+    "relation_direction": 1,
+    "paraphrase": 1,
+    "false_addition": 2
+  },
+  "samples_sha256": "1ed7cb3837e31cf66333f6e560b42b3d40fe0426e3e622624332dd4b13d76fa1",
+  "source_manifest_sha256": "e3e9dcfa430481804f6ef20b2ee66ceddee7cbd706508299f566512d5a4f8c2c",
+  "image_bytes_checked": true,
+  "limitation": "Structural checks do not establish semantic equivalence or visual truth. Review identities are attestations, not authentication."
+}

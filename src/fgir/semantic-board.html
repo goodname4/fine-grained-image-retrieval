@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>组合语义试点审核</title>
+<style>
+body{margin:0;background:#f4f6f8;color:#1d2939;font:16px/1.55 system-ui,sans-serif}header{padding:20px 28px;background:#14293d;color:white}h1{font-size:24px;margin:0}header p{margin:6px 0;font-size:14px}.bar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:16px 28px;background:white;position:sticky;top:0;z-index:1}button,select{font:inherit;border:1px solid #96a9ba;border-radius:6px;padding:7px 12px;background:white;cursor:pointer}button.primary{background:#126b76;color:white}main{padding:20px 28px;display:grid;grid-template-columns:minmax(280px,42%) 1fr;gap:24px;align-items:start}img{max-width:100%;max-height:540px;object-fit:contain;background:#e1e7eb}article{background:white;padding:18px;border-radius:8px}textarea{width:100%;height:620px;box-sizing:border-box;font:13px/1.5 Consolas,monospace;padding:12px;border:1px solid #96a9ba;border-radius:6px}code{overflow-wrap:anywhere}small{color:#526475}#message{color:#9d2a16;white-space:pre-wrap}.caption{font-size:19px}details{padding:12px 28px;background:#e9f0f4}summary{cursor:pointer}ol{max-width:1000px}@media(max-width:850px){main{grid-template-columns:1fr}textarea{height:540px}}
+</style>
+<header><h1>组合语义 · 验证集试点审核</h1><p>原句、解析、变体与图像证据分开核验。草稿不能用于训练或正式评测。</p></header>
+<div class="bar"><label>成员 <select id="owner"><option value="">全部</option><option>A</option><option>B</option><option>C</option><option>D</option></select></label><button id="prev">上一组</button><span id="position"></span><button id="next">下一组</button><button id="save">保存本组编辑</button><button class="primary" id="export">导出全部 JSONL</button><label>导入 JSONL <input type="file" id="import" accept=".jsonl,.json"></label><span id="message" role="status"></span></div>
+<details><summary>审核规则与字段填写说明</summary><ol>
+<li>先看图片核验原句，填写 source_visual_label；不明确时保留 uncertain，说明原因。</li>
+<li>实体 span 使用原句的 Unicode 字符区间 [start,end)，属性写入所属实体；关系 subject/object 指向实体 ID。不要补入原文未提及的内容。</li>
+<li>变体填写唯一 id、type、phenomenon、target_unit_id、text、semantic_relation、visual_label、edit 和 review。edit 的 before/after/span 必须能准确重建新句。仅改变语义不等于图片反驳它。</li>
+<li>review 初标填写 status=annotated、annotator、annotator_kind=human、notes、image_evidence 和本页图片 SHA-256。独立复核再填写 status=reviewed、不同的 reviewer、reviewer_kind=human、review_notes。记录 disputes。助手或自动核验必须如实标识，不能充当人工金标。</li>
+<li>每个变体和组件也有独立 review。自然性经核验才写 naturalness=acceptable。正确和错误追加用相同 control_pair_id 配对，并尽量保持空白分词长度一致。</li>
+<li>同义句必须保持对象身份、数量、属性归属、关系和否定范围；最小编辑一次只改一个条件。无法适用的现象应记录排除原因，不能强造。</li>
+<li>导出不会自动改变审核状态；浏览器刷新不会保留未下载的工作。导出后用 validate-semantics 校验，再交独立复核。详见仓库 docs/semantic-data.md 和 docs/handoff-a-v2.md。</li>
+</ol></details>
+<main><article><div id="identity"></div><img id="image" alt="源图"><p class="caption" id="caption"></p><small id="hash"></small><p id="assignment"></p></article><article><label for="editor">本组语义记录（JSON）</label><textarea id="editor" spellcheck="false"></textarea></article></main>
+<script>
+"use strict";
+const entries=__SEMANTIC_DATA__;
+let visible=[],position=0,dirty=false;
+const el=id=>document.getElementById(id);
+function message(value){el('message').textContent=value;}
+function save(){if(!visible.length)return true;try{const item=entries[visible[position]],r=JSON.parse(el('editor').value);for(const key of ['sample_id','source_image_id','source_query_id','text','split','group_id','scene_group_id']){if(r[key]!==item.record[key])throw Error('禁止修改来源字段：'+key);}if(JSON.stringify(item.record)!==JSON.stringify(r)){item.record=r;dirty=true;message('本组已保存到内存，请导出文件。');}return true;}catch(e){message(e.message);return false;}}
+function show(){const item=entries[visible[position]],r=item.record;el('position').textContent=`${position+1} / ${visible.length}`;el('identity').textContent=r.sample_id;el('caption').textContent=r.text;el('image').src=item.image;el('hash').textContent='图片 SHA-256：'+item.image_sha256;el('assignment').textContent=`初标分配：${r.assigned_to||'未分配'}；独立复核：${r.independent_reviewer||'未分配'}；状态：${r.review.status}`;el('editor').value=JSON.stringify(r,null,2);el('prev').disabled=position===0;el('next').disabled=position===visible.length-1;}
+function filter(){visible=entries.map((x,i)=>i).filter(i=>!el('owner').value||entries[i].record.assigned_to===el('owner').value);position=0;el('editor').disabled=!visible.length;el('save').disabled=!visible.length;if(!visible.length){el('prev').disabled=true;el('next').disabled=true;el('position').textContent='0 / 0';el('editor').value='';message('该成员无任务');return;}show();}
+el('owner').addEventListener('change',()=>{if(save())filter();});
+el('prev').addEventListener('click',()=>{if(save()&&position>0){position--;show();}});
+el('next').addEventListener('click',()=>{if(save()&&position<visible.length-1){position++;show();}});
+el('save').addEventListener('click',save);
+el('export').addEventListener('click',()=>{if(!save())return;const blob=new Blob([entries.map(x=>JSON.stringify(x.record)).join('\n')+'\n'],{type:'application/x-ndjson;charset=utf-8'});const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='semantic-review-'+new Date().toISOString().replace(/[:.]/g,'-')+'.jsonl';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);dirty=false;message('已导出；请使用 Python 校验器检查。');});
+el('import').addEventListener('change',async()=>{try{const file=el('import').files[0];if(!file)return;const rows=(await file.text()).split(/\r?\n/).filter(x=>x.trim()).map(x=>JSON.parse(x));const byId=new Map(rows.map(r=>[r.sample_id,r]));if(rows.length!==entries.length||byId.size!==entries.length)throw Error('导入必须包含全部且不重复的样本');for(const item of entries){const r=byId.get(item.record.sample_id);if(!r)throw Error('样本 ID 不一致');for(const key of ['source_image_id','source_query_id','text','split','group_id','scene_group_id'])if(r[key]!==item.record[key])throw Error('来源字段不一致：'+key);}for(const item of entries)item.record=byId.get(item.record.sample_id);dirty=true;filter();message('已导入；仍需校验器和独立复核。');}catch(e){message(e.message);}});
+el('editor').addEventListener('input',()=>{dirty=true;});
+window.addEventListener('beforeunload',e=>{if(dirty){e.preventDefault();e.returnValue='';}});
+filter();
+</script></html>

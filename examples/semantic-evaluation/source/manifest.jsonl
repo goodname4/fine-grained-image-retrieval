@@ -1,0 +1,5 @@
+{"image_id": "train-a", "split": "train", "path": "images/train-a.ppm", "captions": ["A man in a red shirt walks a black dog."]}
+{"image_id": "val-a", "split": "val", "path": "images/val-a.ppm", "captions": ["A man in a red shirt walks a black dog."]}
+{"image_id": "val-b", "split": "val", "path": "images/val-b.ppm", "captions": ["A man in a red shirt walks a black dog."]}
+{"image_id": "val-c", "split": "val", "path": "images/val-c.ppm", "captions": ["A man in a red shirt walks a black dog."]}
+{"image_id": "test-a", "split": "test", "path": "images/test-a.ppm", "captions": ["A man in a red shirt walks a black dog."]}

@@ -87,4 +87,4 @@ LoRA参数量、训练前向/token数、纯训练及验证导出耗时、峰值�
 | N2 | 待运行 | 待运行 | 待运行 | 待运行 | 待运行 | 待运行 | 待测 |
 | N3 | 待运行 | 待运行 | 待运行 | 待运行 | 待运行 | 待运行 | 待测 |
 
-每次保存config、源码/基础权重/语义数据摘要、全部候选checkpoint的val记录、最佳及last checkpoint、训练日志、参数及梯度审计、ranking run、diagnostic scores和运行环境。大型图片/权重/缓存仍不提交Git。新版run与语义诊断尚未实现；旧v1操作见[排名契约](ranking-contract.md)，不得直接改method字符串假装已支持N系列。
+每次保存config、源码/基础权重/语义数据摘要、全部候选checkpoint的val记录、最佳及last checkpoint、训练日志、参数及梯度审计、ranking run、diagnostic scores和运行环境。大型图片/权重/缓存仍不提交Git。语义诊断工具已实现，当前只有真实任务草稿与合成验收分数，见[新版A交接](handoff-a-v2.md)；N系列标准run-v2尚未实现。旧v1操作见[排名契约](ranking-contract.md)，不得直接改method字符串假装已支持N系列。

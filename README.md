@@ -6,10 +6,11 @@
 
 2026-10-27起采用research-v2：参考2026年CS-CLIP组件监督研究，通过实体/属性绑定/有向关系解析、最小语义变体与同义改写，在CLIP文本编码器内部进行LoRA训练，研究关键语义敏感性与同义表达稳定性。
 
-**本次完成的是计划和迁移文档。N0—N3尚未实现或训练；当前可运行代码仍为E0/E1/E2。** 历史代码、配置及实验记录保留，不把旧MLP结果当作新语言训练结果。
+**A的语义协议、审核页、冻结和诊断评分工具已实现；30张真实val源图已分配，8组完成原句助手预审，尚无独立人工金标。N0—N3尚未实现或训练。** 历史E0/E1/E2代码与实验记录保留。实际状态和运行步骤见[新版A交接](docs/handoff-a-v2.md)及[实施记录](docs/reports/a-semantic-evaluation.md)。
 
 从这里开始：
 
+- [Agent接手入口](AGENTS.md)与[接续任务板](docs/research-v2-tasks.md)：按A/B/C/D直接开工，明确依赖、真人待办及验收标准；[最新复验](docs/reports/a-v2-reacceptance.md)。
 - [新版项目计划](docs/project-plan.md)：研究问题、范围、阶段及验收。
 - [代码迁移与修改清单](docs/implementation-plan.md)：当前阻点、按文件修改、依赖和正确性检查。
 - [新版开题报告](docs/proposal-report.md)与[汇报提纲](docs/proposal.md)。
@@ -78,7 +79,9 @@ python -m unittest discover -s tests -v
 
 双击preview.cmd可查看静态离线交互预览，包含示意图片与固定排名，**不是模型效果**。真实演示需另行准备本地图片、权重、索引及配置；源码安装ZIP/wheel可由python scripts/build-demo-package.py构建。
 
-新train-text-lora、export-text-lora、evaluate-semantics名称目前只是[实施提案](docs/implementation-plan.md)，尚不可执行。新增依赖及完整运行命令将在实现和实测后提供。
+新版A已可执行prepare-semantic-pilot、apply-semantic-source-checks、validate-semantics、render-semantics、freeze-semantics、evaluate-semantics、compare-semantics，详见[交接命令](docs/handoff-a-v2.md)。当前草稿会被正式冻结门槛拒绝；[合成示例](examples/semantic-evaluation/README.md)可以先验收接口。
+
+train-text-lora、export-text-lora及N系列标准run-v2仍是[实施提案](docs/implementation-plan.md)，尚不可执行。
 
 ## 5. 评价与交付
 

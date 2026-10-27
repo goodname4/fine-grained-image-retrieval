@@ -1,0 +1,42 @@
+{
+  "images": {
+    "val-a": {
+      "image_id": "val-a",
+      "split": "val",
+      "path": "images/val-a.ppm",
+      "captions": [
+        "A man in a red shirt walks a black dog."
+      ]
+    }
+  },
+  "inventory": {
+    "val-a": {
+      "image_id": "val-a",
+      "path": "images/val-a.ppm",
+      "split": "val",
+      "file_sha256": "b7a464a9032f045c93a1761df45bf2bf74461d7818fd9d44ccf8e0505011d9e8"
+    }
+  },
+  "pairs": {
+    "val-a#0": {
+      "query_id": "val-a#0",
+      "image_id": "val-a",
+      "path": "images/val-a.ppm",
+      "text": "A man in a red shirt walks a black dog.",
+      "split": "val"
+    }
+  },
+  "scenes": {
+    "val-a": "val-a"
+  },
+  "data_kind": "synthetic",
+  "manifest_sha256": "e3e9dcfa430481804f6ef20b2ee66ceddee7cbd706508299f566512d5a4f8c2c",
+  "source_files": {
+    "manifest.jsonl": "e3e9dcfa430481804f6ef20b2ee66ceddee7cbd706508299f566512d5a4f8c2c",
+    "inventory.jsonl": "d3c5c521101ca59b600e11aacbf3f8ff13183de003509a1c3ceee3cf93cf24e2",
+    "duplicate-review.json": "b454b84e1bb0baa6beab3b020e4cfa218014024afd8694d3a2809ab3ca6cfafc",
+    "train/pairs.jsonl": "b8b24566dba515be829382d4906a59894a84ccd17e5c38c44687fad0052dd4e9",
+    "val/pairs.jsonl": "5002b6abe5c31e8c1922ee1026dba084804bd1e74d6833408ec6e0d755a4e6b9",
+    "test/pairs.jsonl": "e8264e362b6fadb1b1dcb8a0673311a77bbd672ebb665424f25d0e7c18b7eba7"
+  }
+}

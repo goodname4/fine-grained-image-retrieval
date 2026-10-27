@@ -1,0 +1,5 @@
+{"image_id": "train-a", "path": "images/train-a.ppm", "split": "train", "file_sha256": "b7a464a9032f045c93a1761df45bf2bf74461d7818fd9d44ccf8e0505011d9e8"}
+{"image_id": "val-a", "path": "images/val-a.ppm", "split": "val", "file_sha256": "b7a464a9032f045c93a1761df45bf2bf74461d7818fd9d44ccf8e0505011d9e8"}
+{"image_id": "val-b", "path": "images/val-b.ppm", "split": "val", "file_sha256": "b7a464a9032f045c93a1761df45bf2bf74461d7818fd9d44ccf8e0505011d9e8"}
+{"image_id": "val-c", "path": "images/val-c.ppm", "split": "val", "file_sha256": "b7a464a9032f045c93a1761df45bf2bf74461d7818fd9d44ccf8e0505011d9e8"}
+{"image_id": "test-a", "path": "images/test-a.ppm", "split": "test", "file_sha256": "b7a464a9032f045c93a1761df45bf2bf74461d7818fd9d44ccf8e0505011d9e8"}

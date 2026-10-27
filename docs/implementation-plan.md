@@ -1,6 +1,6 @@
 # 从现有代码迁移到新路线：实施与验收清单
 
-版本research-v2，2026-10-27。本文针对当前仓库实际接口。下面新增文件、字段、CLI和依赖均是待开发设计；本次只调整计划文档，不把设计写成已实现能力。
+版本research-v2，2026-10-27。本文针对当前仓库实际接口。A已实现P0的数据/审核/冻结工具和P4语义诊断工具，详情见[新版A交接](handoff-a-v2.md)。P0的约30源图独立金标尚未验收；B生成、C训练、D的run-v2与服务仍为待开发设计。
 
 ## 1. 已确认的迁移阻点
 
@@ -20,7 +20,11 @@ E0/E1/E2的脚本、配置、日志、权重与排名保留原含义。旧C训�
 
 ## 2. 建议开发顺序与按文件修改
 
+按角色开工时先读[接续任务板](research-v2-tasks.md)：本页定义技术实施范围，任务板记录实际状态、交付、人工依赖与解除条件，避免将下面的计划入口误当已实现命令。
+
 ### P0：语义数据与冻结（A/B）
+
+实际进度：semantic_data.py、semantic_review.py/semantic-board.html及相关CLI已实现，真实val任务包30组已生成，8组仅有助手原句预审；未生成解析/变体或冒充独立人工金标。semantic_generation.py仍由B待实现。本节验收尚未通过。
 
 新增semantic_data.py，负责读取/校验fgir-semantic-v1、源图划分、原文锚定、实体关系引用、编辑位置及审核状态。新增semantic_generation.py隔离本地生成模型，生成器输出候选，不自行认证“人工复核”。新增小型合成测试夹具，不把合成文本作为真实图片效果。
 
@@ -64,7 +68,9 @@ runs.py、evaluation.py、服务和导出一起增加版本分发。v2验证N0�
 
 ### P4：NLP诊断（A/B）
 
-新增semantic_evaluation.py，读取fgir-semantic-eval-v1及模型逐项分数，输出绑定/关系/错误追加的准确率、解析F1、同义共同命中及逐源图分组结果。计划CLI evaluate-semantics，当前不存在。
+实际进度：semantic_evaluation.py、evaluate-semantics与compare-semantics已实现，合成CLI及针对性测试通过。支持配对区分、解析F1、同义共同命中、追加长度对照、源图统计及配对种子比较。真实评分需先有独立金标和C/D分数；标准retrieval run-v2仍待C/D接入。
+
+已新增semantic_evaluation.py，读取fgir-semantic-eval-v1及fgir-semantic-scores-v1逐项分数，输出绑定/关系/错误追加的准确率、解析F1、同义共同命中及逐源图分组结果。实际CLI为evaluate-semantics，字段见[交接](handoff-a-v2.md)。
 
 诊断参考标签的实体ID只在组内有效；做F1时先用源图金标映射和规范化规则对齐，不把生成顺序造成的ID不同当关系错误。并列分数记0.5、缺失查询报错，源图bootstrap不把变体当独立图。
 
@@ -82,7 +88,7 @@ service.py改为model_type分发（raw_clip、feature_mlp、text_lora），默�
 
 ## 3. 必须覆盖的正确性检查
 
-这些是后续算法与制品改动所需的测试，不是本次文档改写已运行的新测试：
+语义数据与指标部分已有针对性测试；训练与制品部分仍待各模块实现后验证：
 
 - 语义数据：源图泄漏、span偏移、实体引用、假负例/未审过滤、同义信息遗漏。
 - 训练：LoRA零初始化、梯度两步可达、冻结参数不变、组件mask、多正例、截断导致关键编辑丢失。
@@ -94,11 +100,11 @@ micro-batch梯度累积只累计梯度，不自动扩大对比负样本池；报
 
 ## 4. 当前可运行入口与未来入口
 
-当前仍可使用README、training.md和demo.md中的E0/E1/E2命令。train-text-lora、export-text-lora、evaluate-semantics都是本文件提案，尚未注册，不给出可复制为“已能运行”的新命令行。
+当前仍可使用README、training.md和demo.md中的E0/E1/E2命令。七个新版A命令已注册并实测，见[交接](handoff-a-v2.md)。train-text-lora和export-text-lora尚未注册。
 
 迁移后再提供独立的新训练环境、版本锁、配置样例和经过实际执行的完整命令；不直接升级现有已验证E1/E2环境。现有功能不能因N代码导入而额外要求未安装的大模型依赖，CLI新增训练依赖采用延迟导入。
 
-## 5. 本次文档变更范围
+## 5. 初始计划文档变更范围（历史记录）
 
 - 重写README、项目计划、开题正文/提纲、架构、实验和分工。
 - 新增语义数据协议及本实施清单。

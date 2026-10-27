@@ -1,0 +1,63 @@
+{
+  "schema_version": "fgir-semantic-source-checks-v1",
+  "source_manifest_sha256": "a7f7d25d5017fdb62c150885da7bc3de3a8aea1dd2e40fc06d1da3ea6296dc0d",
+  "scope": "Assistant visual checks of source captions only; no independent human review or generated variants.",
+  "checks": [
+    {
+      "sample_id": "semantic:2883907436_82bf4a36b8#3",
+      "text_sha256": "224ed4a61e2ba854081fc62e22b79695f33fafe5647330bc90e8a9ac296396c6",
+      "image_sha256": "63946cd44b2bfd8984603eedf30bc382222fab9154d2d13a43423f2f292022c7",
+      "source_visual_label": "supported",
+      "image_evidence": "Grey-haired man beside a cart loaded with bags and a black dog on pavement; the caption is broadly visually supported. This is an assistant precheck, not independent human gold."
+    },
+    {
+      "sample_id": "semantic:3088922727_4bdf2ccc94#2",
+      "text_sha256": "bf44eb31c7ce6f2d444a429ac5b52c6628602320370ef119ab56b40410f9012e",
+      "image_sha256": "5d824f8de446d8db2848398de58af6a55f0dfaa17b87d54a879279e133dd6435",
+      "source_visual_label": "uncertain",
+      "image_evidence": "A man and a woman sit beside a small table in historical formal clothing. The exact colonial-period claim is not established visually; do not silently replace it with Victorian or certify equivalence."
+    },
+    {
+      "sample_id": "semantic:2483792149_a9b4ffecec#4",
+      "text_sha256": "7ef1c031e76bd5fe1f662c2ae46fab44622f94d9c3f2a452e920f3ea6ef67aa0",
+      "image_sha256": "7f1e7bc815587c0f31f4d75ac3ff93f492419d0fa5848e67ee6ec76db5299c48",
+      "source_visual_label": "uncertain",
+      "image_evidence": "Light-haired woman appears among pink tulips with grass and trees behind her. Flowers occlude her lower body, so crouching rather than standing is not sufficiently established."
+    },
+    {
+      "sample_id": "semantic:2574194729_1f099647ee#0",
+      "text_sha256": "52e5271669df486306256eba358a51b47007bc3a8074af4cea9b957fd6469254",
+      "image_sha256": "18af29ed82f4b6234034ba645c0d1a2240df7de54b9681a0db138e5e0e0c8f46",
+      "source_visual_label": "supported",
+      "image_evidence": "A light tan dog is pictured in a running stride on a narrow dirt path with vegetation on both sides."
+    },
+    {
+      "sample_id": "semantic:2356574282_5078f08b58#2",
+      "text_sha256": "6e4d16c04f764ac3438a6cbda95bd68286c4f400c508fb633cfb6a5c9fe4644d",
+      "image_sha256": "2a52dd9ab8149afb8e0ea97d1b5dfb896c24f430a0609828117cb0c9df1f6cf0",
+      "source_visual_label": "supported",
+      "image_evidence": "The pictured performer bends her torso backwards with her head and arms extending behind her."
+    },
+    {
+      "sample_id": "semantic:3694219419_a7a83d4886#3",
+      "text_sha256": "1f9f0907bd086ba1ababa26fab68d7c26f49fa9dba108de31265ffe73aa41d18",
+      "image_sha256": "ef5731700d1c4518972c964ad1d47f61e6a31e65d042163a307e24f1b6c7d17d",
+      "source_visual_label": "supported",
+      "image_evidence": "A group of people hold up a large pale sheet of fabric above or near head height; several people are visible beneath it."
+    },
+    {
+      "sample_id": "semantic:282131366_5f9a39c43c#0",
+      "text_sha256": "4ebfd32b9f32088d48ef8fcb01a782ae21da49bc14cc9b9d194a87965f770b5a",
+      "image_sha256": "313871b416a991f06d11b9ff0e18f0aed25e07c4c5ec6eba80f815bd93f139fa",
+      "source_visual_label": "uncertain",
+      "image_evidence": "A strongly backlit person balances with arms raised by water at sunset. The tightrope action is plausible, but darkness limits confident verification of all caption details."
+    },
+    {
+      "sample_id": "semantic:2502935765_a0ae1fa7be#1",
+      "text_sha256": "b26939ef69d8f979c919c160ea98059c5717e193b734f676dc23cc4a720b85b4",
+      "image_sha256": "79278fdc8b897994b6f5d51231aee7acb747ea28c51a524d13b0933a6f655fb9",
+      "source_visual_label": "uncertain",
+      "image_evidence": "A child sits on a playground pole-mounted seat and holds the pole. A single still image does not establish the claimed spinning motion unambiguously."
+    }
+  ]
+}

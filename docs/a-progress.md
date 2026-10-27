@@ -1,5 +1,21 @@
 # A：数据与评测工作记录
 
+## research-v2当前进度（2026-10-27）
+
+再次验收：36项语义测试通过，全套133项中132通过、1项环境跳过；真实工作包重建一致且未审门槛正常，见[本轮报告](reports/a-v2-reacceptance.md)。已建立[接续任务板](research-v2-tasks.md)和根目录[AGENTS.md](../AGENTS.md)，B/C/D、全体真人及A后续任务均有可执行交接。任务状态以后统一在任务板更新。
+
+修复复验：源图inventory绑定、同义排名差配对及金标冻结/评分口径3项问题**均已修复并通过复验**。全套133项中132通过、1项因Windows符号链接权限跳过。真实语义金标仍为0，数据阶段尚未验收。详见[修复复验记录](reports/a-v2-fixes.md)与[修复前验收历史](reports/a-v2-acceptance-review.md)。
+
+已落实语义协议/数据与复核校验、确定性val任务包、离线语义审核页、冻结入口、语义配对/解析/同义检索评测、源图bootstrap及配对多种子比较。七个CLI与接口见[新版交接](handoff-a-v2.md)，证据与限制见[新版实施报告](reports/a-semantic-evaluation.md)。
+
+- 真实val源图30组，A/B/C/D分配8/8/7/7；源图、原句与场景组均绑定原交接包。
+- A的8组仅完成助手原句看图预审：4 supported、4 uncertain；其余22组draft。实体/关系/变体均待B及人工标注，0组独立人工金标。
+- 本地工作文件为`data/semantic/pilot-val-assisted-v1/samples.work.jsonl`，审核页为`artifacts/semantic-pilot-val-assisted-v1/board.html`，可从版本化配置重建。
+- 语义测试36项全部通过；完整套件133项中132通过、1项因Windows符号链接权限跳过，当前日志为`artifacts/a-v2-fix-tests.log`。已实测浏览器筛选、切换与30条导出往返一致；本轮重建原始和助手预审工作文件的摘要均与现有文件一致。
+- 尚需真实语言候选/人工初标互审、C/D实际模型分数和排名、N系列run-v2制品验证。正式冻结、test与12个真实错误案例尚未完成，不按工具数量宣布A全部完成。
+
+## 以下为旧路线历史记录
+
 工作分支：`codex/a-data-evaluation`。按25点规划推进，区分已实际完成的交接和仍需其他成员产出的任务，不按代码量宣称完成比例。
 
 | 任务 | 已实际完成 | 仍需完成 |

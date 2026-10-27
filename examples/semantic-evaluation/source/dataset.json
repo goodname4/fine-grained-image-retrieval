@@ -1,0 +1,13 @@
+{
+  "schema_version": "fgir-dataset-v1",
+  "data_kind": "synthetic",
+  "image_inventory_sha256": "d3c5c521101ca59b600e11aacbf3f8ff13183de003509a1c3ceee3cf93cf24e2",
+  "files": {
+    "manifest.jsonl": "e3e9dcfa430481804f6ef20b2ee66ceddee7cbd706508299f566512d5a4f8c2c",
+    "inventory.jsonl": "d3c5c521101ca59b600e11aacbf3f8ff13183de003509a1c3ceee3cf93cf24e2",
+    "duplicate-review.json": "b454b84e1bb0baa6beab3b020e4cfa218014024afd8694d3a2809ab3ca6cfafc",
+    "train/pairs.jsonl": "b8b24566dba515be829382d4906a59894a84ccd17e5c38c44687fad0052dd4e9",
+    "val/pairs.jsonl": "5002b6abe5c31e8c1922ee1026dba084804bd1e74d6833408ec6e0d755a4e6b9",
+    "test/pairs.jsonl": "e8264e362b6fadb1b1dcb8a0673311a77bbd672ebb665424f25d0e7c18b7eba7"
+  }
+}

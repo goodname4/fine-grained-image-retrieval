@@ -1,0 +1,96 @@
+{
+  "schema_version": "fgir-semantic-scores-v1",
+  "data_kind": "synthetic",
+  "protocol_sha256": "7ff06dc8ad48e83d5922dfdb64e93095dcd229bd775e5e207429f548b078981d",
+  "run_id": "synthetic-E1-42",
+  "method": "E1",
+  "seed": 42,
+  "code_revision": "synthetic-fixture",
+  "model": {
+    "model_type": "feature_mlp",
+    "model_id": "synthetic-no-model",
+    "base_weights_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "tokenizer_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+    "adapter_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  },
+  "ranking_depth": 3,
+  "predictions": [
+    {
+      "sample_id": "sample-val-a",
+      "scores": {
+        "original": 0.5,
+        "binding": 0.4,
+        "direction": 0.6,
+        "para": 0.5,
+        "true": 0.7,
+        "false": 0.9
+      },
+      "parsing": {
+        "entities": [
+          {
+            "id": "e1",
+            "head": "man",
+            "span": [
+              2,
+              5
+            ],
+            "attributes": [
+              {
+                "entity_id": "e1",
+                "name": "shirt_color",
+                "value": "red",
+                "span": [
+                  11,
+                  14
+                ]
+              }
+            ]
+          },
+          {
+            "id": "e2",
+            "head": "dog",
+            "span": [
+              35,
+              38
+            ],
+            "attributes": [
+              {
+                "entity_id": "e2",
+                "name": "color",
+                "value": "black",
+                "span": [
+                  29,
+                  34
+                ]
+              }
+            ]
+          }
+        ],
+        "relations": [
+          {
+            "id": "r1",
+            "subject": "e1",
+            "predicate": "walks",
+            "object": "e2",
+            "span": [
+              21,
+              26
+            ]
+          }
+        ]
+      },
+      "rankings": {
+        "original": [
+          "val-a",
+          "val-b",
+          "val-c"
+        ],
+        "para": [
+          "val-b",
+          "val-a",
+          "val-c"
+        ]
+      }
+    }
+  ]
+}
