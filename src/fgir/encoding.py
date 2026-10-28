@@ -114,7 +114,9 @@ class ClipEncoder:
             if isinstance(value, (str, int, float, bool, list, tuple, dict)) or value is None:
                 if value is not None:
                     description[key] = value
-        return description
+        # Cache sidecars are JSON. Canonicalize tuples from newer processors so
+        # the live descriptor compares equal to its persisted representation.
+        return json.loads(json.dumps(description))
 
     def metadata(self):
         return {"model_id": self.model_id, "weights_sha256": self.weights_sha256,

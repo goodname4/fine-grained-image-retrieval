@@ -1,0 +1,21 @@
+{
+  "bundle": "data/prepared/flickr8k-v1",
+  "data_root": "data",
+  "split": "val",
+  "models": {
+    "E0": {
+      "model_type": "raw_clip",
+      "method": "E0",
+      "encoder": "models/clip-vit-base-patch32",
+      "index": "artifacts/c-experiments/seed42/retrieval/E0/val/index.npz"
+    },
+    "N0-development": {
+      "model_type": "text_lora",
+      "method": "N0",
+      "encoder": "models/clip-vit-base-patch32",
+      "checkpoint": "artifacts/d-v2/n0-development/checkpoint.pt",
+      "index": "artifacts/d-v2/n0-development/index.npz",
+      "receipt": "artifacts/d-v2/n0-development/receipt.json"
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "status": "BLOCKED",
+  "missing": [
+    {
+      "owner": "A",
+      "path": "data\\prepared\\flickr8k-v1\\dataset.json",
+      "needed_for": "source image protocol"
+    },
+    {
+      "owner": "B/C",
+      "path": "models\\clip-vit-base-patch32",
+      "needed_for": "explicit local CLIP weights/tokenizer"
+    },
+    {
+      "owner": "B",
+      "path": "data\\features\\clip-vit-base-patch32\\train.images.npz",
+      "needed_for": "raw train image cache"
+    },
+    {
+      "owner": "B-V2-02",
+      "path": "data\\semantic\\train-verified-v1\\samples.jsonl",
+      "needed_for": "verified train semantic samples"
+    },
+    {
+      "owner": "A-V2-04",
+      "path": "data\\semantic\\frozen-val-v1\\protocol.json",
+      "needed_for": "independently reviewed validation gold"
+    }
+  ],
+  "methods": [
+    "N0",
+    "N1",
+    "N2",
+    "N3",
+    "N2-no-relation"
+  ],
+  "control_policy": "same verified cohort, source/paraphrase pool, edit IDs, token forwards, LoRA structure and fixed update/validation budget; only objective changes"
+}

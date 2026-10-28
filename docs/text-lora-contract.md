@@ -1,5 +1,7 @@
 # C → D：文本 LoRA 制品与验证回调
 
+2026-10-28 D 接入更新：`fgir.text_export:validate_text_lora_checkpoint`、receipt/run-v2、导出CLI及服务分发已实现；tiny-CLIP联调通过。真实C开发包与独立val金标尚未在D工作区到位，验收边界及命令见[D报告](reports/d-v2-integration.md)。下文原C交付时的“D尚未实现”为历史状态。
+
 2026-10-28。C-V2-01 的可导模型/安全重载已实现。本页定义 C 实际导出的接口，不替代 D 尚待实现的 retrieval receipt、run-v2、服务与真实验证导出。
 
 ## 1. 加载实际权重
@@ -58,7 +60,7 @@ N文本缓存和运行文件必须记录其实际LoRA摘要。D服务缓存键�
 
 ## 4. D给C的验证回调
 
-默认配置引用 `fgir.text_export:validate_text_lora_checkpoint`，**当前D模块尚未交付**。C采用可配置 `module:function` 接口，D也可以提供等价模块名并在正式比较前统一冻结。函数接收以下关键字参数：
+默认配置引用 `fgir.text_export:validate_text_lora_checkpoint`，D已按此名称实现。C采用可配置 `module:function` 接口，正式比较前统一冻结。函数接收以下关键字参数：
 
 ```python
 def validate_text_lora_checkpoint(*, checkpoint_path, model_dir, bundle, val_protocol, output):

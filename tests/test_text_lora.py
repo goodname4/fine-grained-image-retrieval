@@ -379,7 +379,8 @@ class TextLoRATests(unittest.TestCase):
         result, _, _, _ = experiment_preflight("missing", self.model_dir, "missing.npz", "train-missing.jsonl",
                                                "val-missing.json", root / "configs/training")
         self.assertEqual(result["status"], "BLOCKED")
-        self.assertTrue({"B-V2-02", "A-V2-04", "D-V2-01/02"} <= {m["owner"] for m in result["missing"]})
+        self.assertTrue({"B-V2-02", "A-V2-04"} <= {m["owner"] for m in result["missing"]})
+        self.assertNotIn("D-V2-01/02", {m["owner"] for m in result["missing"]})
 
     def test_config_typos_and_invalid_modes_rejected(self):
         path = self.root / "config.json"

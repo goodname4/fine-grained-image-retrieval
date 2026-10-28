@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-28",
+  "data_kind": "synthetic",
+  "scope": "local tiny-CLIP artifact/export/service tests plus old regression suite; not C real checkpoint acceptance",
+  "command": ".venv-d-v2/Scripts/python.exe -m unittest discover -s tests -v",
+  "tests_run": 173,
+  "passed": 172,
+  "skipped": 1,
+  "failures": 0,
+  "log_sha256": "8131081eaccb175aae8d4e97679724b805738b8502e5e4a1be7fab172595010d",
+  "log_path": "artifacts/d-v2-full-tests-4.57.log",
+  "d_specialized_tests": 9,
+  "d_callback_available": true,
+  "real_checkpoint_verified": false,
+  "real_scores_exported": false,
+  "real_performance_measured": false,
+  "ui_missing_assets_app_test": "passed",
+  "standard_library_cli_without_site_packages": "passed",
+  "specialized_final_command": ".venv-d-v2/Scripts/python.exe -m unittest discover -s tests -p test_text_export.py -v",
+  "specialized_final_log_sha256": "34352761b157227f8ca4535710ed221e603d9f427a4e7fc66fdf608ac1480a68",
+  "export_and_validate_cli_test": "passed on synthetic local tiny-CLIP",
+  "package_version": "0.2.0"
+}

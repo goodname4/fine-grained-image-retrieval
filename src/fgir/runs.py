@@ -135,10 +135,17 @@ def search_index(index_path, query_features_path, output, top_k=10):
         raise ValueError("top_k must be a positive integer")
     index = FeatureIndex.load(index_path)
     ids, vectors, meta = load_features(query_features_path)
-    if meta.get("weights_sha256") != index.meta.get("weights_sha256"):
-        raise ValueError("query and index features come from different weights")
-    if meta.get("adapter_sha256") != index.meta.get("adapter_sha256"):
-        raise ValueError("query and index use different adapter checkpoints")
+    if meta.get("text_lora_sha256") is not None:
+        from .text_artifacts import load_receipt
+        receipt, _, _, _ = load_receipt(Path(query_features_path).parent / "receipt.json")
+        if (receipt["image_index_sha256"] != file_digest(index_path)
+                or receipt["text_features_sha256"] != file_digest(query_features_path)):
+            raise ValueError("LoRA search index/text cache differs from receipt")
+    else:
+        if meta.get("weights_sha256") != index.meta.get("weights_sha256"):
+            raise ValueError("query and index features come from different weights")
+        if meta.get("adapter_sha256") != index.meta.get("adapter_sha256"):
+            raise ValueError("query and index use different adapter checkpoints")
     hits = index.search_many(vectors, top_k=min(top_k, len(index.ids)))
     results = {query_id: hits_row for query_id, hits_row in zip(ids, hits)}
     output = Path(output)
