@@ -1,6 +1,6 @@
 # research-v2 接续任务板
 
-更新：2026-10-27。供成员和接手 agent 直接执行。根目录 [AGENTS.md](../AGENTS.md)负责引导；本页是剩余任务状态的统一入口。详细设计见[实施清单](implementation-plan.md)、[实验设计](experiments.md)、[架构](architecture.md)和[语义协议](semantic-data.md)。后续完成者须更新本页，不能只在聊天中说完成。
+更新：2026-10-28。供成员和接手 agent 直接执行。根目录 [AGENTS.md](../AGENTS.md)负责引导；本页是剩余任务状态的统一入口。详细设计见[实施清单](implementation-plan.md)、[实验设计](experiments.md)、[架构](architecture.md)和[语义协议](semantic-data.md)。后续完成者须更新本页，不能只在聊天中说完成。
 
 ## 验收基线与任务状态
 
@@ -16,9 +16,9 @@
 | B-V2-01 | B / agent | DONE | A、全体标注人 | 已交付：`data/semantic/pilot-val-candidates-v1/`（30组完整候选，samples_sha256=5058e091…，draft校验+图片字节通过）、`artifacts/semantic-pilot-val-candidates-v1/board.html`、`src/fgir/semantic_generation.py`+CLI `generate-semantics`、`tests/test_generation.py`（10项）、[报告](reports/b-v2-generation.md)。生成器=本地 Qwen2.5-0.5B-Instruct（weights fdf756fa…，prompts b28c65ee…，seed 42，code 22efaf5-dirty）；统计：实体100/关系19/变体99（绑定6+方向4+改写29+追加60）/units 10/拒绝78项带原因。全套143测试通过（含修复本机 runs.py GBK 解码既有缺陷）。真人复核仍待 H-V2-01 |
 | H-V2-01 | A组织，A/B/C/D真人 | WAITING_HUMAN | A | 全体真实初标与交叉复核缺失；候选已由 B-V2-01 提供（`data/semantic/pilot-val-candidates-v1/samples.work.jsonl` + 审核页），可先检查原句图片 |
 | B-V2-02 | B / agent＋真实核验 | READY | C、A | 依赖B-V2-01已解除；独立train候选及经核验版本尚无。生成器对任意源绑定记录通用，但 train 工作包需新增独立抽样/导出接口（prepare-semantic-pilot 只抽 val），见 b-v2-generation.md 第7节 |
-| C-V2-01 | C / agent | READY | D、C后续任务 | 可导LoRA、N0小批次、checkpoint未实现；本地模型/环境先实查 |
-| C-V2-02 | C / agent | BLOCKED | A、D | 正式实验依赖C-V2-01、B-V2-02、A-V2-04及D-V2-01/02；损失和配置代码可先做 |
-| D-V2-01 | D / agent，C提供checkpoint接口 | READY | C、A | receipt/run-v2与严格加载未实现；可先契约和夹具测试，真实重载等C-V2-01 |
+| C-V2-01 | C / agent | DONE | D、C后续任务 | 2026-10-28 C/Codex（会话01a143a6-a329-7fb1-8a09-4856feba4274）：text_lora/text_training_data/text_training与CLI已交付；真实16张train图两次更新、16384参数、冻结原参数和图片输出不变、CPU重载误差<1e-5；实际best/last在artifacts/c-v2/n0-smoke-seed42-v2（best 2d72425d…），73KB/份，开发包c-v2-development-handoff-v1.zip；21项专项/全套164项163过1环境跳过。[报告](reports/c-v2-training.md)、[制品契约](text-lora-contract.md)。仅开发试跑，不是正式N0成绩 |
+| C-V2-02 | C / agent | BLOCKED | A、D | 2026-10-28 C/Codex：损失、多正例/token过滤、N0—N3及去关系配置、42/43/44编排、绑定val回调与选择代码已完成并测；正式实验仍缺B-V2-02的data/semantic/train-verified-v1/samples.jsonl、A-V2-04的data/semantic/frozen-val-v1/protocol.json、D的fgir.text_export:validate_text_lora_checkpoint。实际[preflight](reports/c-v2/formal-preflight.json)为BLOCKED；不伪造人审/分数 |
+| D-V2-01 | D / agent，C提供checkpoint接口 | READY | C、A | C-V2-01真实开发权重与安全加载已到位，按[制品契约](text-lora-contract.md)接手；receipt/run-v2仍由D实现。开发checkpoint的semantic_dataset_sha256=null不可伪造正式摘要；真实加载验收可先做，正式val评分仍等核验train/val |
 | D-V2-02 | D / agent，C提供真实权重 | BLOCKED | A | 依赖D-V2-01、C-V2-01、A-V2-04；真实分数/排名导出缺失，导出器代码可先做 |
 | D-V2-03 | D / agent | READY | 全组 | 注册表/缓存隔离可先做；真实N切换和性能验收依赖D-V2-01/02及C权重 |
 | A-V2-04 | A / agent＋人工数据门槛 | BLOCKED | C、D | 依赖B-V2-01、H-V2-01；val独立金标及覆盖审计缺失 |

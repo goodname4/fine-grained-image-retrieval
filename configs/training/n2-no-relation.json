@@ -1,0 +1,9 @@
+{
+  "method": "N2", "mode": "formal", "seed": 42,
+  "epochs": 10, "micro_batch_size": 8, "gradient_accumulation": 4,
+  "learning_rate": 0.0001, "weight_decay": 0.0001, "temperature": 0.07,
+  "last_layers": 2, "rank": 4, "lora_alpha": 8.0, "lora_dropout": 0.0,
+  "sentence_weight": 0.2, "unit_weight": 0.2, "para_weight": 0.1,
+  "include_relations": false, "gradient_clip": 1.0, "retrieval_tolerance": 0.01,
+  "device": "auto", "threads": 4
+}

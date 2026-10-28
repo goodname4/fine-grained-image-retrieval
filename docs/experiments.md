@@ -1,6 +1,6 @@
 # 新版实验设计与结果记录
 
-版本research-v2，2026-10-27。E0/E1/E2为已有历史实验；N0—N3未训练、无真实成绩。旧数据见[前期训练报告](reports/c-training-and-ablation.md)，新训练实施见[迁移计划](implementation-plan.md)。
+版本research-v2，2026-10-28。E0/E1/E2为历史实验。N0已完成真实train原句开发小batch，N0—N3损失代码/配置可用，但正式受控实验尚未运行，无新路线效果成绩。见[C新版记录](reports/c-v2-training.md)、[前期报告](reports/c-training-and-ablation.md)及[迁移计划](implementation-plan.md)。
 
 ## 1. 冻结协议与控制变量
 
@@ -30,6 +30,8 @@ N2是CS-CLIP思想的受限资源实现，不是原论文全量复现。外部�
 训练规模由train候选质量和成本决定，保存各现象采纳/拒绝/未审数量。训练负例最低通过人工或记录了图片证据的自动核验；自动核验可靠性由独立人工抽检估计，未审与歧义负例不进入默认训练。正式诊断全部独立人工复核。
 
 ## 3. 优化与checkpoint选择
+
+当前C模板为保证配对更新/验证预算一致，采用固定10epoch，不跨方法分别早停；保留epoch0和各epoch的全部选择记录。下述patience3为原计划建议，未在当前配对模板启用。最终数据及D接口到齐后须统一冻结配置，不能看test调规则。
 
 起始配置为待试验：文本注意力末两层q_proj/v_proj、LoRA rank4/alpha8、固定tau0.07、micro-batch8、累积4步、AdamW学习率1e-4、最多10epoch、patience3、梯度裁剪1.0。不能将micro-batch8累积4步宣传为具有32个对比负例：若未实现跨微批次特征队列，InfoNCE分母仍限于当前微批次。
 

@@ -1,0 +1,28 @@
+{
+  "status": "BLOCKED",
+  "missing": [
+    {
+      "owner": "B-V2-02",
+      "path": "data\\semantic\\train-verified-v1\\samples.jsonl",
+      "needed_for": "verified train semantic samples"
+    },
+    {
+      "owner": "A-V2-04",
+      "path": "data\\semantic\\frozen-val-v1\\protocol.json",
+      "needed_for": "independently reviewed validation gold"
+    },
+    {
+      "owner": "D-V2-01/02",
+      "path": "fgir.text_export:validate_text_lora_checkpoint",
+      "needed_for": "checkpoint-bound real validation scores/receipt"
+    }
+  ],
+  "methods": [
+    "N0",
+    "N1",
+    "N2",
+    "N3",
+    "N2-no-relation"
+  ],
+  "control_policy": "same verified cohort, source/paraphrase pool, edit IDs, token forwards, LoRA structure and fixed update/validation budget; only objective changes"
+}

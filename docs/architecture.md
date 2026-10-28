@@ -1,6 +1,6 @@
 # 技术架构：文本LoRA与组合语义监督
 
-版本research-v2，2026-10-27。本文为新路线设计，N0—N3代码尚未实现；旧MLP训练的准确行为见[training.md](training.md)。
+版本research-v2，2026-10-28。C的可导LoRA及N0—N3损失代码已实现，真实N0开发试跑通过，正式N实验待审核数据和D的receipt/run-v2。实际接口见[制品契约](text-lora-contract.md)与[C报告](reports/c-v2-training.md)；旧MLP行为见[training.md](training.md)。
 
 ## 1. 两条隔离的执行路径
 

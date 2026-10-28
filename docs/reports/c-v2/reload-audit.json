@@ -1,0 +1,8 @@
+{
+  "checkpoint_sha256": "449538c4c8b58059cea625f75e9e47125ae5e085021b263b12e73b05db99f74c",
+  "reload_device": "cpu",
+  "text_feature_max_abs_diff": 1.341104507446289e-07,
+  "score_max_abs_diff": 4.470348358154297e-08,
+  "atol": 1e-05,
+  "passed": true
+}

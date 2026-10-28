@@ -6,7 +6,7 @@
 
 2026-10-27起采用research-v2：参考2026年CS-CLIP组件监督研究，通过实体/属性绑定/有向关系解析、最小语义变体与同义改写，在CLIP文本编码器内部进行LoRA训练，研究关键语义敏感性与同义表达稳定性。
 
-**A的语义协议、审核页、冻结和诊断评分工具已实现；30张真实val源图已分配，8组完成原句助手预审，尚无独立人工金标。N0—N3尚未实现或训练。** 历史E0/E1/E2代码与实验记录保留。实际状态和运行步骤见[新版A交接](docs/handoff-a-v2.md)及[实施记录](docs/reports/a-semantic-evaluation.md)。
+**A的语义审核/诊断工具、B的语言候选生成、C的文本LoRA与N0—N3损失/配置代码已实现。C已完成真实train两步N0开发试跑与冻结/重载验收；正式N实验仍缺核验train、独立val金标和D验证导出。** 历史E0/E1/E2代码与记录保留；开发试跑不作为正式成绩。实际状态见[任务板](docs/research-v2-tasks.md)、[C新版报告](docs/reports/c-v2-training.md)及[A交接](docs/handoff-a-v2.md)。
 
 从这里开始：
 
@@ -42,10 +42,10 @@
 | --- | --- | --- |
 | E0 | 已有 | 原始CLIP |
 | E1/E2 | 已有训练记录 | 图文残差MLP；E2加入困难图片负样本 |
-| N0 | 待实现 | 文本LoRA＋完整句对齐 |
-| N1 | 待实现 | N0＋完整句最小语义负例 |
-| N2 | 待实现 | 同一批编辑的组件监督 |
-| N3 | 待实现 | N2＋显式同义一致性 |
+| N0 | 真实开发试跑通过；正式实验待输入 | 文本LoRA＋完整句对齐 |
+| N1 | 代码/配置通过synthetic验收；正式实验待输入 | N0＋完整句最小语义负例 |
+| N2 | 代码/配置通过synthetic验收；正式实验待输入 | 同一批编辑的组件监督 |
+| N3 | 代码/配置通过synthetic验收；正式实验待输入 | N2＋显式同义一致性 |
 
 所有N组共用全句正例池；N2/N3的数据曝光相同，只改变一致性项，完整控制条件见[实验设计](docs/experiments.md)。
 
@@ -81,7 +81,7 @@ python -m unittest discover -s tests -v
 
 新版A已可执行prepare-semantic-pilot、apply-semantic-source-checks、validate-semantics、render-semantics、freeze-semantics、evaluate-semantics、compare-semantics，详见[交接命令](docs/handoff-a-v2.md)。当前草稿会被正式冻结门槛拒绝；[合成示例](examples/semantic-evaluation/README.md)可以先验收接口。
 
-train-text-lora、export-text-lora及N系列标准run-v2仍是[实施提案](docs/implementation-plan.md)，尚不可执行。
+`train-text-lora`、`inspect-text-lora`、`run-text-experiments --check-only`已注册并实测，见[C新版训练记录](docs/reports/c-v2-training.md)与[C/D制品契约](docs/text-lora-contract.md)。正式编排有输入门槛；D的export-text-lora/receipt/run-v2仍待实现，不因增加N方法名就视为已交付。
 
 ## 5. 评价与交付
 
@@ -94,7 +94,7 @@ A负责协议与独立评测，B负责语言解析/变体，C负责文本LoRA/�
 ```text
 src/fgir/    当前数据、编码、E1/E2训练、检索和评测代码
 docs/        新路线计划、语义协议、迁移清单及历史操作记录
-configs/     当前数据/标注/E1/E2/演示配置；N配置待实现
+configs/     数据/标注/E1/E2/演示配置及已校验N系列配置
 tests/       当前功能正确性检查；新功能测试随实现补充
 examples/    人工构造示例，不能作为真实模型结论
 data/        本地数据和特征，不随Git分发

@@ -1,0 +1,195 @@
+{
+  "schema_version": "fgir-text-training-v1",
+  "status": "completed",
+  "method": "N0",
+  "mode": "development_smoke",
+  "data_kind": "real",
+  "seed": 42,
+  "formal_comparison_eligible": false,
+  "model": {
+    "model_id": "openai/clip-vit-base-patch32",
+    "base_weights_sha256": "d5853196afb60ca6373692d9af911aacd8fa821af6d4af54720d4eb9c8f5da0a",
+    "tokenizer_sha256": "1071290e73855e0f1efeaae5b3f8b70847ceeb0289d05f1d9b82c8f1be13c595",
+    "image_encoder_sha256": "225900851fd74e6e3dcc49c314e70974c53cb8c1632292e479d87d6be35e4e20",
+    "projection_dimension": 512,
+    "preprocessing": {
+      "class": "CLIPImageProcessor",
+      "size": {
+        "shortest_edge": 224
+      },
+      "crop_size": {
+        "height": 224,
+        "width": 224
+      },
+      "resample": 3,
+      "image_mean": [
+        0.48145466,
+        0.4578275,
+        0.40821073
+      ],
+      "image_std": [
+        0.26862954,
+        0.26130258,
+        0.27577711
+      ]
+    },
+    "text_processing": {
+      "class": "CLIPTokenizerFast",
+      "model_max_length": 77,
+      "pad_token_id": 49407,
+      "vocab_size": 49408
+    }
+  },
+  "structure": {
+    "version": "clip-text-qv-lora-v1",
+    "last_layers": 2,
+    "rank": 4,
+    "alpha": 8.0,
+    "dropout": 0.0,
+    "target_modules": [
+      "q_proj",
+      "v_proj"
+    ],
+    "target_paths": [
+      "text_model.encoder.layers.10.self_attn.q_proj",
+      "text_model.encoder.layers.10.self_attn.v_proj",
+      "text_model.encoder.layers.11.self_attn.q_proj",
+      "text_model.encoder.layers.11.self_attn.v_proj"
+    ]
+  },
+  "semantic_dataset_sha256": null,
+  "semantic_protocol_sha256": null,
+  "optimizer_steps": 2,
+  "microsteps": 2,
+  "best_selection": {
+    "epoch": 1,
+    "optimizer_steps": 2,
+    "mode": "development_smoke"
+  },
+  "best_validation": null,
+  "best_sha256": "2d72425de399f210c7a1888a8da377c3c41db63a50800e3809c581d694bc3d7b",
+  "last_sha256": "449538c4c8b58059cea625f75e9e47125ae5e085021b263b12e73b05db99f74c",
+  "freeze_audit": {
+    "trainable_parameters": 16384,
+    "base_trainable_parameters": 0,
+    "image_trainable_parameters": 0,
+    "trainable_names": [
+      "text_model.encoder.layers.10.self_attn.q_proj.lora_A",
+      "text_model.encoder.layers.10.self_attn.q_proj.lora_B",
+      "text_model.encoder.layers.10.self_attn.v_proj.lora_A",
+      "text_model.encoder.layers.10.self_attn.v_proj.lora_B",
+      "text_model.encoder.layers.11.self_attn.q_proj.lora_A",
+      "text_model.encoder.layers.11.self_attn.q_proj.lora_B",
+      "text_model.encoder.layers.11.self_attn.v_proj.lora_A",
+      "text_model.encoder.layers.11.self_attn.v_proj.lora_B"
+    ],
+    "frozen_before_sha256": "5c483a023c6389acfcb14182a523ffbb0424c8fdbc825e53c1e8fa16108ac1e1",
+    "frozen_after_sha256": "5c483a023c6389acfcb14182a523ffbb0424c8fdbc825e53c1e8fa16108ac1e1",
+    "all_original_parameters_unchanged": true,
+    "image_probe_ids": [
+      "1904112245_549e47c8aa",
+      "2393911878_68afe6e6c1"
+    ],
+    "image_output_max_abs_diff": 0.0,
+    "image_cache_max_abs_diff": 2.980232238769531e-07,
+    "lora_parameter_max_changes": {
+      "text_model.encoder.layers.10.self_attn.v_proj.lora_A": 7.441267371177673e-05,
+      "text_model.encoder.layers.10.self_attn.v_proj.lora_B": 0.00020013503672089428,
+      "text_model.encoder.layers.10.self_attn.q_proj.lora_A": 7.44108110666275e-05,
+      "text_model.encoder.layers.10.self_attn.q_proj.lora_B": 0.00020013307221233845,
+      "text_model.encoder.layers.11.self_attn.v_proj.lora_A": 7.441267371177673e-05,
+      "text_model.encoder.layers.11.self_attn.v_proj.lora_B": 0.00020013462926726788,
+      "text_model.encoder.layers.11.self_attn.q_proj.lora_A": 7.440894842147827e-05,
+      "text_model.encoder.layers.11.self_attn.q_proj.lora_B": 0.00020013457105960697
+    },
+    "lora_nonzero_gradient_observed": {
+      "text_model.encoder.layers.10.self_attn.v_proj.lora_A": true,
+      "text_model.encoder.layers.10.self_attn.v_proj.lora_B": true,
+      "text_model.encoder.layers.10.self_attn.q_proj.lora_A": true,
+      "text_model.encoder.layers.10.self_attn.q_proj.lora_B": true,
+      "text_model.encoder.layers.11.self_attn.v_proj.lora_A": true,
+      "text_model.encoder.layers.11.self_attn.v_proj.lora_B": true,
+      "text_model.encoder.layers.11.self_attn.q_proj.lora_A": true,
+      "text_model.encoder.layers.11.self_attn.q_proj.lora_B": true
+    },
+    "base_files_sha256_after": "d5853196afb60ca6373692d9af911aacd8fa821af6d4af54720d4eb9c8f5da0a"
+  },
+  "reload_audit": {
+    "checkpoint_sha256": "449538c4c8b58059cea625f75e9e47125ae5e085021b263b12e73b05db99f74c",
+    "reload_device": "cpu",
+    "text_feature_max_abs_diff": 1.341104507446289e-07,
+    "score_max_abs_diff": 4.470348358154297e-08,
+    "atol": 1e-05,
+    "passed": true
+  },
+  "corpus": {
+    "source_images": 16,
+    "source_records": 80,
+    "variant_types": {},
+    "unit_phenomena": {},
+    "rejected_items": 0,
+    "silent_truncations": 0,
+    "cohort_sha256": "fef4b729ef52b8dbc0cc68d739f4eda79d730548ec8cfefcecaa7fa4f7667c00"
+  },
+  "skipped_batches": 0,
+  "omitted_singleton_images": 0,
+  "empty_supervision": {
+    "sentence_batches": 2,
+    "unit_batches": 2,
+    "paraphrase_batches": 2
+  },
+  "nonfinite_batches": 0,
+  "forward_texts": 16,
+  "forward_tokens": 248,
+  "training_seconds": 0.6013273000007757,
+  "wall_seconds": 4.555403399999705,
+  "peak_cuda_bytes": 693329920,
+  "selection_policy": "fixed paired training budget; N0 val retrieval; N1-N3 diagnostic macro with N0 retrieval guard; earlier wins ties",
+  "development_notice": "Real train-caption gradient/reload smoke only; no reviewed semantic supervision, no validation selection, no N-series effectiveness claim.",
+  "environment": {
+    "python": "3.11.4 (tags/v3.11.4:d2340ef, Jun  7 2023, 05:45:37) [MSC v.1934 64 bit (AMD64)]",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "torch": "2.11.0+cu128",
+    "transformers": "4.57.6",
+    "numpy": "2.4.3",
+    "device": "cuda",
+    "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+    "cuda": "12.8",
+    "deterministic_algorithms": true,
+    "lora_implementation": "native-pytorch-not-peft"
+  },
+  "provenance": {
+    "code_revision": "342ba1e2cf74f30a5cb120d30ab91cd68ffd8b14-dirty",
+    "worktree": "dirty",
+    "uncommitted_source_sha256": {
+      ".github/workflows/check.yml": "4de8c5cd264cb2ecc45b58e5fcac3cd3087edf664b88f0126ce387c19f059fa7",
+      ".gitignore": "6dc6a1d598da4ce7e0e2bb2e8f7d5f5b16e5d21aa320f9b10e3cf8f2954243b2",
+      "configs/training/n0-smoke.json": "4365832602874c04fb6360f1721125f249480f893f289ff7f59367a7dea81a02",
+      "configs/training/n0.json": "3a16a9c15a708f6511341779753172ac7919aa62e502c0193b6d731a1bd25b5f",
+      "configs/training/n1.json": "c53321c2837481f4a07dc1b0e44aae67d69362d8d872371ca2ac6c516e8d5ceb",
+      "configs/training/n2-no-relation.json": "320588bcb41274afdc46712a78cc73bbd6dabc647b3b692ecd3fb92cda0f9dc9",
+      "configs/training/n2.json": "19817cbb800c61c1ce39d8c69667b009a9194a79ad2879ec6ef411439f9d2019",
+      "configs/training/n3.json": "9bbdb7c0867ccba39b0e73034e589d414a0a101f63a4c80c69aa69e539139565",
+      "docs/research-v2-tasks.md": "1183fd7a140255ba13e546369df41e0273f1ec8dccd4ed1c89ec651923d83df2",
+      "pyproject.toml": "3d4d630a20efec8d4349ce76375d6066893e1c60d3c7ff0f19a1afe383ed6687",
+      "src/fgir/__main__.py": "89c1d2a22b8d462e5036ef52bf8e17d67822ad4eada436ed6961ba378048d97d",
+      "src/fgir/run_semantic_experiments.py": "368788af3a6f8ee26bbd18c17730abc553cead539f0c1f1c760ff03a29b9938f",
+      "src/fgir/semantic_losses.py": "252e72398281b81e1293b059ecccc54252ed7b7ad46e6e5eb77596788e457b16",
+      "src/fgir/text_commands.py": "b1e44c95a7d4d3d916500b465b6b31cafc21581a5ba2e6969929ff695725b518",
+      "src/fgir/text_lora.py": "35a4ff79f402091ba9a9fc75d12b8e3d9aff587291a0966db8b074f7d1c75499",
+      "src/fgir/text_training.py": "452df8799881347226c662b9cc13ec1f1c1ab7f7f2dd0ab1820960b0056236ac",
+      "src/fgir/text_training_data.py": "ed2613aaad0e3ecd33dece26315fe02e88211c3e6c878471f2359e6cb7f1a6b8",
+      "tests/test_text_lora.py": "1a3ae93f75a6fc3ae491edcb88018aa54de7e2f69fc95c98d12b3d99779d79cd"
+    },
+    "source_manifest_sha256": "a7f7d25d5017fdb62c150885da7bc3de3a8aea1dd2e40fc06d1da3ea6296dc0d",
+    "source_dataset_sha256": "1f1f917ac12ee3273f3cae9be57f9278fed0d81b2858dded0e93bfe0d3e8ae10",
+    "image_features_sha256": "2e746ffefb8d07b357bd03133328c1df975d3470f152fb2a040410b2b33bbd98",
+    "semantic_dataset_sha256": null,
+    "semantic_protocol_sha256": null,
+    "training_audit_sha256": null,
+    "reference_summary_sha256": null,
+    "data_kind": "real",
+    "mode": "development_smoke",
+    "test_access": "No test captions/images used by optimizer or selection. Source semantic validation may inspect split metadata; historical test access remains disclosed."
+  }
+}

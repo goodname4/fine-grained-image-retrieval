@@ -1,0 +1,45 @@
+{
+  "trainable_parameters": 16384,
+  "base_trainable_parameters": 0,
+  "image_trainable_parameters": 0,
+  "trainable_names": [
+    "text_model.encoder.layers.10.self_attn.q_proj.lora_A",
+    "text_model.encoder.layers.10.self_attn.q_proj.lora_B",
+    "text_model.encoder.layers.10.self_attn.v_proj.lora_A",
+    "text_model.encoder.layers.10.self_attn.v_proj.lora_B",
+    "text_model.encoder.layers.11.self_attn.q_proj.lora_A",
+    "text_model.encoder.layers.11.self_attn.q_proj.lora_B",
+    "text_model.encoder.layers.11.self_attn.v_proj.lora_A",
+    "text_model.encoder.layers.11.self_attn.v_proj.lora_B"
+  ],
+  "frozen_before_sha256": "5c483a023c6389acfcb14182a523ffbb0424c8fdbc825e53c1e8fa16108ac1e1",
+  "frozen_after_sha256": "5c483a023c6389acfcb14182a523ffbb0424c8fdbc825e53c1e8fa16108ac1e1",
+  "all_original_parameters_unchanged": true,
+  "image_probe_ids": [
+    "1904112245_549e47c8aa",
+    "2393911878_68afe6e6c1"
+  ],
+  "image_output_max_abs_diff": 0.0,
+  "image_cache_max_abs_diff": 2.980232238769531e-07,
+  "lora_parameter_max_changes": {
+    "text_model.encoder.layers.10.self_attn.v_proj.lora_A": 7.441267371177673e-05,
+    "text_model.encoder.layers.10.self_attn.v_proj.lora_B": 0.00020013503672089428,
+    "text_model.encoder.layers.10.self_attn.q_proj.lora_A": 7.44108110666275e-05,
+    "text_model.encoder.layers.10.self_attn.q_proj.lora_B": 0.00020013307221233845,
+    "text_model.encoder.layers.11.self_attn.v_proj.lora_A": 7.441267371177673e-05,
+    "text_model.encoder.layers.11.self_attn.v_proj.lora_B": 0.00020013462926726788,
+    "text_model.encoder.layers.11.self_attn.q_proj.lora_A": 7.440894842147827e-05,
+    "text_model.encoder.layers.11.self_attn.q_proj.lora_B": 0.00020013457105960697
+  },
+  "lora_nonzero_gradient_observed": {
+    "text_model.encoder.layers.10.self_attn.v_proj.lora_A": true,
+    "text_model.encoder.layers.10.self_attn.v_proj.lora_B": true,
+    "text_model.encoder.layers.10.self_attn.q_proj.lora_A": true,
+    "text_model.encoder.layers.10.self_attn.q_proj.lora_B": true,
+    "text_model.encoder.layers.11.self_attn.v_proj.lora_A": true,
+    "text_model.encoder.layers.11.self_attn.v_proj.lora_B": true,
+    "text_model.encoder.layers.11.self_attn.q_proj.lora_A": true,
+    "text_model.encoder.layers.11.self_attn.q_proj.lora_B": true
+  },
+  "base_files_sha256_after": "d5853196afb60ca6373692d9af911aacd8fa821af6d4af54720d4eb9c8f5da0a"
+}

@@ -37,6 +37,8 @@ def main():
     add_commands(commands)
     from .semantic_commands import COMMANDS, add_commands as add_semantic_commands, execute as execute_semantic
     add_semantic_commands(commands)
+    from .text_commands import COMMANDS as TEXT_COMMANDS, add_commands as add_text_commands, execute as execute_text
+    add_text_commands(commands)
     args = parser.parse_args()
     try:
         if args.command == "search":
@@ -70,7 +72,10 @@ def main():
                 stream.write(json.dumps(receipt, ensure_ascii=False, indent=2) + "\n")
             result = {"manifest": str(output), "receipt": str(receipt_path), **receipt}
         else:
-            result = execute_semantic(args) if args.command in COMMANDS else execute(args)
+            if args.command in TEXT_COMMANDS:
+                result = execute_text(args)
+            else:
+                result = execute_semantic(args) if args.command in COMMANDS else execute(args)
     except (OSError, ValueError) as exc:
         parser.error(str(exc))
     print(json.dumps(result, ensure_ascii=False, indent=2, allow_nan=False))
