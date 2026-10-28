@@ -1,0 +1,65 @@
+{
+  "data_kind": "real",
+  "formal_result": false,
+  "checkpoint_origin": "D rebuild via C's published two-step training configuration",
+  "original_c_package_verified": false,
+  "run_sha256": "6ce86fda6826d069c4b30b5f7b9f5ed57119b452349dcb76d85ea00b111f4919",
+  "query_count": 5000,
+  "ranking_depth": 1000,
+  "switch_sequence": [
+    "E0",
+    "N0-development",
+    "E0",
+    "N0-development"
+  ],
+  "switch_results_exactly_restored": true,
+  "all_topk_images_exist": true,
+  "offline_mode": true,
+  "portable_export_has_no_image_paths": true,
+  "streamlit_query_passed": true,
+  "streamlit_image_count": 10,
+  "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+  "packages": {
+    "numpy": "2.3.5",
+    "torch": "2.9.1+cu128",
+    "transformers": "4.57.6"
+  },
+  "models": {
+    "E0": {
+      "device": "cuda:0",
+      "sample_count": 20,
+      "warm_ms": {
+        "encoding": {
+          "p50": 10.404349988675676,
+          "p95": 12.23006997461198
+        },
+        "ranking": {
+          "p50": 0.6425500032491982,
+          "p95": 0.8666350011480976
+        },
+        "end_to_end": {
+          "p50": 17.01010001124814,
+          "p95": 22.606169997015968
+        }
+      }
+    },
+    "N0-development": {
+      "device": "cuda:0",
+      "sample_count": 20,
+      "warm_ms": {
+        "encoding": {
+          "p50": 10.847350000403821,
+          "p95": 14.220779984316327
+        },
+        "ranking": {
+          "p50": 0.6888500065542758,
+          "p95": 0.7897549890913071
+        },
+        "end_to_end": {
+          "p50": 38.60209998674691,
+          "p95": 46.282189981138806
+        }
+      }
+    }
+  }
+}

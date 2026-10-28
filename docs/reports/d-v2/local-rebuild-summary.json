@@ -1,0 +1,186 @@
+{
+  "schema_version": "fgir-text-training-v1",
+  "status": "completed",
+  "method": "N0",
+  "mode": "development_smoke",
+  "data_kind": "real",
+  "seed": 42,
+  "formal_comparison_eligible": false,
+  "model": {
+    "model_id": "openai/clip-vit-base-patch32",
+    "base_weights_sha256": "d5853196afb60ca6373692d9af911aacd8fa821af6d4af54720d4eb9c8f5da0a",
+    "tokenizer_sha256": "1071290e73855e0f1efeaae5b3f8b70847ceeb0289d05f1d9b82c8f1be13c595",
+    "image_encoder_sha256": "225900851fd74e6e3dcc49c314e70974c53cb8c1632292e479d87d6be35e4e20",
+    "projection_dimension": 512,
+    "preprocessing": {
+      "class": "CLIPImageProcessor",
+      "size": {
+        "shortest_edge": 224
+      },
+      "crop_size": {
+        "height": 224,
+        "width": 224
+      },
+      "resample": 3,
+      "image_mean": [
+        0.48145466,
+        0.4578275,
+        0.40821073
+      ],
+      "image_std": [
+        0.26862954,
+        0.26130258,
+        0.27577711
+      ]
+    },
+    "text_processing": {
+      "class": "CLIPTokenizerFast",
+      "model_max_length": 77,
+      "pad_token_id": 49407,
+      "vocab_size": 49408
+    }
+  },
+  "structure": {
+    "version": "clip-text-qv-lora-v1",
+    "last_layers": 2,
+    "rank": 4,
+    "alpha": 8.0,
+    "dropout": 0.0,
+    "target_modules": [
+      "q_proj",
+      "v_proj"
+    ],
+    "target_paths": [
+      "text_model.encoder.layers.10.self_attn.q_proj",
+      "text_model.encoder.layers.10.self_attn.v_proj",
+      "text_model.encoder.layers.11.self_attn.q_proj",
+      "text_model.encoder.layers.11.self_attn.v_proj"
+    ]
+  },
+  "semantic_dataset_sha256": null,
+  "semantic_protocol_sha256": null,
+  "optimizer_steps": 2,
+  "microsteps": 2,
+  "best_selection": {
+    "epoch": 1,
+    "optimizer_steps": 2,
+    "mode": "development_smoke"
+  },
+  "best_validation": null,
+  "best_sha256": "de71a68db5c50d2a7452b2036c7c13ad3c3423f1035cd5445449eb7002e57246",
+  "last_sha256": "72cdbbe31679e182960419a72a5355d89ae0335431c0bb4d9256ab7b1f61a17c",
+  "freeze_audit": {
+    "trainable_parameters": 16384,
+    "base_trainable_parameters": 0,
+    "image_trainable_parameters": 0,
+    "trainable_names": [
+      "text_model.encoder.layers.10.self_attn.q_proj.lora_A",
+      "text_model.encoder.layers.10.self_attn.q_proj.lora_B",
+      "text_model.encoder.layers.10.self_attn.v_proj.lora_A",
+      "text_model.encoder.layers.10.self_attn.v_proj.lora_B",
+      "text_model.encoder.layers.11.self_attn.q_proj.lora_A",
+      "text_model.encoder.layers.11.self_attn.q_proj.lora_B",
+      "text_model.encoder.layers.11.self_attn.v_proj.lora_A",
+      "text_model.encoder.layers.11.self_attn.v_proj.lora_B"
+    ],
+    "frozen_before_sha256": "5c483a023c6389acfcb14182a523ffbb0424c8fdbc825e53c1e8fa16108ac1e1",
+    "frozen_after_sha256": "5c483a023c6389acfcb14182a523ffbb0424c8fdbc825e53c1e8fa16108ac1e1",
+    "all_original_parameters_unchanged": true,
+    "image_probe_ids": [
+      "1904112245_549e47c8aa",
+      "2393911878_68afe6e6c1"
+    ],
+    "image_output_max_abs_diff": 0.0,
+    "image_cache_max_abs_diff": 1.6763806343078613e-07,
+    "lora_parameter_max_changes": {
+      "text_model.encoder.layers.10.self_attn.v_proj.lora_A": 7.441267371177673e-05,
+      "text_model.encoder.layers.10.self_attn.v_proj.lora_B": 0.00020013502216897905,
+      "text_model.encoder.layers.10.self_attn.q_proj.lora_A": 7.44108110666275e-05,
+      "text_model.encoder.layers.10.self_attn.q_proj.lora_B": 0.00020013305766042322,
+      "text_model.encoder.layers.11.self_attn.v_proj.lora_A": 7.441267371177673e-05,
+      "text_model.encoder.layers.11.self_attn.v_proj.lora_B": 0.00020013462926726788,
+      "text_model.encoder.layers.11.self_attn.q_proj.lora_A": 7.440894842147827e-05,
+      "text_model.encoder.layers.11.self_attn.q_proj.lora_B": 0.00020013457105960697
+    },
+    "lora_nonzero_gradient_observed": {
+      "text_model.encoder.layers.10.self_attn.v_proj.lora_A": true,
+      "text_model.encoder.layers.10.self_attn.v_proj.lora_B": true,
+      "text_model.encoder.layers.10.self_attn.q_proj.lora_A": true,
+      "text_model.encoder.layers.10.self_attn.q_proj.lora_B": true,
+      "text_model.encoder.layers.11.self_attn.v_proj.lora_A": true,
+      "text_model.encoder.layers.11.self_attn.v_proj.lora_B": true,
+      "text_model.encoder.layers.11.self_attn.q_proj.lora_A": true,
+      "text_model.encoder.layers.11.self_attn.q_proj.lora_B": true
+    },
+    "base_files_sha256_after": "d5853196afb60ca6373692d9af911aacd8fa821af6d4af54720d4eb9c8f5da0a"
+  },
+  "reload_audit": {
+    "checkpoint_sha256": "72cdbbe31679e182960419a72a5355d89ae0335431c0bb4d9256ab7b1f61a17c",
+    "reload_device": "cpu",
+    "text_feature_max_abs_diff": 8.940696716308594e-08,
+    "score_max_abs_diff": 4.470348358154297e-08,
+    "atol": 1e-05,
+    "passed": true
+  },
+  "corpus": {
+    "source_images": 16,
+    "source_records": 80,
+    "variant_types": {},
+    "unit_phenomena": {},
+    "rejected_items": 0,
+    "silent_truncations": 0,
+    "cohort_sha256": "fef4b729ef52b8dbc0cc68d739f4eda79d730548ec8cfefcecaa7fa4f7667c00"
+  },
+  "skipped_batches": 0,
+  "omitted_singleton_images": 0,
+  "empty_supervision": {
+    "sentence_batches": 2,
+    "unit_batches": 2,
+    "paraphrase_batches": 2
+  },
+  "nonfinite_batches": 0,
+  "forward_texts": 16,
+  "forward_tokens": 248,
+  "training_seconds": 0.801818199979607,
+  "wall_seconds": 5.017969099979382,
+  "peak_cuda_bytes": 693329920,
+  "selection_policy": "fixed paired training budget; N0 val retrieval; N1-N3 diagnostic macro with N0 retrieval guard; earlier wins ties",
+  "development_notice": "Real train-caption gradient/reload smoke only; no reviewed semantic supervision, no validation selection, no N-series effectiveness claim.",
+  "environment": {
+    "python": "3.12.0 (tags/v3.12.0:0fb18b0, Oct  2 2023, 13:03:39) [MSC v.1935 64 bit (AMD64)]",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "torch": "2.9.1+cu128",
+    "transformers": "4.57.6",
+    "numpy": "2.3.5",
+    "device": "cuda",
+    "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+    "cuda": "12.8",
+    "deterministic_algorithms": true,
+    "lora_implementation": "native-pytorch-not-peft"
+  },
+  "provenance": {
+    "code_revision": "ddc0faa1defd58b1f9bbbcbcaf4198f4a46144ad-dirty",
+    "worktree": "dirty",
+    "uncommitted_source_sha256": {
+      "app.py": "a2f78b0de4abb900b28816fb630e41fb06f39fd98ec1af3de84a1b4563abb44d",
+      "configs/demo-v2.json": "d983e0b6df407003d53d41be3c046b912aac1b821e72dbd51f56ee5d23c84cee",
+      "docs/demo.md": "b60f14702a9acc4857539abab9ff45f38575a88a0cea9e95e3f5a2b0d2e4ff78",
+      "docs/reports/d-v2-integration.md": "572ffa815b301d1a150d481b17461504914c878193111cb42a77623ec396b0af",
+      "docs/research-v2-tasks.md": "f443802c295fde91a5c485383d4f9a58e0c0f2c4df1d3979aabe9c4169e0a96d",
+      "scripts/build-demo-package.py": "ecd0a6e1ad10610608aa1db72fe5c8966af760092c3a9bf3a8a467bf7e3a91fa",
+      "scripts/prepare-d-v2-local.py": "69eb1a920bdb28976ab856a7dce534d11e4332fe4f1ed71de92a9c3072838328",
+      "scripts/verify-d-v2-local.py": "0346635149fea3b0492bf0244fbc666689d6242f53220ad108c1c175d0117867",
+      "start-v2.cmd": "d01ac556c3405cf5eaa54088379320b91b221b371d3a8a44ab7160aab351f256"
+    },
+    "source_manifest_sha256": "a7f7d25d5017fdb62c150885da7bc3de3a8aea1dd2e40fc06d1da3ea6296dc0d",
+    "source_dataset_sha256": "1f1f917ac12ee3273f3cae9be57f9278fed0d81b2858dded0e93bfe0d3e8ae10",
+    "image_features_sha256": "6423f546d67ee4b10c8d87fcfe54cc20386dc328f75e887b4fb05aefeb947c91",
+    "semantic_dataset_sha256": null,
+    "semantic_protocol_sha256": null,
+    "training_audit_sha256": null,
+    "reference_summary_sha256": null,
+    "data_kind": "real",
+    "mode": "development_smoke",
+    "test_access": "No test captions/images used by optimizer or selection. Source semantic validation may inspect split metadata; historical test access remains disclosed."
+  }
+}

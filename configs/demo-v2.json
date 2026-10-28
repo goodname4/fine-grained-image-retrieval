@@ -7,7 +7,7 @@
       "model_type": "raw_clip",
       "method": "E0",
       "encoder": "models/clip-vit-base-patch32",
-      "index": "artifacts/c-experiments/seed42/retrieval/E0/val/index.npz"
+      "index": "artifacts/d-v2/e0-val/index.npz"
     },
     "N0-development": {
       "model_type": "text_lora",

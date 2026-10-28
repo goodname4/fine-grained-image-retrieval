@@ -4,9 +4,9 @@
 
 ## 当前交付与边界
 
-D-V2-01/02/03 的可独立代码已经实现。**真实制品验收仍 BLOCKED**：本工作区没有 C 的开发权重、基础 CLIP、真实图片/缓存/索引，也没有独立复核的 val 协议。没有运行真实 N0—N3，未记录或虚构真实检索效果、GPU 延迟和人工复核。
+D-V2-01/02/03 的可独立代码已经实现。后续已在本项目内准备基础 CLIP、真实 Flickr8k 图片、原始 val 索引，并使用 C 发布的训练接口与配置另存两步开发重建。重建路径为 `artifacts/c-v2/n0-smoke-seed42-d-rebuild-v1`，不冒充 C 原始开发包或其 SHA-256。真实联调验收记录见下文。
 
-本次联调使用本地随机 tiny-CLIP 和明确 synthetic 的样本，实际执行加载、编码、排名、评分、导出和服务切换。它们验证接口，不构成 C 真实开发权重的重载验收。正式实验还依赖 B 的核验 train 样本、A 的独立 val 金标及 C 后续训练；不能因为 callback 可以 import 就宣布这些数据门槛通过。
+此前 tiny-CLIP 与 synthetic 样本验证了加载、编码、排名、评分、导出和服务切换接口；这些历史测试单列保留。正式实验仍依赖 B 的核验 train 样本、A 的独立 val 金标及 C 后续训练；两步开发重建也不能解除这些数据门槛。
 
 ## 实现与制品链
 
@@ -43,7 +43,7 @@ v2 标准评分需要 NumPy/PyTorch 读取实际制品链（可安装 `.[semanti
 
 ## 运行方式
 
-以下安装和真实数据命令供收到交接包后使用；本机尚不能执行真实权重导出。独立环境可使用 C 已核验的 transformers 4.57.6，避免改旧环境：
+独立环境使用 C 已核验的 transformers 4.57.6，保留旧环境。实际本地资源均存放在项目内；新机器可按以下方式准备环境：
 
 ```powershell
 python -m venv .venv-d-v2 --system-site-packages
@@ -53,8 +53,8 @@ python -m venv .venv-d-v2 --system-site-packages
 开发联调只生成非正式制品，不传 `--semantic-protocol`：
 
 ```powershell
-.\.venv-d-v2\Scripts\python.exe -m fgir export-text-lora --checkpoint artifacts/c-v2/n0-smoke-seed42-v2/best.pt --model-dir models/clip-vit-base-patch32 --index artifacts/c-experiments/seed42/retrieval/E0/val/index.npz --protocol data/prepared/flickr8k-v1/val/protocol.json --experiment-id N0-development --output artifacts/d-v2/n0-development
-.\.venv-d-v2\Scripts\python.exe -m streamlit run app.py -- --config configs/demo-v2.json
+.\.venv-d-v2\Scripts\python.exe scripts/prepare-d-v2-local.py --rebuild-development --device auto
+.\start-v2.cmd
 ```
 
 收到正式候选与冻结 val 后，C 可直接调用回调，或用新增 CLI 独立调用：
@@ -63,12 +63,12 @@ python -m venv .venv-d-v2 --system-site-packages
 .\.venv-d-v2\Scripts\python.exe -m fgir validate-text-lora --checkpoint artifacts/c-v2/formal-paired-v1/N0-seed42/candidate-epoch000.pt --model-dir models/clip-vit-base-patch32 --bundle data/prepared/flickr8k-v1 --val-protocol data/semantic/frozen-val-v1/protocol.json --output artifacts/d-v2/n0-seed42-val-epoch0
 ```
 
-checkpoint 参数应换为实际存在的候选路径；不覆盖已有导出目录。正式 test 导出仍等 A 的独立协议和冻结选模门槛，本次只联调 val。
+准备脚本复用已有校验通过的缓存，调用 C 的两步训练后导出真实 val 查询，不下载数据或基础模型。运行前需按 `prepare-a-data` 与 `prepare-clip-model` 接口准备它们；不能覆盖冻结目录。正式 test 导出仍等 A 的独立协议和冻结选模门槛，本次只联调 val。
 
 可用模型上实测性能：
 
 ```powershell
-.\.venv-d-v2\Scripts\python.exe -m fgir.benchmark --config configs/demo-v2.json --models E0 N0-development --queries examples/demo-queries.json --repeats 5 --output artifacts/d-v2/performance-real-v1.json
+.\.venv-d-v2\Scripts\python.exe -m fgir.benchmark --config configs/demo-v2.json --device auto --models E0 N0-development --queries examples/demo-queries.json --repeats 5 --output artifacts/d-v2/performance-real-v1.json
 ```
 
 报告不包含浏览器渲染/图片解码。initial_call 按记录顺序执行，raw/MLP 可能复用基础 encoder，不宣称每个模型都在独立进程完全冷启动。GPU 前后显式同步，文本结果回传 CPU 后排序；JSON 包含设备、图库、有效 K、采样数与预热数。不能把 synthetic 或两步开发权重的耗时称为正式 N2/N3 性能。
@@ -83,11 +83,45 @@ checkpoint 参数应换为实际存在的候选路径；不覆盖已有导出目
 
 发现并修复 live processor 的 tuple 配置与 JSON sidecar 的 list 不相等问题：`ClipEncoder._describe` 统一 JSON 表示，不放宽实际预处理字段检查。C 的旧预检测试原先断言 D 模块不存在，现更新为断言 B/A 输入仍缺、D 模块可被解析。
 
-当前真实实验预检保存在 `artifacts/d-v2-preflight.json`；摘要与环境/测试证据见本目录 `d-v2/`。以下输入缺失时任务保持 BLOCKED：
+当前真实实验预检保存在 `artifacts/d-v2-preflight-updated.json`，Git 副本为 `d-v2/preflight.json`；目前仅缺 B 核验 train 与 A 独立 val 输入。摘要与环境/测试证据见本目录 `d-v2/`。以下输入缺失时相关任务保持 BLOCKED：
 
 - C：开发 ZIP `c-v2-development-handoff-v1.zip`，报告 SHA-256=`5506d1a382dd1de9eaa6fc6cb3d8520e519f0fb22d2f2d230aba95306301cf79`；best=`2d72425de399f210c7a1888a8da377c3c41db63a50800e3809c581d694bc3d7b`。收到后先核验包和 checkpoint 摘要。
-- B/C：本地基础 CLIP/tokenizer、数据交接包、raw val 图片索引与实际图片。先以 C 的开发包完成真实加载、导出及开发检索，不能补假训练数据摘要。
+- 本地基础 CLIP/tokenizer、数据交接包、raw val 图片索引与实际图片已补齐。D 开发重建另存版本，原包的逐字节核对仍等待 C；没有补写语义训练摘要。
 - B：核验 train samples；A：独立复核后的 frozen val protocol。齐备后才能为正式候选生成选模分数和完整排名。
 - C：后续实际 N2/N3 制品。齐备后再记录真实模型切换、离线查询和 p50/p95。当前 tiny-CLIP 的隔离验证不将 D-V2-03 标为 DONE。
 
 H-V2-01 仍为真人待办，本次没有替成员签署 human 标注或复核。A 原语义评分器仍仅认证它自己的协议/分数结构；本次 D 的标准 run-v2 制品链校验不能替代独立图像判断。
+
+## 项目内真实开发联调补验
+
+本机使用 Python 3.12、torch 2.9.1+cu128、transformers 4.57.6、RTX 4060 Laptop。
+基础模型位于 `models/clip-vit-base-patch32`，权重摘要与 C 一致为 `d5853196…`。
+数据 bundle 的 clean manifest 摘要为 `a7f7d25d…`，图库1000张 val 图，未运行正式 test。
+开发重建 best 摘要为 `de71a68db5c50d2a7452b2036c7c13ad3c3423f1035cd5445449eb7002e57246`，
+raw val 索引为 `6065a067a0706c24f5919d102220fd6064ca41a60757267fa765c718d9dcb0b9`。
+`artifacts/d-v2/local-assets.json` 保存完整来源与冻结审计。
+
+两步各8张真实train图，16,384个LoRA参数；原参数摘要不变、图片输出差0。
+独立CPU重载文本最大差8.94e-8，匹配分数最大差4.47e-8，低于原定1e-5。
+完整日志与摘要见 `artifacts/c-v2/n0-smoke-seed42-d-rebuild-v1/`，Git精简副本为
+`d-v2/local-rebuild-summary.json`。语义数据摘要保持null；没有语义人工审核或正式成绩。
+
+首次GPU缓存实测与冻结图片塔的差为0.0012336，被原有门槛拒绝，训练未开始。
+该缓存已移至 `artifacts/d-v2/rejected-cache-fast-v1/`；拒绝证据为 `d-v2/rejected-cache.json`。
+关闭TF32并启用确定性算法后另存 `data/features/clip-vit-base-patch32/train.d-v2-deterministic-v1.images.npz`，
+严格审计通过。没有覆盖原缓存或放宽容差。
+
+真实开发导出位于 `artifacts/d-v2/n0-development/`：5000条标准val查询，各含1000张图的完整排名，
+receipt/run-v2已绑定真实模型、索引与文本缓存。只作开发检索，不计算或报告正式R@1。
+启动 `start-v2.cmd` 可在页面中对比E0与N0-development；`scripts/verify-d-v2-local.py`
+执行离线环境查询、来回切换恢复、图片存在性、便携JSON和Streamlit实际按钮验收。
+这些检查已通过，页面实际渲染10张结果图；证据为 `d-v2/real-development-verification.json`。
+4条查询各重复5次，每个模型预热4次后采集20次：E0端到端p50/p95为17.01/22.61毫秒，
+N0-development为38.60/46.28毫秒，均在cuda:0上测量，图库1000、Top-K=10。
+这是本机开发查询延迟，不包含浏览器绘制与图片解码，也不是正式N系列性能结论。
+真实N2→E0→N3→N2仍需C提供相应正式权重，D-V2-03不据此标DONE。
+
+源码安装包为 `dist/fgir-d-demo-windows.zip`；资源齐备包通过
+`python scripts/build-demo-package.py --include-v2-assets` 构建为 `dist/fgir-d-v2-ready-windows.zip`。
+后者包含本地CLIP、val图片及完整开发导出；首次依赖安装需要联网，之后可离线查询。
+大型文件留在本项目和资源ZIP内，不加入Git。C原ZIP的摘要核对仍待原文件，不能拿重建代替。

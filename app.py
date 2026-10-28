@@ -65,6 +65,8 @@ def main():
             result = results[model]
             with column:
                 st.subheader(model)
+                if result["provenance"].get("mode") == "development_smoke":
+                    st.caption("开发联调权重，尚非正式 N0 实验结果。")
                 st.caption(f"{result['elapsed_ms']:.1f} ms")
                 with st.expander("分阶段耗时与版本"):
                     st.json({"timing_ms": result["timing_ms"], "provenance": result["provenance"]})

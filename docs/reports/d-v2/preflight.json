@@ -2,21 +2,6 @@
   "status": "BLOCKED",
   "missing": [
     {
-      "owner": "A",
-      "path": "data\\prepared\\flickr8k-v1\\dataset.json",
-      "needed_for": "source image protocol"
-    },
-    {
-      "owner": "B/C",
-      "path": "models\\clip-vit-base-patch32",
-      "needed_for": "explicit local CLIP weights/tokenizer"
-    },
-    {
-      "owner": "B",
-      "path": "data\\features\\clip-vit-base-patch32\\train.images.npz",
-      "needed_for": "raw train image cache"
-    },
-    {
       "owner": "B-V2-02",
       "path": "data\\semantic\\train-verified-v1\\samples.jsonl",
       "needed_for": "verified train semantic samples"

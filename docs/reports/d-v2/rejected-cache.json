@@ -1,0 +1,11 @@
+{
+  "status": "rejected_before_training",
+  "data_kind": "real",
+  "reason": "Frozen image encoder cache probe exceeded C's unchanged 1e-5 tolerance",
+  "gpu_probe_max_abs_diff": 0.0012336010113358498,
+  "cpu_probe_max_abs_diff": 0.0012326426804065704,
+  "cpu_gpu_probe_max_abs_diff": 9.583309292793274e-7,
+  "probe_ids": ["1904112245_549e47c8aa", "2393911878_68afe6e6c1"],
+  "source_log": "artifacts/d-v2-cache-diagnosis.log",
+  "replacement_policy": "New version cache with TF32 disabled and deterministic algorithms; no tolerance relaxation"
+}
