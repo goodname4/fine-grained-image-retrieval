@@ -1,11 +1,11 @@
-"""Standard-library-only commands for A's research-v2 work."""
+"""Semantic commands for A/B research-v2 work; heavy imports stay deferred."""
 
 from .semantic_data import apply_semantic_source_checks, freeze_semantics, prepare_semantic_pilot, validate_semantics
 from .semantic_evaluation import evaluate_semantics
 from .semantic_review import render_semantics
 
 
-COMMANDS = {"prepare-semantic-pilot", "apply-semantic-source-checks", "validate-semantics", "render-semantics", "freeze-semantics", "evaluate-semantics", "compare-semantics"}
+COMMANDS = {"prepare-semantic-pilot", "apply-semantic-source-checks", "validate-semantics", "render-semantics", "freeze-semantics", "evaluate-semantics", "compare-semantics", "generate-semantics"}
 
 
 def add_commands(commands):
@@ -18,6 +18,7 @@ def add_commands(commands):
             "freeze-semantics": "freeze independently reviewed semantic diagnostics",
             "evaluate-semantics": "score semantic pairs, parsing and paraphrase retrieval separately",
             "compare-semantics": "compare fixed semantic runs with paired source-image bootstrap",
+            "generate-semantics": "generate draft semantic candidates from a local language model",
         }[name])
         if name in ("evaluate-semantics", "compare-semantics"):
             parser.add_argument("--protocol", required=True)
@@ -31,11 +32,17 @@ def add_commands(commands):
             parser.add_argument("--data-root", **({} if name == "validate-semantics" else {"default": "data"}))
         if name != "validate-semantics":
             parser.add_argument("--output", required=True)
-        if name in ("prepare-semantic-pilot", "evaluate-semantics", "compare-semantics"):
+        if name in ("prepare-semantic-pilot", "evaluate-semantics", "compare-semantics", "generate-semantics"):
             parser.add_argument("--seed", type=int, default=42)
         if name == "prepare-semantic-pilot":
             parser.add_argument("--count", type=int, default=30)
             parser.add_argument("--code-revision", default="working-tree")
+        elif name == "generate-semantics":
+            parser.add_argument("--code-revision", default="working-tree")
+            parser.add_argument("--model", default="Qwen/Qwen2.5-0.5B-Instruct")
+            parser.add_argument("--prompts", default="configs/semantic/b-generation-prompts-v1.json")
+            parser.add_argument("--limit", type=int, help="generate only the first N records")
+            parser.add_argument("--no-download", action="store_true", help="refuse to download missing weights")
         elif name == "validate-semantics":
             parser.add_argument("--purpose", choices=("draft", "train", "eval"), default="draft")
         elif name == "freeze-semantics":
@@ -56,6 +63,11 @@ def execute(args):
         return render_semantics(args.samples, args.bundle, args.data_root, args.output)
     if args.command == "freeze-semantics":
         return freeze_semantics(args.samples, args.bundle, args.data_root, args.output, args.data_kind, args.test_access_notes)
+    if args.command == "generate-semantics":
+        from .semantic_generation import LocalLmBackend, generate_semantics
+        backend = LocalLmBackend(model_id=args.model, allow_download=not args.no_download)
+        return generate_semantics(args.samples, args.bundle, args.data_root, args.output, backend,
+                                  args.prompts, args.seed, args.code_revision, args.limit)
     if args.command == "compare-semantics":
         from .semantic_evaluation import compare_semantics
         return compare_semantics(args.protocol, args.runs, args.output, args.bootstrap_samples, args.seed)

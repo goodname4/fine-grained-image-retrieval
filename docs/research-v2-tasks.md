@@ -13,9 +13,9 @@
 | ID | 提供方 / 执行方式 | 当前状态 | 后继接收方 | 依赖与当前缺口 |
 | --- | --- | --- | --- | --- |
 | A-V2-01/02/03 | A / agent | DONE | 全组 | [三项修复](reports/a-v2-fixes.md)及本轮复验 |
-| B-V2-01 | B / agent | READY | A、全体标注人 | 语言解析/候选生成器尚不存在；从现有30组val工作包开始 |
-| H-V2-01 | A组织，A/B/C/D真人 | WAITING_HUMAN | A | 全体真实初标与交叉复核缺失；候选由B-V2-01提供，可先检查原句图片 |
-| B-V2-02 | B / agent＋真实核验 | BLOCKED | C、A | 依赖B-V2-01；独立train候选及经核验版本尚无 |
+| B-V2-01 | B / agent | DONE | A、全体标注人 | 已交付：`data/semantic/pilot-val-candidates-v1/`（30组完整候选，samples_sha256=5058e091…，draft校验+图片字节通过）、`artifacts/semantic-pilot-val-candidates-v1/board.html`、`src/fgir/semantic_generation.py`+CLI `generate-semantics`、`tests/test_generation.py`（10项）、[报告](reports/b-v2-generation.md)。生成器=本地 Qwen2.5-0.5B-Instruct（weights fdf756fa…，prompts b28c65ee…，seed 42，code 22efaf5-dirty）；统计：实体100/关系19/变体99（绑定6+方向4+改写29+追加60）/units 10/拒绝78项带原因。全套143测试通过（含修复本机 runs.py GBK 解码既有缺陷）。真人复核仍待 H-V2-01 |
+| H-V2-01 | A组织，A/B/C/D真人 | WAITING_HUMAN | A | 全体真实初标与交叉复核缺失；候选已由 B-V2-01 提供（`data/semantic/pilot-val-candidates-v1/samples.work.jsonl` + 审核页），可先检查原句图片 |
+| B-V2-02 | B / agent＋真实核验 | READY | C、A | 依赖B-V2-01已解除；独立train候选及经核验版本尚无。生成器对任意源绑定记录通用，但 train 工作包需新增独立抽样/导出接口（prepare-semantic-pilot 只抽 val），见 b-v2-generation.md 第7节 |
 | C-V2-01 | C / agent | READY | D、C后续任务 | 可导LoRA、N0小批次、checkpoint未实现；本地模型/环境先实查 |
 | C-V2-02 | C / agent | BLOCKED | A、D | 正式实验依赖C-V2-01、B-V2-02、A-V2-04及D-V2-01/02；损失和配置代码可先做 |
 | D-V2-01 | D / agent，C提供checkpoint接口 | READY | C、A | receipt/run-v2与严格加载未实现；可先契约和夹具测试，真实重载等C-V2-01 |

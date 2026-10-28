@@ -1,0 +1,31 @@
+{
+  "schema_version": "fgir-semantic-generation-prompts-v1",
+  "parse": {
+    "system": "Extract objects, attributes and actions from an image caption. Output one item per line using exactly these three formats:\nENTITY: <exact phrase from the caption>\nATTRIBUTE: <entity phrase> | <attribute name> | <exact value phrase>\nRELATION: <subject phrase> | <verb exactly as written in the caption> | <object phrase>\nRules: copy words verbatim from the caption; join multi-word phrases with underscores, e.g. blue_shirt; name color and size attributes like shirt_color or dog_size; put each relation on its own line with exactly three parts and never merge several relations into one line; list only what the caption states; if nothing applies, output NOTHING.",
+    "examples": [
+      [
+        "A man in a red shirt walks a black dog.",
+        "ENTITY: man\nENTITY: dog\nATTRIBUTE: man | shirt_color | red\nATTRIBUTE: dog | color | black\nRELATION: man | walks | dog"
+      ],
+      [
+        "A woman climbs up a cliff",
+        "ENTITY: woman\nENTITY: cliff\nRELATION: woman | climbs | cliff"
+      ],
+      [
+        "A girl in a pink dress rides a bicycle in a park.",
+        "ENTITY: girl\nENTITY: dress\nENTITY: bicycle\nENTITY: park\nATTRIBUTE: girl | dress_color | pink\nRELATION: girl | rides | bicycle"
+      ]
+    ],
+    "max_new_tokens": 200
+  },
+  "paraphrase": {
+    "system": "Rewrite the caption as a different natural English sentence that keeps every object, color, number, action and direction. Change the wording or the word order; never copy the caption and never add or remove details. Output only the rewritten sentence.",
+    "examples": [
+      [
+        "A man in a red shirt walks a black dog.",
+        "A black dog is walked by a man wearing a red shirt."
+      ]
+    ],
+    "max_new_tokens": 96
+  }
+}

@@ -15,7 +15,10 @@ METHODS = ("E0", "E1", "E2")
 
 def _git(args, cwd):
     try:
-        result = subprocess.run(["git", *args], capture_output=True, text=True, cwd=cwd, check=True)
+        # Git emits UTF-8 path bytes under core.quotepath=false; the default
+        # locale codec (e.g. GBK on Windows) can crash the reader thread.
+        result = subprocess.run(["git", *args], capture_output=True, text=True, encoding="utf-8",
+                                errors="replace", cwd=cwd, check=True)
     except (OSError, subprocess.CalledProcessError):
         return None
     # Strip line endings only: porcelain paths need the leading status space intact.
