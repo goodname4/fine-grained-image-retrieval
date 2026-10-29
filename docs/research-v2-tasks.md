@@ -1,6 +1,8 @@
 # research-v2 接续任务板
 
-更新：2026-10-28。供成员和接手 agent 直接执行。根目录 [AGENTS.md](../AGENTS.md)负责引导；本页是剩余任务状态的统一入口。详细设计见[实施清单](implementation-plan.md)、[实验设计](experiments.md)、[架构](architecture.md)和[语义协议](semantic-data.md)。后续完成者须更新本页，不能只在聊天中说完成。
+更新：2026-10-29。供成员和接手 agent 直接执行。根目录 [AGENTS.md](../AGENTS.md)负责引导；本页是剩余任务状态的统一入口。详细设计见[实施清单](implementation-plan.md)、[实验设计](experiments.md)、[架构](architecture.md)和[语义协议](semantic-data.md)。后续完成者须更新本页，不能只在聊天中说完成。
+
+D代码与开发联调版本已可交接；2026-10-29补齐[新版D交接清单](handoff-d-v2.md)，列明B/A/C缺失输入、接收条件、分支及大型资源包另传方式。此更新不解除正式实验或人工复核门槛。
 
 ## 验收基线与任务状态
 
