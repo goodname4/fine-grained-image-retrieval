@@ -6,7 +6,7 @@
 
 2026-10-27起采用research-v2：参考2026年CS-CLIP组件监督研究，通过实体/属性绑定/有向关系解析、最小语义变体与同义改写，在CLIP文本编码器内部进行LoRA训练，研究关键语义敏感性与同义表达稳定性。
 
-**A的语义审核/诊断工具、B的语言候选生成、C的文本LoRA与N0—N3损失/配置代码已实现。C已完成真实train两步N0开发试跑与冻结/重载验收；正式N实验仍缺核验train、独立val金标和D验证导出。** 历史E0/E1/E2代码与记录保留；开发试跑不作为正式成绩。实际状态见[任务板](docs/research-v2-tasks.md)、[C新版报告](docs/reports/c-v2-training.md)及[A交接](docs/handoff-a-v2.md)。
+**A的语义审核/诊断工具、B的语言候选生成、C的文本LoRA与N0—N3损失/配置、D的receipt/run-v2、验证回调和服务代码已实现。C已完成真实train两步N0开发试跑与冻结/重载验收；D已通过tiny-CLIP制品/导出/切换测试，真实权重联调仍缺交接文件。正式N实验仍缺核验train与独立val金标。** 历史E0/E1/E2代码与记录保留；开发试跑不作为正式成绩。实际状态见[任务板](docs/research-v2-tasks.md)、[D新版报告](docs/reports/d-v2-integration.md)、[C新版报告](docs/reports/c-v2-training.md)及[A交接](docs/handoff-a-v2.md)。
 
 从这里开始：
 

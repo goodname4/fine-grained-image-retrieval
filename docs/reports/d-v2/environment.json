@@ -1,0 +1,14 @@
+{
+  "python": "3.12.0 (tags/v3.12.0:0fb18b0, Oct  2 2023, 13:03:39) [MSC v.1935 64 bit (AMD64)]",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "device": "cpu",
+  "packages": {
+    "torch": "2.9.1",
+    "transformers": "4.57.6",
+    "tokenizers": "0.22.2",
+    "numpy": "2.3.5",
+    "Pillow": "10.3.0",
+    "streamlit": "1.66.0"
+  },
+  "note": "Isolated .venv-d-v2 overlays transformers 4.57.6; reuses existing system CPU torch. Not C CUDA hardware performance."
+}

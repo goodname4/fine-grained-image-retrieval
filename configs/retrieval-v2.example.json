@@ -1,0 +1,5 @@
+{
+  "image_index": "../../../artifacts/c-experiments/seed42/retrieval/E0/val/index.npz",
+  "device": "cpu",
+  "batch_size": 64
+}

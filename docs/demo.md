@@ -1,6 +1,10 @@
 # D：本地检索演示与接入
 
-> 2026-10-27版本说明：以下安装、配置及界面对应当前E0/E1/E2。新计划的N0—N3尚未接入，接入时需同步扩展制品校验和模型缓存隔离，见[实施清单](implementation-plan.md)。不能只在下拉选项添加N名称或给旧配置换标签就声称支持新方法。
+research-v2（2026-10-28）：文本LoRA接入见[D新版报告](reports/d-v2-integration.md)，
+使用 `configs/demo-v2.json` 和独立 `.[demo,semantic-training]` 环境。双击根目录 `start-v2.cmd` 启动新版页面；自动选择本机可用设备。下文旧E0/E1/E2接口仍保留。
+界面按注册表检查真实制品，缺失模型只显示诊断，不作为可运行选项。
+
+新版已接入 text_lora、receipt/run-v2 和隔离模型缓存。当前本地演示配置为 E0 和 N0-development；后者只训练两步，不能作为正式 N0 成绩。正式 N1—N3 等待真实训练制品，页面仅显示通过检查的模型。
 
 ## 安装与启动
 
@@ -23,6 +27,11 @@ streamlit run app.py -- --config configs/demo.json --device cpu
 配置、文档、源码及 wheel；wheel 本身仅提供 `fgir` Python 库和命令行工具。
 
 `configs/demo.json` 集中声明数据、编码器、E0 索引以及 E1/E2 的 `best.pt` 和匹配索引。图片、权重、特征和索引不提交 Git；收到这些大文件后按相同相对路径放置，或复制配置到本机路径。首次检索会加载本地 CLIP，之后由 Streamlit 缓存。
+
+新版的资源齐备后，可运行 `python scripts/build-demo-package.py --include-v2-assets`，
+输出 `dist/fgir-d-v2-ready-windows.zip` 与摘要文件。它额外包含基础 CLIP、1000张 val 图片、
+原始索引和两步开发 LoRA 的完整导出；不含训练图片与正式 N1—N3 权重。
+解压后先 `install.cmd` 安装依赖，再 `start-v2.cmd`。资源包可以离线检索，但首次依赖安装仍需要联网和 Python 3.11+。
 
 界面支持自然语言、Top-K、E0/E1/E2 并排结果、图片、ID、相似度、分阶段耗时、版本摘要和 JSON 导出。相似度只用于同一模型内排序。
 

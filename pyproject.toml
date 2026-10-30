@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "fine-grained-image-retrieval"
-version = "0.1.0"
+version = "0.2.0"
 description = "Local image retrieval coursework: reproducible data, annotation and evaluation tools"
 readme = "README.md"
 requires-python = ">=3.11"
@@ -13,7 +13,7 @@ dependencies = []
 [project.optional-dependencies]
 data = ["Pillow>=10"]
 model = ["numpy>=2", "torch>=2.6", "transformers>=4.45", "Pillow>=10"]
-demo = ["numpy>=2", "torch>=2.6", "transformers>=4.45", "Pillow>=10", "streamlit>=1.40"]
+demo = ["numpy>=2", "torch>=2.6", "transformers>=4.45,<5", "Pillow>=10", "streamlit>=1.40"]
 training = ["numpy>=2", "torch>=2.6"]
 semantic-training = ["numpy>=2", "torch>=2.6", "transformers>=4.45,<5", "Pillow>=10"]
 

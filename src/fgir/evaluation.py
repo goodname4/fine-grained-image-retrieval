@@ -63,8 +63,14 @@ def load_protocol(path):
 def evaluate_run(protocol_path, run_path):
     protocol, candidates, queries, qrels = load_protocol(protocol_path)
     run = read_json(run_path)
-    if not isinstance(run, dict) or run.get("schema_version") != "fgir-run-v1":
+    if isinstance(run, dict) and run.get("schema_version") == "fgir-run-v2":
+        from .text_artifacts import validate_run_v2
+        run = validate_run_v2(run_path, protocol_path)
+        run = {**run, "weights_sha256": run["base_weights_sha256"], "adapter_sha256": None}
+    elif not isinstance(run, dict) or run.get("schema_version") != "fgir-run-v1":
         raise ValueError("unsupported ranking run")
+    if run.get("method") in ("N0", "N1", "N2", "N3") and run.get("schema_version") != "fgir-run-v2":
+        raise ValueError("N-series retrieval requires run-v2 and a bound receipt")
     if run.get("protocol_sha256") != file_digest(protocol_path):
         raise ValueError("ranking run belongs to a different protocol")
     if run.get("data_kind") != protocol["data_kind"]:
@@ -175,6 +181,8 @@ def compare_runs(protocol_path, run_paths, output, bootstrap_samples=1000, seed=
     if len(run_paths) < 2:
         raise ValueError("comparison requires a baseline and at least one other run")
     results = [evaluate_run(protocol_path, path) for path in run_paths]
+    from .text_artifacts import check_v2_comparison
+    check_v2_comparison([r["run"] for r in results])
     ids = [result["run"]["run_id"] for result in results]
     if len(ids) != len(set(ids)):
         raise ValueError("comparison run IDs must be unique")
@@ -255,13 +263,15 @@ def summarize_seeds(protocol_path, run_paths, output):
     if not run_paths:
         raise ValueError("at least one run is required")
     results = [evaluate_run(protocol_path, path) for path in run_paths]
+    from .text_artifacts import check_v2_comparison
+    check_v2_comparison([r["run"] for r in results])
     groups, ids = {}, set()
     for result in results:
         run = result["run"]
         if run["run_id"] in ids:
             raise ValueError("run IDs must be unique")
         ids.add(run["run_id"])
-        key = (run["method"], run["model_id"], run["weights_sha256"], result["metrics"]["declared_ranking_depth"])
+        key = (run.get("experiment_id", run["method"]), run["model_id"], run["weights_sha256"], result["metrics"]["declared_ranking_depth"])
         groups.setdefault(key, []).append(result)
     summary = []
     for key, selected in sorted(groups.items()):

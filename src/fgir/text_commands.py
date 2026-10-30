@@ -1,9 +1,19 @@
 """C v2 command registrations; importing basic CLI never imports torch."""
 
-COMMANDS = {"train-text-lora", "inspect-text-lora", "run-text-experiments"}
+COMMANDS = {"train-text-lora", "inspect-text-lora", "run-text-experiments", "export-text-lora", "validate-text-lora"}
 
 
 def add_commands(commands):
+    export = commands.add_parser("export-text-lora", help="export bound text LoRA features, receipt and run-v2")
+    for name in ("checkpoint", "model-dir", "index", "protocol", "output"):
+        export.add_argument(f"--{name}", required=True)
+    export.add_argument("--semantic-protocol")
+    export.add_argument("--device", default="cpu", choices=("cpu", "cuda", "auto"))
+    export.add_argument("--batch-size", type=int, default=64)
+    export.add_argument("--experiment-id")
+    validate = commands.add_parser("validate-text-lora", help="run C's independent val-only checkpoint callback")
+    for name in ("checkpoint", "model-dir", "bundle", "val-protocol", "output"):
+        validate.add_argument(f"--{name}", required=True)
     train = commands.add_parser("train-text-lora", help="train differentiable text-only CLIP LoRA")
     for name, default in (("bundle", "data/prepared/flickr8k-v1"), ("data-root", "data")):
         train.add_argument(f"--{name}", default=default)
@@ -27,6 +37,15 @@ def add_commands(commands):
 
 
 def execute(args):
+    if args.command == "export-text-lora":
+        from .text_export import export_text_lora
+        return export_text_lora(args.checkpoint, args.model_dir, args.index, args.protocol, args.output,
+                                semantic_protocol=args.semantic_protocol, device=args.device,
+                                batch_size=args.batch_size, experiment_id=args.experiment_id)
+    if args.command == "validate-text-lora":
+        from .text_export import validate_text_lora_checkpoint
+        return validate_text_lora_checkpoint(checkpoint_path=args.checkpoint, model_dir=args.model_dir,
+                                             bundle=args.bundle, val_protocol=args.val_protocol, output=args.output)
     if args.command == "train-text-lora":
         from .text_training import train_text_lora
         try:
