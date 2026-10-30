@@ -15,6 +15,7 @@ data = ["Pillow>=10"]
 model = ["numpy>=2", "torch>=2.6", "transformers>=4.45", "Pillow>=10"]
 demo = ["numpy>=2", "torch>=2.6", "transformers>=4.45", "Pillow>=10", "streamlit>=1.40"]
 training = ["numpy>=2", "torch>=2.6"]
+semantic-training = ["numpy>=2", "torch>=2.6", "transformers>=4.45,<5", "Pillow>=10"]
 
 [project.scripts]
 fgir = "fgir.__main__:main"

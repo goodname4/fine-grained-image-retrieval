@@ -1,6 +1,6 @@
 # E1/E2历史基线：轻量适配与训练（C）
 
-> 2026-10-27版本说明：本文保留当前已实现的缓存MLP训练与复现命令。新研究主线为文本Transformer内部LoRA和语义监督，见[新版计划](project-plan.md)、[架构](architecture.md)及[实施清单](implementation-plan.md)。N0—N3尚未实现，不能用本文的detached文本缓存训练它们，也不能把旧MLP checkpoint加载为LoRA。
+> 2026-10-28版本说明：本文保留缓存MLP历史训练与复现命令。新版可导文本LoRA已实现，真实N0开发试跑及N0—N3代码状态见[C新版报告](reports/c-v2-training.md)，正式实验仍待审核数据和D接口。不能用本文的detached文本缓存训练LoRA，也不能把旧MLP checkpoint加载为LoRA。
 
 已完成的真实训练、验证结果、成本、产物摘要与交接清单见[训练与消融报告](reports/c-training-and-ablation.md)。
 
