@@ -6,7 +6,7 @@
 
 2026-10-27起采用research-v2：参考2026年CS-CLIP组件监督研究，通过实体/属性绑定/有向关系解析、最小语义变体与同义改写，在CLIP文本编码器内部进行LoRA训练，研究关键语义敏感性与同义表达稳定性。
 
-**A的语义审核/诊断工具、B的语言候选生成、C的文本LoRA与N0—N3损失/配置、D的receipt/run-v2、验证回调和服务代码已实现。C已完成真实train两步N0开发试跑与冻结/重载验收；D已通过tiny-CLIP制品/导出/切换测试，真实权重联调仍缺交接文件。正式N实验仍缺核验train与独立val金标。** 历史E0/E1/E2代码与记录保留；开发试跑不作为正式成绩。实际状态见[任务板](docs/research-v2-tasks.md)、[D新版报告](docs/reports/d-v2-integration.md)、[C新版报告](docs/reports/c-v2-training.md)及[A交接](docs/handoff-a-v2.md)。
+**A的语义审核/诊断工具、B的语言候选生成、C的文本LoRA与N0—N3损失/配置、D的receipt/run-v2、验证回调和服务代码已实现并合入main。2026-11-04已用C原始两步开发权重完成D接口真实5000×1000排名导出及离线查询；全套173项测试172通过、1项环境跳过。正式N实验仍缺B核验train与A独立复核后的冻结val。** 最新人工操作包含train106/val33组assistant工作稿，0组真人金标；开发试跑不作为正式成绩。接手见[C完整交接需求](docs/handoff-c-v2.md)、[人工操作手册](docs/human-operation-manual-v2.md)、[本次核验报告](docs/reports/c-v2-followup-20261104.md)及[任务板](docs/research-v2-tasks.md)。历史E0/E1/E2代码与记录保留。
 
 从这里开始：
 
@@ -36,7 +36,7 @@
 
 查询：英文文本 → 选定文本LoRA编码 → 归一化 → 与原始图片向量精确余弦检索 → 真实图片Top-K。
 
-图片塔/投影冻结时可共享原始图像索引，文本LoRA与索引配对由新版receipt校验；旧整句缓存不能更新文本编码器。新增制品与服务接口尚待实现。
+图片塔/投影冻结时可共享原始图像索引，文本LoRA与索引配对由新版receipt校验；旧整句缓存不能更新文本编码器。新增制品与服务接口已实现，正式N2/N3切换仍待真实训练权重。
 
 | 方法 | 状态 | 内容 |
 | --- | --- | --- |
@@ -81,7 +81,7 @@ python -m unittest discover -s tests -v
 
 新版A已可执行prepare-semantic-pilot、apply-semantic-source-checks、validate-semantics、render-semantics、freeze-semantics、evaluate-semantics、compare-semantics，详见[交接命令](docs/handoff-a-v2.md)。当前草稿会被正式冻结门槛拒绝；[合成示例](examples/semantic-evaluation/README.md)可以先验收接口。
 
-`train-text-lora`、`inspect-text-lora`、`run-text-experiments --check-only`已注册并实测，见[C新版训练记录](docs/reports/c-v2-training.md)与[C/D制品契约](docs/text-lora-contract.md)。正式编排有输入门槛；D的export-text-lora/receipt/run-v2仍待实现，不因增加N方法名就视为已交付。
+`train-text-lora`、`inspect-text-lora`、`run-text-experiments --check-only`已注册并实测，见[C新版训练记录](docs/reports/c-v2-training.md)与[C/D制品契约](docs/text-lora-contract.md)。D的export-text-lora、validate-text-lora、receipt/run-v2已实现；正式编排仍有核验train和冻结val输入门槛，详见[C完整交接需求](docs/handoff-c-v2.md)。
 
 ## 5. 评价与交付
 

@@ -1,0 +1,14 @@
+{
+  "date": "2026-11-04",
+  "command": ".venv-semantic/Scripts/python.exe -m unittest discover -s tests -v",
+  "total": 173,
+  "passed": 172,
+  "skipped": 1,
+  "failed": 0,
+  "duration_seconds": 46.698,
+  "skip_lines": [
+    "test_symlink_escape (test_data.DataTests.test_symlink_escape) ... skipped 'symlink creation unavailable on this platform'"
+  ],
+  "log_path": "artifacts/c-v2/followup-20261104-v1/tests.log",
+  "log_sha256": "1e711e8375c8b4e5f39dc42a15289f0abded04d4786faf9fe4b2af42a10aa648"
+}

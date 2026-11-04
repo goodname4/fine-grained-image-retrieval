@@ -1,6 +1,6 @@
 # 新版 D 交接与缺失输入
 
-更新：2026-10-29，D / Codex。代码分支为 `feat/d-retrieval-app`，实现提交为 `ddc0faa`、`2f9e483`；尚未合入 `main`。本页为接收方入口，详细实现和验收见 [D 报告](reports/d-v2-integration.md)及[任务板](research-v2-tasks.md)。
+原交接：2026-10-29，D / Codex。代码分支为 `feat/d-retrieval-app`，实现提交为 `ddc0faa`、`2f9e483`。2026-11-04 C接续已确认C/D均合入 `main`（`ffbc9b0`），本机C原始开发包摘要及全部成员逐字节核对通过，并用原始checkpoint完成D接口真实5000×1000开发排名导出；见[C接续报告](reports/c-v2-followup-20261104.md)。此证据不表示D机器已收到另传资源，也不解除正式train/val及N2/N3门槛。本页为接收方入口，详细实现和验收见 [D 报告](reports/d-v2-integration.md)及[任务板](research-v2-tasks.md)。
 
 ## 已交付
 
@@ -29,10 +29,11 @@
 
 ```powershell
 git fetch origin
-git switch --track origin/feat/d-retrieval-app
+git switch main
+git pull --ff-only origin main
 ```
 
-已有同名本地分支时切换后用 `git pull --ff-only`，保留本地修改。拉取代码不会下载Git忽略的图片、权重、索引及大型排名文件。
+保留本地修改，若工作区存在修改或分支分歧先处理，不能强制覆盖。C/D代码已合入main；原功能分支用于追溯。拉取代码不会下载Git忽略的图片、权重、索引及大型排名文件。人工审核、B/A完整交付和C/D后续顺序见[C交接清单](handoff-c-v2.md)。
 
 本项目内的真实开发资源：
 

@@ -1,8 +1,12 @@
 # research-v2 接续任务板
 
-更新：2026-10-29。供成员和接手 agent 直接执行。根目录 [AGENTS.md](../AGENTS.md)负责引导；本页是剩余任务状态的统一入口。详细设计见[实施清单](implementation-plan.md)、[实验设计](experiments.md)、[架构](architecture.md)和[语义协议](semantic-data.md)。后续完成者须更新本页，不能只在聊天中说完成。
+更新：2026-11-04。供成员和接手 agent 直接执行。根目录 [AGENTS.md](../AGENTS.md)负责引导；本页是剩余任务状态的统一入口。详细设计见[实施清单](implementation-plan.md)、[实验设计](experiments.md)、[架构](architecture.md)和[语义协议](semantic-data.md)。后续完成者须更新本页，不能只在聊天中说完成。
+
+2026-11-04 C/Codex 接续：C-V2-02 的输入核验与 C 原始开发制品→D 导出联调已完成，正式实验仍 BLOCKED。已同步 `main` 的 `ffbc9b0`（C/D 均已合并）；收到的人工操作包为 train 106 / val 33 组 assistant 工作稿，0组真人金标，139张来源图片、166项文件摘要及582个本地链接通过。C原始开发包逐字节核对、经D导出5000×1000完整排名及CPU离线查询通过；全套173项172过1环境跳过。最新预检仅缺B verified-train与A frozen-val，D回调已解除缺失。证据与负责人清单见[本次报告](reports/c-v2-followup-20261104.md)；下文原30组输入与分配为历史试点，不覆盖新包。
 
 D代码与开发联调版本已可交接；2026-10-29补齐[新版D交接清单](handoff-d-v2.md)，列明B/A/C缺失输入、接收条件、分支及大型资源包另传方式。此更新不解除正式实验或人工复核门槛。
+
+2026-11-04交接入口：[C完整输入/输出与负责人清单](handoff-c-v2.md)、[全员人工操作手册](human-operation-manual-v2.md)。包括真实初标/统一基线/复核顺序、各角色人数任务、B核验train及automatic人工抽检要求、A冻结协议全部成员、C/D逐候选协作、另传包大小/摘要与正式test门槛。说明已就绪不表示人工文件或正式权重已交付。
 
 ## 验收基线与任务状态
 
@@ -16,14 +20,14 @@ D代码与开发联调版本已可交接；2026-10-29补齐[新版D交接清单]
 | --- | --- | --- | --- | --- |
 | A-V2-01/02/03 | A / agent | DONE | 全组 | [三项修复](reports/a-v2-fixes.md)及本轮复验 |
 | B-V2-01 | B / agent | DONE | A、全体标注人 | 已交付：`data/semantic/pilot-val-candidates-v1/`（30组完整候选，samples_sha256=5058e091…，draft校验+图片字节通过）、`artifacts/semantic-pilot-val-candidates-v1/board.html`、`src/fgir/semantic_generation.py`+CLI `generate-semantics`、`tests/test_generation.py`（10项）、[报告](reports/b-v2-generation.md)。生成器=本地 Qwen2.5-0.5B-Instruct（weights fdf756fa…，prompts b28c65ee…，seed 42，code 22efaf5-dirty）；统计：实体100/关系19/变体99（绑定6+方向4+改写29+追加60）/units 10/拒绝78项带原因。全套143测试通过（含修复本机 runs.py GBK 解码既有缺陷）。真人复核仍待 H-V2-01 |
-| H-V2-01 | A组织，A/B/C/D真人 | WAITING_HUMAN | A | 全体真实初标与交叉复核缺失；候选已由 B-V2-01 提供（`data/semantic/pilot-val-candidates-v1/samples.work.jsonl` + 审核页），可先检查原句图片 |
-| B-V2-02 | B / agent＋真实核验 | READY | C、A | 依赖B-V2-01已解除；独立train候选及经核验版本尚无。生成器对任意源绑定记录通用，但 train 工作包需新增独立抽样/导出接口（prepare-semantic-pilot 只抽 val），见 b-v2-generation.md 第7节 |
+| H-V2-01 | A组织，A/B/C/D真人 | WAITING_HUMAN | A | 2026-11-04：已收到10月30日人工操作包，train106/val33组仍全为assistant；四位真人的实际初标、统一基线交叉复核及必要裁决/研究决策文件均未收到。C初标34组、复核D的33组。新工作包入口见本次C报告 |
+| B-V2-02 | B / agent＋真实核验 | BLOCKED | C、A | 2026-11-04：已有106组独立train工作稿，334变体/39组件，draft与图片字节校验通过；核验后data/semantic/train-verified-v1/samples.jsonl、审核/排除/质量及版本摘要仍缺失。待真人记录到位后由B发布；自动核验必须有真实人工抽检，不能将现有assistant标记改成human |
 | C-V2-01 | C / agent | DONE | D、C后续任务 | 2026-10-28 C/Codex（会话01a143a6-a329-7fb1-8a09-4856feba4274）：text_lora/text_training_data/text_training与CLI已交付；真实16张train图两次更新、16384参数、冻结原参数和图片输出不变、CPU重载误差<1e-5；实际best/last在artifacts/c-v2/n0-smoke-seed42-v2（best 2d72425d…），73KB/份，开发包c-v2-development-handoff-v1.zip；21项专项/全套164项163过1环境跳过。[报告](reports/c-v2-training.md)、[制品契约](text-lora-contract.md)。仅开发试跑，不是正式N0成绩 |
-| C-V2-02 | C / agent | BLOCKED | A、D | 2026-10-28 C/Codex：损失、多正例/token过滤、N0—N3及去关系配置、42/43/44编排、绑定val回调与选择代码已完成并测；正式实验仍缺B-V2-02的data/semantic/train-verified-v1/samples.jsonl、A-V2-04的data/semantic/frozen-val-v1/protocol.json、正式val回调所需的冻结输入（D真实开发制品已验收，见D报告）。C原[preflight](reports/c-v2/formal-preflight.json)及D最新[preflight](reports/d-v2/preflight.json)为BLOCKED；不伪造人审/分数 |
+| C-V2-02 | C / agent | BLOCKED | A、D | 2026-11-04 C/Codex：独立代码已完成，原始C开发checkpoint经合并后D接口完整导出并验证。正式实验仍缺B-V2-02的data/semantic/train-verified-v1/samples.jsonl、A-V2-04的data/semantic/frozen-val-v1/protocol.json及其完整绑定/人工证据；D默认回调已可导入。[最新preflight](reports/c-v2-followup-20261104/formal-preflight.json)、[报告](reports/c-v2-followup-20261104.md)。没有正式N0—N3/消融权重或成绩，不伪造人审/分数 |
 | D-V2-01 | D / agent，C提供checkpoint接口 | DONE | C、A | 2026-10-28 D/Codex：9项专项再次通过；基础CLIP/真实图片/raw val索引已在项目内。调用C公开接口另存真实两步开发checkpoint（D本地重建，非C原ZIP），独立CPU重载/冻结审计通过；5000条val查询×1000图完整run-v2及receipt已导出。见[真实补验](reports/d-v2-integration.md)、[证据](reports/d-v2/real-development-verification.json)。原C包逐字节核对仍待文件，不冒充同一制品 |
 | D-V2-02 | D / agent，C提供真实权重 | BLOCKED | A | 2026-10-28 D/Codex：text_export、验证回调及CLI已交付；真实开发checkpoint与raw val索引已通过导出，开发排名不当正式成绩。仍缺A frozen-val金标与C正式checkpoint，不能交付正式语义分数；B核验train仍是C正式实验门槛 |
 | D-V2-03 | D / agent | BLOCKED | 全组 | 2026-10-28 D/Codex：真实E0→N0-development→E0→N0-development切换结果恢复，10张Top-K图页面按钮验收、离线查询及RTX4060各20次预热后性能已测；configs/demo-v2.json可直接使用，启动start-v2.cmd。真实N2/N3切换仍缺C正式权重，保持BLOCKED；tiny-CLIP结果单列 |
-| A-V2-04 | A / agent＋人工数据门槛 | BLOCKED | C、D | 依赖B-V2-01、H-V2-01；val独立金标及覆盖审计缺失 |
+| A-V2-04 | A / agent＋人工数据门槛 | BLOCKED | C、D | 2026-11-04：已收到33组val工作稿（102变体/13组件），0组独立真人金标；待H-V2-01的真实初标/复核及必要裁决、覆盖/排除与研究决策后，由A冻结完整协议及绑定文件 |
 | A-V2-05 | A / agent＋真实看图归因 | BLOCKED | 全组 | 依赖A-V2-04、C-V2-02、D-V2-02；正式test另须冻结配置和真实test人工复核 |
 
 READY只表示能开始，不表示可跳过后续真人或真实模型验收。C-V2-02先由D导出N0/试点checkpoint的val结果用于选择，再导出全部正式候选的结果；不要求先完成所有N实验才能做D-V2-02，避免循环等待。
